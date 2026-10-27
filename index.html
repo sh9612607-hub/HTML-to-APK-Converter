@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web2App Studio - Complete All-in-One Android App Builder</title>
+    <meta name="description" content="Design, code, customize, and generate ready-to-build Android APK projects, PWAs, and single-file web apps all from one studio." />
+    <meta property="og:title" content="Web2App Studio - Complete All-in-One Android App Builder" />
+    <meta property="og:description" content="Create complete mobile apps with native bridges, built-in icon maker, prebuilt templates, and cloud APK builder." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+</head>
+<body>
+    <!-- Top Studio Header -->
+    <header class="studio-header">
+        <div class="studio-header-inner">
+            <div class="header-brand">
+                <div class="brand-icon">⚡</div>
+                <div>
+                    <div class="brand-title">
+                        <span>Web2App Studio</span>
+                        <span class="brand-badge" id="headerProBadge">PRO ALL-IN-ONE</span>
+                    </div>
+                    <div class="brand-subtitle" id="headerSubtitle">Create, Design, and Build Complete Android Apps from One Website</div>
+                </div>
+            </div>
+            <div class="header-actions">
+                <div class="lang-switch">
+                    <button class="lang-btn active" id="langBtnEn" onclick="switchLanguage('en')">🇬🇧 English</button>
+                    <button class="lang-btn" id="langBtnBn" onclick="switchLanguage('bn')">🇧🇩 বাংলা</button>
+                </div>
+                <button class="header-quick-btn" onclick="openModal('bridgeModal')">
+                    ⚡ <span data-i18n="navBridge">Native Bridge API</span>
+                </button>
+                <button class="header-quick-btn" onclick="openModal('cloudBuildModal')">
+                    ☁️ <span data-i18n="navCloudBuild">Free Cloud APK</span>
+                </button>
+                <button class="header-quick-btn" onclick="openModal('keystoreModal')">
+                    🔐 <span data-i18n="navKeystore">Keystore Guide</span>
+                </button>
+                <button class="header-quick-btn highlight" onclick="document.getElementById('step10').scrollIntoView({behavior:'smooth'})">
+                    🚀 <span data-i18n="navGenerate">Generate App</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="tool-container">
+        <div class="converter-container">
+            <!-- Left Side: Sequential Numbered Steps (Step 1 to Step 10) -->
+            <div class="steps-column">
+                
+                <!-- STEP 01: App Source & Ready Templates -->
+                <div class="step-card" id="step1">
+                    <div class="step-header">
+                        <span class="step-number-pill" data-i18n="pillStep1">STEP 01</span>
+                        <h2>📝 <span data-i18n="step1Title">App Source & Ready Templates</span></h2>
+                    </div>
+
+                    <!-- Template Library Strip -->
+                    <div class="templates-strip">
+                        <div class="templates-header">
+                            <h3>✨ <span data-i18n="templatesHeader">1-Click Starter Mobile App Templates</span></h3>
+                            <span style="font-size: 0.75rem; color: #64748b;" data-i18n="templateHint">Click any template to load full code & preview:</span>
+                        </div>
+                        <div class="templates-grid">
+                            <div class="template-card" onclick="loadTemplate('ecommerce')">
+                                <div>
+                                    <div class="tpl-icon">🛒</div>
+                                    <div class="tpl-title" data-i18n="tplEcomTitle">E-Commerce Store</div>
+                                    <div class="tpl-desc" data-i18n="tplEcomDesc">Cart drawer, price counter, WhatsApp order button</div>
+                                </div>
+                            </div>
+                            <div class="template-card" onclick="loadTemplate('news')">
+                                <div>
+                                    <div class="tpl-icon">📰</div>
+                                    <div class="tpl-title" data-i18n="tplNewsTitle">News & Magazine</div>
+                                    <div class="tpl-desc" data-i18n="tplNewsDesc">Categories, live ticker, reader modal, bookmarks</div>
+                                </div>
+                            </div>
+                            <div class="template-card" onclick="loadTemplate('game')">
+                                <div>
+                                    <div class="tpl-icon">🎮</div>
+                                    <div class="tpl-title" data-i18n="tplGameTitle">2D Arcade Game</div>
+                                    <div class="tpl-desc" data-i18n="tplGameDesc">Touch controls, particle explosions, haptic vibration</div>
+                                </div>
+                            </div>
+                            <div class="template-card" onclick="loadTemplate('business')">
+                                <div>
+                                    <div class="tpl-icon">💼</div>
+                                    <div class="tpl-title" data-i18n="tplBizTitle">Business Portfolio</div>
+                                    <div class="tpl-desc" data-i18n="tplBizDesc">Services grid, booking form, WhatsApp direct call</div>
+                                </div>
+                            </div>
+                            <div class="template-card" onclick="loadTemplate('music')">
+                                <div>
+                                    <div class="tpl-icon">🎵</div>
+                                    <div class="tpl-title" data-i18n="tplMusicTitle">Audio & Music</div>
+                                    <div class="tpl-desc" data-i18n="tplMusicDesc">Dark player, vinyl spinning, playlist, equalizer</div>
+                                </div>
+                            </div>
+                            <div class="template-card" onclick="loadTemplate('tasks')">
+                                <div>
+                                    <div class="tpl-icon">📋</div>
+                                    <div class="tpl-title" data-i18n="tplTaskTitle">Task & Todo</div>
+                                    <div class="tpl-desc" data-i18n="tplTaskDesc">Offline persistent storage, filter tabs, stats ring</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tabs">
+                        <button class="tab active" onclick="switchSourceTab(this, 'editor')">💻 <span data-i18n="tabEditor">Code Editor</span></button>
+                        <button class="tab" onclick="switchSourceTab(this, 'upload')">📁 <span data-i18n="tabUpload">Upload Files / ZIP</span></button>
+                        <button class="tab" onclick="switchSourceTab(this, 'url')">🌐 <span data-i18n="tabUrl">Website URL</span></button>
+                    </div>
+
+                    <!-- Tab 1: Code Editor -->
+                    <div id="editor-tab" class="tab-content active">
+                        <!-- Visual Component Inserter Toolbar -->
+                        <div class="component-toolbar">
+                            <span class="toolbar-label" data-i18n="insertLabel">Insert UI Blocks:</span>
+                            <button class="insert-chip" onclick="insertComponent('appbar')">📱 Header Bar</button>
+                            <button class="insert-chip" onclick="insertComponent('hero')">🖼️ Hero Card</button>
+                            <button class="insert-chip" onclick="insertComponent('cards')">🗂️ Card Grid</button>
+                            <button class="insert-chip" onclick="insertComponent('fab')">🔘 Floating Button</button>
+                            <button class="insert-chip" onclick="insertComponent('whatsapp')">💬 WhatsApp Widget</button>
+                            <button class="insert-chip" onclick="insertComponent('bridge')">⚡ Native Bridge Call</button>
+                        </div>
+
+                        <div class="editor-buttons">
+                            <div style="font-size: 0.8rem; color: #64748b;" data-i18n="editorHint">Edit HTML, CSS, JavaScript in one place:</div>
+                            <div style="display: flex; gap: 0.4rem;">
+                                <button class="btn btn-secondary btn-sm" onclick="formatEditorCode()">✨ Format</button>
+                                <button class="btn btn-secondary btn-sm" onclick="loadSample()">📋 Sample</button>
+                                <button class="btn btn-danger btn-sm" onclick="clearEditor()">🗑️ Clear</button>
+                            </div>
+                        </div>
+                        <textarea id="htmlEditor" class="code-editor" placeholder="Write or paste your HTML, CSS, and JavaScript here..."></textarea>
+                    </div>
+
+                    <!-- Tab 2: File / ZIP Upload -->
+                    <div id="upload-tab" class="tab-content">
+                        <div class="file-upload" onclick="document.getElementById('fileInput').click()">
+                            <input type="file" id="fileInput" accept=".html,.htm,.zip" onchange="handleFileUpload(event)">
+                            <p style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.35rem;" data-i18n="uploadHeadline">📦 Click to upload HTML file or full project ZIP</p>
+                            <p style="font-size: 0.85rem; color: #64748b;" data-i18n="uploadSub">Supports single <code>index.html</code> or <code>.zip</code> containing images, CSS, JS, and subfolders.</p>
+                        </div>
+                        <div id="uploadStatus" style="text-align: center; margin-top: 0.75rem;"></div>
+                    </div>
+
+                    <!-- Tab 3: Website URL -->
+                    <div id="url-tab" class="tab-content">
+                        <div class="url-input-box">
+                            <label for="webUrl" data-i18n="urlLabel">Website URL to Convert *</label>
+                            <input type="url" id="webUrl" placeholder="https://example.com" value="https://example.com" oninput="updatePreviews()">
+                            <p style="font-size: 0.82rem; color: #64748b; margin-top: 0.4rem;" data-i18n="urlSub">The Android app will load this live website directly inside Android WebView with full offline fallback.</p>
+                            <div style="margin-top: 0.75rem; background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; padding: 0.65rem 0.85rem; font-size: 0.82rem; color: #065f46; display: flex; align-items: center; gap: 0.5rem;">
+                                <span style="font-size: 1.15rem;">🛡️</span>
+                                <span data-i18n="urlNotice"><strong>১০০% ক্লিন লুক:</strong> আসল মোবাইল অ্যাপে কোনো ব্রাউজার ইউআরএল (URL) বা সার্চ বার থাকবে না। সম্পূর্ণ ফুল-স্ক্রিন নেটিভ অ্যাপের মতো চলবে।</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 02: App Identity & Package Details -->
+                <div class="step-card" id="step2">
+                    <div class="step-header">
+                        <span class="step-number-pill" data-i18n="pillStep2">STEP 02</span>
+                        <h2>⚙️ <span data-i18n="step2Title">App Identity & Package Details</span></h2>
+                    </div>
+                    
+                    <div class="config-grid">
+                        <div class="form-group" id="appNameGroup">
+                            <label for="appName" data-i18n="appNameLabel">App Name *</label>
+                            <input type="text" id="appName" value="MyMobileApp" required oninput="validateAppName(this); updatePreviews()">
+                            <small class="error-message">App Name cannot be empty.</small>
+                        </div>
+                        <div class="form-group" id="packageNameGroup">
+                            <label for="packageName">
+                                <span data-i18n="pkgNameLabel">Package Name (Application ID) *</span>
+                                <span class="tooltip-container">
+                                    <span class="tooltip-icon">ⓘ</span>
+                                    <span class="tooltip-text" data-i18n="pkgTooltip">Unique identifier on Google Play (e.g. com.company.appname).</span>
+                                </span>
+                            </label>
+                            <input type="text" id="packageName" value="com.example.mymobileapp" required oninput="validatePackageName(this); updateFileStructure(this.value)">
+                            <small class="error-message">Invalid package format (must be lowercase e.g., com.company.appname).</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="versionName" data-i18n="versionNameLabel">Version Name</label>
+                            <input type="text" id="versionName" value="1.0.0">
+                        </div>
+                        <div class="form-group">
+                            <label for="versionCode">
+                                <span data-i18n="versionCodeLabel">Version Code</span>
+                                <span class="tooltip-container">
+                                    <span class="tooltip-icon">ⓘ</span>
+                                    <span class="tooltip-text" data-i18n="versionCodeTooltip">Internal integer incremented on every Play Store release.</span>
+                                </span>
+                            </label>
+                            <input type="number" id="versionCode" value="1" min="1">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 03: App Icon & Branding Studio -->
+                <div class="step-card" id="step3">
+                    <div class="step-header">
+                        <span class="step-number-pill" data-i18n="pillStep3">STEP 03</span>
+                        <h2>🎨 <span data-i18n="step3Title">App Icon & Branding Studio</span> <span class="section-badge new" data-i18n="studioBadge">Icon Maker</span></h2>
+                    </div>
+
+                    <div class="config-grid">
+                        <div class="form-group">
+                            <label data-i18n="primaryColorLabel">Primary Color (Toolbar & Splash)</label>
+                            <div class="color-picker-group">
+                                <input type="color" id="primaryColor" value="#10b981" onchange="updateIconCanvas(); updatePreviews(true)">
+                                <input type="text" id="primaryColorText" value="#10b981" oninput="syncColorPicker(this, 'primaryColor', true)">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="accentColorLabel">Accent Color (Buttons & Highlights)</label>
+                            <div class="color-picker-group">
+                                <input type="color" id="accentColor" value="#f59e0b" onchange="updatePreviews(true)">
+                                <input type="text" id="accentColorText" value="#f59e0b" oninput="syncColorPicker(this, 'accentColor', true)">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- In-Browser App Icon Designer -->
+                    <div class="icon-studio-box">
+                        <div class="icon-studio-grid">
+                            <div class="icon-live-canvas-wrap">
+                                <canvas id="iconPreviewCanvas" width="192" height="192"></canvas>
+                                <span style="font-size: 0.72rem; color: #64748b; font-weight: 600;" data-i18n="canvasPreviewLabel">Real-time Android Icon</span>
+                                <button class="btn btn-outline btn-sm" onclick="downloadIconPng()" style="width: 100%; margin-top: 4px;">📥 Save Icon PNG</button>
+                            </div>
+                            <div class="icon-studio-controls">
+                                <div>
+                                    <label style="font-size: 0.78rem; margin-bottom: 4px;" data-i18n="shapeLabel">Icon Shape & Cut:</label>
+                                    <div style="display: flex; gap: 0.35rem; flex-wrap: wrap;">
+                                        <button class="preview-btn active" id="shapeSquircleBtn" onclick="setIconShape('squircle')">Squircle</button>
+                                        <button class="preview-btn" id="shapeCircleBtn" onclick="setIconShape('circle')">Circle</button>
+                                        <button class="preview-btn" id="shapeRoundBtn" onclick="setIconShape('rounded')">Rounded</button>
+                                        <button class="preview-btn" id="shapeSquareBtn" onclick="setIconShape('square')">Square</button>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <label style="font-size: 0.78rem; margin-bottom: 4px;" data-i18n="gradLabel">Gradient Presets:</label>
+                                    <div class="gradient-presets">
+                                        <div class="grad-pill active" style="background: linear-gradient(135deg, #10b981, #059669);" onclick="setIconGradient('#10b981', '#059669')"></div>
+                                        <div class="grad-pill" style="background: linear-gradient(135deg, #0ea5e9, #3b82f6);" onclick="setIconGradient('#0ea5e9', '#3b82f6')"></div>
+                                        <div class="grad-pill" style="background: linear-gradient(135deg, #8b5cf6, #ec4899);" onclick="setIconGradient('#8b5cf6', '#ec4899')"></div>
+                                        <div class="grad-pill" style="background: linear-gradient(135deg, #f59e0b, #ef4444);" onclick="setIconGradient('#f59e0b', '#ef4444')"></div>
+                                        <div class="grad-pill" style="background: linear-gradient(135deg, #0f172a, #334155);" onclick="setIconGradient('#0f172a', '#334155')"></div>
+                                        <div class="grad-pill" style="background: linear-gradient(135deg, #06b6d4, #10b981);" onclick="setIconGradient('#06b6d4', '#10b981')"></div>
+                                        <div class="grad-pill" style="background: linear-gradient(135deg, #ec4899, #f43f5e);" onclick="setIconGradient('#ec4899', '#f43f5e')"></div>
+                                        <div class="grad-pill" style="background: #10b981;" onclick="setIconGradient('#10b981', '#10b981')"></div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label style="font-size: 0.78rem; margin-bottom: 4px;" data-i18n="glyphLabel">Choose Icon Symbol / Emoji:</label>
+                                    <div class="icon-glyph-strip">
+                                        <button class="glyph-btn active" onclick="setIconGlyph('🛒')">🛒</button>
+                                        <button class="glyph-btn" onclick="setIconGlyph('⚡')">⚡</button>
+                                        <button class="glyph-btn" onclick="setIconGlyph('📰')">📰</button>
+                                        <button class="glyph-btn" onclick="setIconGlyph('🎮')">🎮</button>
+                                        <button class="glyph-btn" onclick="setIconGlyph('🎵')">🎵</button>
+                                        <button class="glyph-btn" onclick="setIconGlyph('💼')">💼</button>
+                                        <button class="glyph-btn" onclick="setIconGlyph('📋')">📋</button>
+                                        <button class="glyph-btn" onclick="setIconGlyph('🚀')">🚀</button>
+                                        <button class="glyph-btn" onclick="setIconGlyph('❤️')">❤️</button>
+                                        <button class="glyph-btn" onclick="setIconGlyph('⭐')">⭐</button>
+                                        <button class="glyph-btn" onclick="setIconGlyph('🛍️')">🛍️</button>
+                                        <button class="glyph-btn" onclick="setIconGlyph('☕')">☕</button>
+                                        <button class="glyph-btn" onclick="setIconGlyph('💬')">💬</button>
+                                        <button class="glyph-btn" onclick="setIconGlyph('🔥')">🔥</button>
+                                    </div>
+                                </div>
+
+                                <div class="config-grid" style="margin-top: 0.25rem;">
+                                    <div class="form-group">
+                                        <label for="appIcon" style="font-size: 0.78rem;" data-i18n="textIconLabel">Or Custom Text/Monogram</label>
+                                        <input type="text" id="appIcon" value="⚡" maxlength="3" oninput="handleCustomIconText(this.value)">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="iconUpload" style="font-size: 0.78rem;" data-i18n="customIconUploadLabel">Or Upload Custom PNG</label>
+                                        <input type="file" id="iconUpload" accept="image/*" onchange="handleIconUpload(event)">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Splash Screen Toggle -->
+                    <div class="form-group" style="margin-top: 1rem;">
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="enableSplash" onchange="toggleSplash(); updateFileStructure(document.getElementById('packageName').value)">
+                            <div class="checkbox-item-content">
+                                <span class="checkbox-item-title" data-i18n="splashTitle">Enable Native Splash Screen (2 seconds delay)</span>
+                                <span class="checkbox-item-desc" data-i18n="splashDesc">Shows sleek branding launch screen with app logo and title before loading web content.</span>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div id="splashConfig" style="display: none;">
+                        <div class="config-grid">
+                             <div class="form-group">
+                                <label for="splashText" data-i18n="splashTextLabel">Splash Screen Title</label>
+                                <input type="text" id="splashText" value="MyMobileApp" oninput="updatePreviews()">
+                            </div>
+                            <div class="form-group">
+                                <label for="splashImageUpload" data-i18n="splashImgLabel">Custom Splash Image (Optional)</label>
+                                <input type="file" id="splashImageUpload" accept="image/*" onchange="handleSplashUpload(event)">
+                            </div>
+                        </div>
+                        <div class="splash-preview" id="splashPreview"></div>
+                    </div>
+                </div>
+
+                <!-- STEP 04: Android Navigation & Screen UX -->
+                <div class="step-card" id="step4">
+                    <div class="step-header">
+                        <span class="step-number-pill" data-i18n="pillStep4">STEP 04</span>
+                        <h2>🧭 <span data-i18n="step4Title">Android Navigation & Screen UX</span></h2>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="enableTopBar" checked onchange="toggleTopActionBar()">
+                            <div class="checkbox-item-content">
+                                <span class="checkbox-item-title" data-i18n="topBarTitle">Top Header / Action Bar</span>
+                                <span class="checkbox-item-desc" data-i18n="topBarDesc">Displays top colored app bar with title. Uncheck to make website 100% full-screen without title bar.</span>
+                            </div>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="enableSmartBack" checked>
+                            <div class="checkbox-item-content">
+                                <span class="checkbox-item-title" data-i18n="smartBackTitle">Smart Back Button Handling</span>
+                                <span class="checkbox-item-desc" data-i18n="smartBackDesc">Hardware back button navigates WebView browser history; double-tap exits app.</span>
+                            </div>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="enablePullToRefresh" checked>
+                            <div class="checkbox-item-content">
+                                <span class="checkbox-item-title" data-i18n="pullRefreshTitle">Pull to Refresh (SwipeRefreshLayout)</span>
+                                <span class="checkbox-item-desc" data-i18n="pullRefreshDesc">Adds smooth Android swipe down gesture to reload current web page.</span>
+                            </div>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="enableProgressBar" checked onchange="togglePreviewProgressBar()">
+                            <div class="checkbox-item-content">
+                                <span class="checkbox-item-title" data-i18n="progBarTitle">Loading Progress Bar (Auto-Hides)</span>
+                                <span class="checkbox-item-desc" data-i18n="progBarDesc">Briefly shows horizontal progress bar while loading, then hides automatically.</span>
+                            </div>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="enableOfflineScreen" checked>
+                            <div class="checkbox-item-content">
+                                <span class="checkbox-item-title" data-i18n="offlineTitle">Custom Offline & No-Internet Screen</span>
+                                <span class="checkbox-item-desc" data-i18n="offlineDesc">Displays friendly offline screen with a Retry button when phone loses connection.</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- STEP 05: Native Bottom Navigation Tabs -->
+                <div class="step-card" id="step5">
+                    <div class="step-header">
+                        <span class="step-number-pill optional" data-i18n="pillStep5">STEP 05</span>
+                        <h2>📱 <span data-i18n="step5Title">Native Bottom Navigation Tabs</span> <span class="section-badge">Optional</span></h2>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-card-header">
+                            <label class="checkbox-item" style="border: none; padding: 0; background: transparent;">
+                                <input type="checkbox" id="enableBottomNav" onchange="toggleBottomNavBuilder()">
+                                <div class="checkbox-item-content">
+                                    <span class="checkbox-item-title" data-i18n="bottomNavTitle">Enable Native Bottom Navigation Bar</span>
+                                    <span class="checkbox-item-desc" data-i18n="bottomNavDesc">Adds native Android BottomNavigationView to switch between multiple tabs or pages.</span>
+                                </div>
+                            </label>
+                        </div>
+                        <div id="bottomNavBuilder" style="display: none; margin-top: 0.75rem;">
+                            <p style="font-size: 0.8rem; color: #64748b; margin-bottom: 0.5rem;" data-i18n="bottomNavHint">Configure up to 4 bottom tabs:</p>
+                            <div class="nav-tabs-builder">
+                                <div class="nav-tab-input-card">
+                                    <label style="font-size: 0.75rem;">Tab 1 (Home)</label>
+                                    <input type="text" id="navTab1Title" value="Home" placeholder="Title" style="padding: 0.4rem; margin-bottom: 0.3rem; font-size: 13px;" oninput="updateBottomNavPreview()">
+                                    <input type="text" id="navTab1Url" value="/" placeholder="URL or Path (e.g. /)" style="padding: 0.4rem; font-size: 13px;">
+                                </div>
+                                <div class="nav-tab-input-card">
+                                    <label style="font-size: 0.75rem;">Tab 2 (Explore / Shop)</label>
+                                    <input type="text" id="navTab2Title" value="Explore" placeholder="Title" style="padding: 0.4rem; margin-bottom: 0.3rem; font-size: 13px;" oninput="updateBottomNavPreview()">
+                                    <input type="text" id="navTab2Url" value="/explore" placeholder="URL or Path (e.g. /explore)" style="padding: 0.4rem; font-size: 13px;">
+                                </div>
+                                <div class="nav-tab-input-card">
+                                    <label style="font-size: 0.75rem;">Tab 3 (Cart / Orders)</label>
+                                    <input type="text" id="navTab3Title" value="Orders" placeholder="Title" style="padding: 0.4rem; margin-bottom: 0.3rem; font-size: 13px;" oninput="updateBottomNavPreview()">
+                                    <input type="text" id="navTab3Url" value="/orders" placeholder="URL or Path" style="padding: 0.4rem; font-size: 13px;">
+                                </div>
+                                <div class="nav-tab-input-card">
+                                    <label style="font-size: 0.75rem;">Tab 4 (Profile / Account)</label>
+                                    <input type="text" id="navTab4Title" value="Profile" placeholder="Title" style="padding: 0.4rem; margin-bottom: 0.3rem; font-size: 13px;" oninput="updateBottomNavPreview()">
+                                    <input type="text" id="navTab4Url" value="/profile" placeholder="URL or Path" style="padding: 0.4rem; font-size: 13px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 06: Native Android JavaScript Bridge -->
+                <div class="step-card" id="step6">
+                    <div class="step-header">
+                        <span class="step-number-pill" data-i18n="pillStep6">STEP 06</span>
+                        <h2>⚡ <span data-i18n="step6Title">Web-to-Native JavaScript Bridge</span> <span class="section-badge new">AndroidBridge</span></h2>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-card-header">
+                            <label class="checkbox-item" style="border: none; padding: 0; background: transparent;">
+                                <input type="checkbox" id="enableBridge" checked>
+                                <div class="checkbox-item-content">
+                                    <span class="checkbox-item-title" data-i18n="bridgeTitle">Enable Native AndroidBridge JavaScript Interface</span>
+                                    <span class="checkbox-item-desc" data-i18n="bridgeDesc">Empowers your web code to trigger native Android features: Toasts, Haptic Vibrate, Share Dialog, System Clipboard, and External Browser.</span>
+                                </div>
+                            </label>
+                        </div>
+                        <div style="margin-top: 0.75rem; font-size: 0.8rem; color: #475569; background: white; border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem;">
+                            <strong>Interactive Test Buttons:</strong>
+                            <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem; flex-wrap: wrap;">
+                                <button class="btn btn-outline btn-sm" onclick="testSimulatedBridge('toast')">🔔 Test Toast</button>
+                                <button class="btn btn-outline btn-sm" onclick="testSimulatedBridge('vibrate')">📳 Test Vibrate</button>
+                                <button class="btn btn-outline btn-sm" onclick="testSimulatedBridge('share')">📤 Test Share</button>
+                                <button class="btn btn-outline btn-sm" onclick="openModal('bridgeModal')">📖 Full API Reference</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 07: Screen Display, Orientation & Security -->
+                <div class="step-card" id="step7">
+                    <div class="step-header">
+                        <span class="step-number-pill" data-i18n="pillStep7">STEP 07</span>
+                        <h2>🖥️ <span data-i18n="step7Title">Screen Display, Orientation & Security</span></h2>
+                    </div>
+
+                    <div class="config-grid">
+                        <div class="form-group">
+                            <label for="screenOrientation" data-i18n="orientationLabel">Screen Orientation</label>
+                            <select id="screenOrientation" onchange="handleOrientationChange(this.value)">
+                                <option value="unspecified">📱 Auto-Rotate (Sensor Default)</option>
+                                <option value="portrait" selected>📱 Portrait Only (Vertical)</option>
+                                <option value="landscape">📺 Landscape Only (Horizontal)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="displayEnhanceLabel">Display Enhancements</label>
+                            <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.2rem;">
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="enableFullscreen" onchange="togglePreviewFullscreen()">
+                                    <div class="checkbox-item-content">
+                                        <span class="checkbox-item-title" data-i18n="fullscreenTitle">Full-Screen (Immersive Mode)</span>
+                                        <span class="checkbox-item-desc" data-i18n="fullscreenDesc">Hides Android status bar and top action bar.</span>
+                                    </div>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="enableKeepScreenOn">
+                                    <div class="checkbox-item-content">
+                                        <span class="checkbox-item-title" data-i18n="keepScreenTitle">Keep Screen On</span>
+                                        <span class="checkbox-item-desc" data-i18n="keepScreenDesc">Prevents display from going to sleep while app is open.</span>
+                                    </div>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="checkbox" id="enableDarkMode">
+                                    <div class="checkbox-item-content">
+                                        <span class="checkbox-item-title" data-i18n="darkModeTitle">Force Dark Theme (WebSettingsCompat)</span>
+                                        <span class="checkbox-item-desc" data-i18n="darkModeDesc">Forces web content to render in high-contrast dark mode.</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checkbox-group" style="margin-top: 1rem;">
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="enableBiometric">
+                            <div class="checkbox-item-content">
+                                <span class="checkbox-item-title" data-i18n="bioTitle">Biometric Lock (Fingerprint / Face Unlock)</span>
+                                <span class="checkbox-item-desc" data-i18n="bioDesc">Prompts Android BiometricPrompt on app launch for maximum privacy.</span>
+                            </div>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="enableSecureMode">
+                            <div class="checkbox-item-content">
+                                <span class="checkbox-item-title" data-i18n="secModeTitle">Prevent Screenshot & Recording (FLAG_SECURE)</span>
+                                <span class="checkbox-item-desc" data-i18n="secModeDesc">Blocks screenshots and screen recording inside the Android app.</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- STEP 08: Media, File Chooser & App Permissions -->
+                <div class="step-card" id="step8">
+                    <div class="step-header">
+                        <span class="step-number-pill" data-i18n="pillStep8">STEP 08</span>
+                        <h2>📁 <span data-i18n="step8Title">Media, File Chooser & Permissions</span></h2>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="enableFileChooser" checked>
+                            <div class="checkbox-item-content">
+                                <span class="checkbox-item-title" data-i18n="fileChooserTitle">File Upload & Camera Chooser</span>
+                                <span class="checkbox-item-desc" data-i18n="fileChooserDesc">Connects HTML &lt;input type="file"&gt; to Android gallery and camera picker.</span>
+                            </div>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="enableDownloadManager" checked>
+                            <div class="checkbox-item-content">
+                                <span class="checkbox-item-title" data-i18n="downloadMgrTitle">Android Download Manager Support</span>
+                                <span class="checkbox-item-desc" data-i18n="downloadMgrDesc">Downloads PDF, images, and files via Android's native DownloadManager.</span>
+                            </div>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="enableExternalLinks" checked>
+                            <div class="checkbox-item-content">
+                                <span class="checkbox-item-title" data-i18n="extLinksTitle">External Intents (WhatsApp, Tel, Email)</span>
+                                <span class="checkbox-item-desc" data-i18n="extLinksDesc">Opens tel:, mailto:, sms:, WhatsApp, and Maps in external native apps.</span>
+                            </div>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="enableInAppRating" checked>
+                            <div class="checkbox-item-content">
+                                <span class="checkbox-item-title" data-i18n="ratingTitle">In-App Review / Rating Prompt</span>
+                                <span class="checkbox-item-desc" data-i18n="ratingDesc">Prompts user to rate the app on Google Play after several launches.</span>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="config-grid" style="margin-top: 1rem;">
+                        <div class="form-group">
+                            <label for="customUserAgent" data-i18n="userAgentLabel">Custom User-Agent Identifier</label>
+                            <input type="text" id="customUserAgent" placeholder="e.g. MyAndroidApp/1.0" value="MyAndroidApp/1.0">
+                        </div>
+                    </div>
+
+                    <div class="checkbox-group" style="margin-top: 1rem;">
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="permissionInternet" checked>
+                            <div class="checkbox-item-content">
+                                <span class="checkbox-item-title">Internet Access (android.permission.INTERNET)</span>
+                                <span class="checkbox-item-desc">Access network and web endpoints</span>
+                            </div>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="permissionStorage" checked>
+                            <div class="checkbox-item-content">
+                                <span class="checkbox-item-title">Storage (Read/Write External Storage)</span>
+                                <span class="checkbox-item-desc">For downloading or saving files to device</span>
+                            </div>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="permissionCamera">
+                            <div class="checkbox-item-content">
+                                <span class="checkbox-item-title">Camera (android.permission.CAMERA)</span>
+                                <span class="checkbox-item-desc">For photo capture and barcode scanning</span>
+                            </div>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="permissionAudio">
+                            <div class="checkbox-item-content">
+                                <span class="checkbox-item-title">Microphone / Audio (RECORD_AUDIO)</span>
+                                <span class="checkbox-item-desc">For voice recording and audio messages</span>
+                            </div>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="permissionLocation">
+                            <div class="checkbox-item-content">
+                                <span class="checkbox-item-title">Location GPS (ACCESS_FINE_LOCATION)</span>
+                                <span class="checkbox-item-desc">For geolocation and nearby stores</span>
+                            </div>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="permissionVibrate" checked>
+                            <div class="checkbox-item-content">
+                                <span class="checkbox-item-title">Vibration (android.permission.VIBRATE)</span>
+                                <span class="checkbox-item-desc">Required for AndroidBridge.vibrate() haptic feedback</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- STEP 09: Monetization & Push Notifications (Optional) -->
+                <div class="step-card" id="step9">
+                    <div class="step-header">
+                        <span class="step-number-pill optional" data-i18n="pillStep9">STEP 09</span>
+                        <h2>💰 <span data-i18n="step9Title">Monetization & Push Notifications</span> <span class="section-badge">Optional</span></h2>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-card-header">
+                            <label class="checkbox-item" style="border: none; padding: 0; background: transparent;">
+                                <input type="checkbox" id="enableAdMob" onchange="toggleAdMobInputs()">
+                                <div class="checkbox-item-content">
+                                    <span class="checkbox-item-title">Google AdMob Integration</span>
+                                    <span class="checkbox-item-desc">Include Google Mobile Ads SDK and banner ad layout.</span>
+                                </div>
+                            </label>
+                        </div>
+                        <div id="adMobInputs" style="display: none; margin-top: 0.85rem;" class="config-grid">
+                            <div class="form-group">
+                                <label for="adMobAppId">AdMob App ID</label>
+                                <input type="text" id="adMobAppId" placeholder="ca-app-pub-3940256099942544~3347511713" value="ca-app-pub-3940256099942544~3347511713">
+                                <small style="color: #64748b;">(Test ID provided by default)</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="adMobBannerId">Banner Ad Unit ID</label>
+                                <input type="text" id="adMobBannerId" placeholder="ca-app-pub-3940256099942544/6300978111" value="ca-app-pub-3940256099942544/6300978111">
+                                <small style="color: #64748b;">(Test Banner ID provided)</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-card-header">
+                            <label class="checkbox-item" style="border: none; padding: 0; background: transparent;">
+                                <input type="checkbox" id="enableOneSignal" onchange="toggleOneSignalInputs()">
+                                <div class="checkbox-item-content">
+                                    <span class="checkbox-item-title">OneSignal Push Notifications</span>
+                                    <span class="checkbox-item-desc">Integrates OneSignal SDK for sending remote push notifications to your users.</span>
+                                </div>
+                            </label>
+                        </div>
+                        <div id="oneSignalInputs" style="display: none; margin-top: 0.85rem;" class="form-group">
+                            <label for="oneSignalAppId">OneSignal App ID</label>
+                            <input type="text" id="oneSignalAppId" placeholder="e.g. b2f7f966-d8cc-11e4-bed1-df8f05be55ba">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 10: Generate, Build & Export App -->
+                <div class="step-card" id="step10" style="border: 2px solid var(--primary); background: #f0fdf4;">
+                    <div class="step-header" style="border-bottom-color: #bbf7d0;">
+                        <span class="step-number-pill output" data-i18n="pillStep10">STEP 10</span>
+                        <h2>🚀 <span data-i18n="step10Title">Generate, Build & Export App</span></h2>
+                    </div>
+
+                    <div class="action-buttons-group" style="margin-top: 0;">
+                        <div class="primary-actions-row">
+                            <button class="btn btn-primary" id="generateBtn" onclick="generateProject()">
+                                ⚡ <span data-i18n="btnGenAndroid">Generate Android Project (ZIP)</span>
+                            </button>
+                            <button class="btn btn-info" onclick="exportSingleHtml()">
+                                📦 <span data-i18n="btnDownloadHtml">Download Single HTML App</span>
+                            </button>
+                        </div>
+                        <div class="secondary-actions-row">
+                            <button class="btn btn-outline" onclick="exportPwaZip()">
+                                📲 <span data-i18n="btnDownloadPwa">Download PWA Package</span>
+                            </button>
+                            <button class="btn btn-outline" onclick="openModal('cloudBuildModal')">
+                                ☁️ <span data-i18n="btnCloudBuild">Free Cloud APK (GitHub)</span>
+                            </button>
+                            <button class="btn btn-secondary" onclick="resetForm(false)">
+                                ↩️ <span data-i18n="btnReset">Reset All</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="loading" id="loadingIndicator">
+                        <div class="spinner"></div>
+                        <p style="font-weight: 700; color: var(--secondary);" data-i18n="loadingText">Generating complete Android Studio project with all features & icons...</p>
+                    </div>
+                </div>
+
+            </div>
+                        
+            <!-- Right Side: Sticky Live Interactive Mobile Preview & Structure -->
+            <div class="panel preview-panel-sticky">
+                <div class="panel-header">
+                    <h2>📱 <span data-i18n="mockupHeader">Live Interactive Mobile Mockup</span></h2>
+                </div>
+
+                <div class="preview-controls">
+                    <div class="device-picker-group">
+                        <button class="preview-btn active" id="portraitPreviewBtn" onclick="setPreviewOrientation('portrait')">📱 Portrait</button>
+                        <button class="preview-btn" id="landscapePreviewBtn" onclick="setPreviewOrientation('landscape')">📺 Landscape</button>
+                    </div>
+                    <div style="display: flex; gap: 0.4rem;">
+                        <button class="preview-btn" onclick="simulateBackPress()">🔙 Test Back</button>
+                        <button class="preview-btn" onclick="updatePreview()">🔄 Refresh</button>
+                    </div>
+                </div>
+                                
+                <div class="preview-container">
+                    <div class="phone-mockup" id="phoneMockup">
+                        <div class="phone-status-bar" id="phoneStatusBar">
+                            <span>9:41</span>
+                            <span>📶 5G 100% 🔋</span>
+                        </div>
+                        <div class="phone-action-bar" id="phoneActionBar">MyMobileApp</div>
+                        <div class="phone-progress-bar" id="phoneProgressBar">
+                            <div class="phone-progress-bar-fill"></div>
+                        </div>
+                        <div class="phone-content" id="phonePreview"></div>
+                        <div class="phone-bottom-nav" id="phoneBottomNav" style="display: none;">
+                            <div class="phone-bottom-nav-item active">
+                                <span class="phone-bottom-nav-icon">🏠</span>
+                                <span id="mockNav1">Home</span>
+                            </div>
+                            <div class="phone-bottom-nav-item">
+                                <span class="phone-bottom-nav-icon">🧭</span>
+                                <span id="mockNav2">Explore</span>
+                            </div>
+                            <div class="phone-bottom-nav-item">
+                                <span class="phone-bottom-nav-icon">🛒</span>
+                                <span id="mockNav3">Orders</span>
+                            </div>
+                            <div class="phone-bottom-nav-item">
+                                <span class="phone-bottom-nav-icon">👤</span>
+                                <span id="mockNav4">Profile</span>
+                            </div>
+                        </div>
+                        <div class="phone-ad-banner" id="phoneAdBanner" style="display: none;">
+                            📢 Google AdMob Banner Ad Area
+                        </div>
+                        <div class="phone-toast" id="phoneToast">Press back again to exit</div>
+                    </div>
+                </div>
+
+                <!-- Instant Mobile Test QR Card -->
+                <div class="qr-card">
+                    <div class="qr-img-box">
+                        <img id="qrCodeImg" src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https%3A%2F%2Fexample.com" alt="QR Code" />
+                    </div>
+                    <div class="qr-info">
+                        <h4 data-i18n="qrTitle">📱 Scan to Test on Real Phone</h4>
+                        <p data-i18n="qrDesc">Scan with your phone camera to test this web application directly on your device before downloading the Android project.</p>
+                    </div>
+                </div>
+                                
+                <div class="panel-header">
+                    <h2>📂 <span data-i18n="fileStructureTitle">Generated Project Structure</span></h2>
+                </div>
+                                
+                <div class="file-structure" id="fileStructure"></div>
+
+                <div style="padding: 1.1rem; background: #ecfdf5; border-radius: 10px; margin-top: 1.25rem; font-size: 0.88rem; line-height: 1.5; border-left: 4px solid var(--primary);">
+                    <strong style="color: #065f46;" data-i18n="buildHelpTitle">💡 How to Build APK:</strong><br>
+                    <span data-i18n="buildHelpSteps">
+                    1. Click <strong>Generate Android Project</strong> to download the ZIP.<br>
+                    2. Extract the ZIP on your PC.<br>
+                    3. Open Android Studio and select <strong>File &gt; Open</strong> on the extracted folder.<br>
+                    4. Let Gradle sync, then click <strong>Build &gt; Build Bundle(s) / APK(s) &gt; Build APK(s)</strong>.<br>
+                    <em>No Android Studio? Use our included <strong>GitHub Actions</strong> workflow for 100% free cloud APK compilation!</em>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 1: Native Android JavaScript Bridge API -->
+    <div class="modal-overlay" id="bridgeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>⚡ Native Android JavaScript Bridge (`AndroidBridge`)</h3>
+                <button class="modal-close" onclick="closeModal('bridgeModal')">&times;</button>
+            </div>
+            <p style="font-size: 0.9rem; color: #475569;">
+                Your web app can directly call native Android hardware and OS features using the global <code>window.AndroidBridge</code> object:
+            </p>
+
+            <div class="code-snippet">
+// 1. Show Native Android Toast Message
+if (window.AndroidBridge) {
+    AndroidBridge.showToast("Order placed successfully! 🎉");
+}
+
+// 2. Trigger Haptic Vibration (milliseconds)
+if (window.AndroidBridge) {
+    AndroidBridge.vibrate(100);
+}
+
+// 3. Open Native Android Share Sheet
+if (window.AndroidBridge) {
+    AndroidBridge.shareText("Check out this amazing app!", "Share App");
+}
+
+// 4. Copy to System Clipboard
+if (window.AndroidBridge) {
+    AndroidBridge.copyToClipboard("COUPON-2026");
+}
+
+// 5. Open External Browser / Intent
+if (window.AndroidBridge) {
+    AndroidBridge.openExternal("https://wa.me/1234567890");
+}
+
+// 6. Get App Version
+var version = window.AndroidBridge ? AndroidBridge.getAppVersion() : "1.0.0";
+            </div>
+
+            <button class="btn btn-primary" onclick="insertComponent('bridge'); closeModal('bridgeModal');">
+                ➕ Insert Sample Bridge Code into Editor
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal 2: Cloud APK Builder via GitHub Actions -->
+    <div class="modal-overlay" id="cloudBuildModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>☁️ Free Cloud APK Compilation via GitHub Actions</h3>
+                <button class="modal-close" onclick="closeModal('cloudBuildModal')">&times;</button>
+            </div>
+            <p style="font-size: 0.9rem; color: #475569; margin-bottom: 0.75rem;">
+                Don't have a fast computer or Android Studio installed? Every generated ZIP automatically contains a ready-to-run GitHub Actions workflow: <code>.github/workflows/build-apk.yml</code>.
+            </p>
+
+            <div style="background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 1rem; font-size: 0.88rem; line-height: 1.6;">
+                <strong>Easy 3-Step Cloud Build:</strong>
+                <ol style="margin-left: 1.25rem; margin-top: 0.5rem;">
+                    <li>Download the generated Android project ZIP and extract it.</li>
+                    <li>Create a free repository on <a href="https://github.com" target="_blank" style="color: #0284c7; font-weight: 600;">GitHub</a> and upload/push the files.</li>
+                    <li>Go to the <strong>Actions</strong> tab on your repository. The workflow will automatically compile your project and provide a download link for <strong>app-debug.apk</strong>!</li>
+                </ol>
+            </div>
+
+            <div style="margin-top: 1rem; text-align: right;">
+                <button class="btn btn-secondary" onclick="closeModal('cloudBuildModal')">Got It</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 3: Keystore & Release Guide -->
+    <div class="modal-overlay" id="keystoreModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>🔐 Android Keystore & Google Play Release Helper</h3>
+                <button class="modal-close" onclick="closeModal('keystoreModal')">&times;</button>
+            </div>
+            <p style="font-size: 0.88rem; color: #475569; margin-bottom: 0.75rem;">
+                To publish your APK or AAB on Google Play Store, you need a signed release key. Run this standard command in your terminal:
+            </p>
+
+            <div class="code-snippet">
+keytool -genkey -v -keystore release-key.jks -alias my-app-key -keyalg RSA -keysize 2048 -validity 10000
+            </div>
+
+            <p style="font-size: 0.84rem; color: #64748b; margin-top: 0.5rem;">
+                Remember your keystore password and alias. You will use them in Android Studio under <strong>Build &gt; Generate Signed Bundle / APK</strong>.
+            </p>
+
+            <div style="margin-top: 1rem; text-align: right;">
+                <button class="btn btn-secondary" onclick="closeModal('keystoreModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="notification"></div>
+    <script src="/js/app.js"></script>
+</body>
+</html>

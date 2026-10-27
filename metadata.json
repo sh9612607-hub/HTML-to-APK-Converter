@@ -1,0 +1,6 @@
+{
+  "name": "HTML to APK Converter",
+  "description": "Convert HTML, CSS, and JavaScript into a ready-to-build Android Studio project.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
