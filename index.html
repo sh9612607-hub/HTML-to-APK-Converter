@@ -27,6 +27,11 @@
                 </div>
             </div>
             <div class="header-actions">
+                <div class="zoom-controller" title="Screen Density & Zoom Level">
+                    <button class="zoom-btn" onclick="changeZoom(-0.05)" title="Zoom Out (আরও কন্টেন্ট দেখতে)">🔍−</button>
+                    <span class="zoom-display" id="zoomDisplay" onclick="resetZoom()" title="Click to reset (90%)">90%</span>
+                    <button class="zoom-btn" onclick="changeZoom(0.05)" title="Zoom In (বড় করতে)">🔍+</button>
+                </div>
                 <div class="lang-switch">
                     <button class="lang-btn active" id="langBtnEn" onclick="switchLanguage('en')">🇬🇧 English</button>
                     <button class="lang-btn" id="langBtnBn" onclick="switchLanguage('bn')">🇧🇩 বাংলা</button>

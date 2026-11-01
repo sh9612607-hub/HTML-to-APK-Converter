@@ -3499,8 +3499,43 @@ set APP_HOME=%DIRNAME%
     }
 }
 
+// Interactive Viewport Zoom & Density Controller
+let currentZoom = parseFloat(localStorage.getItem('web2app_zoom') || '0.90') || 0.90;
+
+function applyZoom(zoom) {
+    currentZoom = Math.min(Math.max(zoom, 0.70), 1.25);
+    currentZoom = Math.round(currentZoom * 100) / 100;
+    try {
+        localStorage.setItem('web2app_zoom', currentZoom.toString());
+    } catch (e) {}
+
+    // Adjust document root font size so all rem units scale gracefully
+    const rootFontSize = Math.round(14 * (currentZoom / 0.90) * 10) / 10;
+    document.documentElement.style.fontSize = `${rootFontSize}px`;
+
+    const display = document.getElementById('zoomDisplay');
+    if (display) {
+        display.textContent = `${Math.round(currentZoom * 100)}%`;
+    }
+}
+
+function changeZoom(delta) {
+    applyZoom(currentZoom + delta);
+    showNotification(`🔍 View Zoom: ${Math.round(currentZoom * 100)}%`, 1000);
+}
+
+function resetZoom() {
+    applyZoom(0.90);
+    showNotification('🔍 Zoom reset to balanced 90%', 1200);
+}
+
+window.applyZoom = applyZoom;
+window.changeZoom = changeZoom;
+window.resetZoom = resetZoom;
+
 // Initialization on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', function() {
+    applyZoom(currentZoom);
     loadTemplate('ecommerce');
     updateIconCanvas();
     updateQrCode();
