@@ -1282,3 +1282,199 @@ input[type="color"] {
     visibility: visible;
     opacity: 1;
 }
+
+/* Drag and Drop Active Highlight */
+.file-upload.drag-active {
+    border-color: #10b981;
+    background: #ecfdf5;
+    transform: scale(1.01);
+}
+
+/* Extracted ZIP & Project Asset Explorer */
+.zip-explorer-card {
+    margin-top: 1rem;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem;
+    display: none;
+}
+
+.zip-explorer-card.active {
+    display: block;
+}
+
+.zip-explorer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.zip-stat-pills {
+    display: flex;
+    gap: 0.35rem;
+    flex-wrap: wrap;
+}
+
+.zip-stat-pill {
+    background: white;
+    border: 1px solid #cbd5e1;
+    border-radius: 9999px;
+    padding: 2px 8px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #475569;
+}
+
+.zip-file-tree {
+    max-height: 240px;
+    overflow-y: auto;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.zip-file-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 10px;
+    border-bottom: 1px solid #f1f5f9;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.zip-file-row:hover {
+    background: #f8fafc;
+}
+
+.zip-file-row.is-index {
+    background: #ecfdf5;
+    font-weight: 700;
+    color: #065f46;
+}
+
+.zip-file-name {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.zip-file-size {
+    font-size: 0.72rem;
+    color: #94a3b8;
+    flex-shrink: 0;
+    margin-left: 8px;
+}
+
+/* App Doctor / Pre-Flight Health Audit */
+.audit-badge-btn {
+    background: linear-gradient(135deg, #0284c7, #0369a1);
+    color: white;
+    border: none;
+    border-radius: 9999px;
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: all 0.2s;
+}
+
+.audit-badge-btn:hover {
+    box-shadow: 0 4px 14px rgba(2, 132, 199, 0.4);
+    transform: translateY(-1px);
+}
+
+.audit-score-banner {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1.25rem;
+    background: linear-gradient(135deg, #f0fdf4, #ecfdf5);
+    border: 1px solid #a7f3d0;
+    border-radius: 12px;
+    margin-bottom: 1.25rem;
+}
+
+.audit-score-circle {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: #10b981;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
+    flex-shrink: 0;
+}
+
+.audit-score-num {
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.audit-score-lbl {
+    font-size: 0.62rem;
+    opacity: 0.9;
+}
+
+.audit-checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+}
+
+.audit-check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.85rem;
+}
+
+.audit-check-item.pass {
+    border-left: 4px solid #10b981;
+}
+
+.audit-check-item.warn {
+    border-left: 4px solid #f59e0b;
+    background: #fffbeb;
+}
+
+.audit-check-item.fail {
+    border-left: 4px solid #ef4444;
+    background: #fef2f2;
+}
+
+.audit-status-icon {
+    font-size: 1.1rem;
+    line-height: 1.2;
+}
+
+/* Floating Contact Widget Settings */
+.fab-settings-box {
+    margin-top: 0.75rem;
+    padding: 0.85rem;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+}

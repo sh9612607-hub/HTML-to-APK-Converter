@@ -31,6 +31,9 @@
                     <button class="lang-btn active" id="langBtnEn" onclick="switchLanguage('en')">🇬🇧 English</button>
                     <button class="lang-btn" id="langBtnBn" onclick="switchLanguage('bn')">🇧🇩 বাংলা</button>
                 </div>
+                <button class="header-quick-btn" onclick="openHealthAuditModal()">
+                    🩺 <span data-i18n="navHealthCheck">App Health Audit</span>
+                </button>
                 <button class="header-quick-btn" onclick="openModal('bridgeModal')">
                     ⚡ <span data-i18n="navBridge">Native Bridge API</span>
                 </button>
@@ -108,6 +111,20 @@
                                     <div class="tpl-desc" data-i18n="tplTaskDesc">Offline persistent storage, filter tabs, stats ring</div>
                                 </div>
                             </div>
+                            <div class="template-card" onclick="loadTemplate('chat')">
+                                <div>
+                                    <div class="tpl-icon">🤖</div>
+                                    <div class="tpl-title" data-i18n="tplChatTitle">AI Chat & Messenger</div>
+                                    <div class="tpl-desc" data-i18n="tplChatDesc">Modern chat bubbles, smart bot, haptic feedback</div>
+                                </div>
+                            </div>
+                            <div class="template-card" onclick="loadTemplate('quiz')">
+                                <div>
+                                    <div class="tpl-icon">🎯</div>
+                                    <div class="tpl-title" data-i18n="tplQuizTitle">Quiz & Trivia</div>
+                                    <div class="tpl-desc" data-i18n="tplQuizDesc">Interactive timer, score tracker, celebration sound</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -141,14 +158,40 @@
                         <textarea id="htmlEditor" class="code-editor" placeholder="Write or paste your HTML, CSS, and JavaScript here..."></textarea>
                     </div>
 
-                    <!-- Tab 2: File / ZIP Upload -->
+                    <!-- Tab 2: File / ZIP / Folder Upload -->
                     <div id="upload-tab" class="tab-content">
-                        <div class="file-upload" onclick="document.getElementById('fileInput').click()">
+                        <div class="file-upload" id="dropZone" onclick="document.getElementById('fileInput').click()">
                             <input type="file" id="fileInput" accept=".html,.htm,.zip" onchange="handleFileUpload(event)">
-                            <p style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.35rem;" data-i18n="uploadHeadline">📦 Click to upload HTML file or full project ZIP</p>
-                            <p style="font-size: 0.85rem; color: #64748b;" data-i18n="uploadSub">Supports single <code>index.html</code> or <code>.zip</code> containing images, CSS, JS, and subfolders.</p>
+                            <input type="file" id="folderInput" webkitdirectory directory style="display: none;" onchange="handleFolderUpload(event)">
+                            <p style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.35rem;" data-i18n="uploadHeadline">📦 Drop or Click to upload Project ZIP or Folder</p>
+                            <p style="font-size: 0.85rem; color: #64748b;" data-i18n="uploadSub">Supports <code>.zip</code>, single <code>index.html</code>, or full unzipped web project folders with subdirectories.</p>
+                            <div style="margin-top: 0.75rem; display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;" onclick="event.stopPropagation()">
+                                <button class="btn btn-secondary btn-sm" onclick="document.getElementById('fileInput').click()">📦 Select ZIP / HTML</button>
+                                <button class="btn btn-secondary btn-sm" onclick="document.getElementById('folderInput').click()">📁 Select Local Folder</button>
+                            </div>
                         </div>
                         <div id="uploadStatus" style="text-align: center; margin-top: 0.75rem;"></div>
+
+                        <!-- Interactive Extracted Assets Explorer Card -->
+                        <div class="zip-explorer-card" id="zipExplorerCard">
+                            <div class="zip-explorer-header">
+                                <div style="display: flex; align-items: center; gap: 6px;">
+                                    <strong style="font-size: 0.88rem;">📁 <span data-i18n="explorerTitle">Project Assets & Files:</span></strong>
+                                </div>
+                                <div class="zip-stat-pills" id="zipStatPills">
+                                    <span class="zip-stat-pill" id="statFiles">0 Files</span>
+                                    <span class="zip-stat-pill" id="statSize">0 KB</span>
+                                    <span class="zip-stat-pill" id="statCss">0 CSS</span>
+                                    <span class="zip-stat-pill" id="statJs">0 JS</span>
+                                    <span class="zip-stat-pill" id="statImg">0 Img</span>
+                                </div>
+                            </div>
+                            <div class="zip-file-tree" id="zipFileTree"></div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem; font-size: 0.75rem; color: #64748b;">
+                                <span>💡 Click any file to view code in editor.</span>
+                                <button class="btn btn-outline btn-sm" onclick="reloadIndexIntoEditor()" style="padding: 2px 8px; font-size: 11px;">📄 Back to index.html</button>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Tab 3: Website URL -->
@@ -366,6 +409,28 @@
                                 <span class="checkbox-item-desc" data-i18n="offlineDesc">Displays friendly offline screen with a Retry button when phone loses connection.</span>
                             </div>
                         </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="enableFloatingWidget" onchange="toggleFloatingWidgetInputs()">
+                            <div class="checkbox-item-content">
+                                <span class="checkbox-item-title" data-i18n="floatingWidgetTitle">Floating Support Button (WhatsApp / Call)</span>
+                                <span class="checkbox-item-desc" data-i18n="floatingWidgetDesc">Adds sleek corner floating contact widget inside app for instant customer support.</span>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div id="floatingWidgetInputs" style="display: none; margin-top: 0.85rem;" class="config-grid">
+                        <div class="form-group">
+                            <label for="floatingWidgetType" data-i18n="fabTypeLabel">Contact Action Type</label>
+                            <select id="floatingWidgetType">
+                                <option value="whatsapp" selected>💬 WhatsApp Direct Chat</option>
+                                <option value="call">📞 Phone Direct Call</option>
+                                <option value="telegram">✈️ Telegram Messenger</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="floatingWidgetNumber" data-i18n="fabTargetLabel">Phone / WhatsApp Number</label>
+                            <input type="text" id="floatingWidgetNumber" placeholder="+8801700000000" value="+8801700000000">
+                        </div>
                     </div>
                 </div>
 
@@ -437,6 +502,8 @@
                                 <button class="btn btn-outline btn-sm" onclick="testSimulatedBridge('toast')">🔔 Test Toast</button>
                                 <button class="btn btn-outline btn-sm" onclick="testSimulatedBridge('vibrate')">📳 Test Vibrate</button>
                                 <button class="btn btn-outline btn-sm" onclick="testSimulatedBridge('share')">📤 Test Share</button>
+                                <button class="btn btn-outline btn-sm" onclick="testSimulatedBridge('battery')">🔋 Battery Info</button>
+                                <button class="btn btn-outline btn-sm" onclick="testSimulatedBridge('network')">🌐 Network State</button>
                                 <button class="btn btn-outline btn-sm" onclick="openModal('bridgeModal')">📖 Full API Reference</button>
                             </div>
                         </div>
@@ -502,6 +569,24 @@
                                 <span class="checkbox-item-desc" data-i18n="secModeDesc">Blocks screenshots and screen recording inside the Android app.</span>
                             </div>
                         </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="enableDeepLinking" onchange="toggleDeepLinkInputs()">
+                            <div class="checkbox-item-content">
+                                <span class="checkbox-item-title" data-i18n="deepLinkTitle">Deep Linking & Custom App Scheme</span>
+                                <span class="checkbox-item-desc" data-i18n="deepLinkDesc">Opens app from browser links (e.g. myapp://home or https://yourdomain.com).</span>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div id="deepLinkInputs" style="display: none; margin-top: 0.85rem;" class="config-grid">
+                        <div class="form-group">
+                            <label for="urlScheme" data-i18n="urlSchemeLabel">Custom App Scheme</label>
+                            <input type="text" id="urlScheme" placeholder="e.g. myapp" value="myapp">
+                        </div>
+                        <div class="form-group">
+                            <label for="deepLinkHost" data-i18n="deepLinkHostLabel">App Link Domain (Host)</label>
+                            <input type="text" id="deepLinkHost" placeholder="e.g. app.mydomain.com" value="app.example.com">
+                        </div>
                     </div>
                 </div>
 
@@ -859,6 +944,33 @@ keytool -genkey -v -keystore release-key.jks -alias my-app-key -keyalg RSA -keys
 
             <div style="margin-top: 1rem; text-align: right;">
                 <button class="btn btn-secondary" onclick="closeModal('keystoreModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 4: App Health & Pre-Flight Diagnostics -->
+    <div class="modal-overlay" id="auditModal">
+        <div class="modal-content" style="max-width: 680px;">
+            <div class="modal-header">
+                <h3>🩺 <span data-i18n="auditModalTitle">App Health Doctor & Google Play Readiness</span></h3>
+                <button class="modal-close" onclick="closeModal('auditModal')">&times;</button>
+            </div>
+            <div class="audit-score-banner">
+                <div class="audit-score-circle">
+                    <span class="audit-score-num" id="auditScoreNum">100%</span>
+                    <span class="audit-score-lbl">READY</span>
+                </div>
+                <div>
+                    <h4 id="auditStatusHeading" style="font-size: 1.05rem; margin-bottom: 4px; color: #065f46;">Excellent! Your App is 100% Ready for Build</h4>
+                    <p id="auditStatusSub" style="font-size: 0.84rem; color: #475569;">All security, responsive viewport, assets, and Android configuration rules passed.</p>
+                </div>
+            </div>
+
+            <div class="audit-checklist" id="auditChecklist"></div>
+
+            <div style="margin-top: 1.25rem; display: flex; justify-content: space-between; align-items: center;">
+                <button class="btn btn-primary btn-sm" onclick="runHealthAudit()">🔄 Re-Run Audit</button>
+                <button class="btn btn-secondary btn-sm" onclick="closeModal('auditModal')">Close</button>
             </div>
         </div>
     </div>

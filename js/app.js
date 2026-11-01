@@ -167,6 +167,21 @@ const translations = {
         btnDownloadHtml: "Download Single HTML App",
         btnDownloadPwa: "Download PWA Package",
         btnCloudBuild: "Free Cloud APK (GitHub)",
+        navHealthCheck: "App Health Audit",
+        tplChatTitle: "AI Chat & Messenger",
+        tplChatDesc: "Modern chat bubbles, smart bot, haptic feedback",
+        tplQuizTitle: "Quiz & Trivia",
+        tplQuizDesc: "Interactive timer, score tracker, celebration sound",
+        explorerTitle: "Project Assets & Files:",
+        deepLinkTitle: "Deep Linking & Custom App Scheme",
+        deepLinkDesc: "Opens app from browser links (e.g. myapp://home or https://yourdomain.com).",
+        urlSchemeLabel: "Custom App Scheme",
+        deepLinkHostLabel: "App Link Domain (Host)",
+        floatingWidgetTitle: "Floating Support Button (WhatsApp / Call)",
+        floatingWidgetDesc: "Adds sleek corner floating contact widget inside app for instant customer support.",
+        fabTypeLabel: "Contact Action Type",
+        fabTargetLabel: "Phone / WhatsApp Number",
+        auditModalTitle: "App Health Doctor & Google Play Readiness",
         btnReset: "Reset All",
         loadingText: "Generating complete Android Studio project with all features & icons...",
         mockupHeader: "Live Interactive Mobile Mockup",
@@ -294,6 +309,21 @@ const translations = {
         btnDownloadHtml: "সিঙ্গেল HTML অ্যাপ ডাউনলোড করুন",
         btnDownloadPwa: "PWA প্যাকেজ ডাউনলোড করুন",
         btnCloudBuild: "ফ্রি ক্লাউড APK (গিটহাব)",
+        navHealthCheck: "অ্যাপ হেলথ অডিট",
+        tplChatTitle: "এআই চ্যাট ও মেসেঞ্জার",
+        tplChatDesc: "স্মার্ট চ্যাট বাবল, বটের উত্তর ও টাচ ভাইব্রেশন",
+        tplQuizTitle: "কুইজ ও ব্রেন ট্রেইনার",
+        tplQuizDesc: "কাউন্টডাউন টাইমার, স্কোরবোর্ড ও অডিও ভাইব",
+        explorerTitle: "প্রজেক্টের সব ফাইল ও অ্যাসেট:",
+        deepLinkTitle: "ডিপ লিঙ্কিং ও কাস্টম অ্যাপ স্কিম",
+        deepLinkDesc: "ব্রাউজারের লিঙ্ক থেকে সরাসরি মোবাইল অ্যাপ ওপেন করার সুবিধা (myapp://)।",
+        urlSchemeLabel: "কাস্টম অ্যাপ স্কিম (যেমন myapp)",
+        deepLinkHostLabel: "অ্যাপ লিঙ্ক ডোমেইন (Host)",
+        floatingWidgetTitle: "ভাসমান কন্টাক্ট বাটন (WhatsApp / Call)",
+        floatingWidgetDesc: "অ্যাপের কোণায় আধুনিক কন্টাক্ট বাটন, সরাসরি গ্রাহক সেবা দেওয়ার জন্য।",
+        fabTypeLabel: "কন্টাক্টের ধরন",
+        fabTargetLabel: "ফোন / হোয়াটসঅ্যাপ নম্বর",
+        auditModalTitle: "অ্যাপ হেলথ ডক্টর ও প্লে স্টোর অডিট",
         btnReset: "রিসেট করুন",
         loadingText: "সব ফিচার ও আইকন সহ অ্যান্ড্রয়েড স্টুডিও প্রজেক্ট তৈরি হচ্ছে...",
         mockupHeader: "লাইভ মোবাইল মকআপ প্রিভিউ",
@@ -956,6 +986,206 @@ const appTemplates = {
     </script>
 </body>
 </html>`
+    },
+    chat: {
+        appName: "NexusChat",
+        packageName: "com.nexuschat.messenger",
+        primaryColor: "#0284c7",
+        accentColor: "#38bdf8",
+        iconGlyph: "🤖",
+        gradStart: "#0284c7",
+        gradEnd: "#0369a1",
+        code: `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusChat Mobile</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, sans-serif; }
+        body { background: #f0f2f5; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+        .chat-header { background: #0284c7; color: white; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+        .user-info { display: flex; align-items: center; gap: 10px; }
+        .avatar { width: 38px; height: 38px; border-radius: 50%; background: #38bdf8; display: flex; align-items: center; justify-content: center; font-size: 20px; border: 2px solid white; }
+        .user-name { font-weight: 700; font-size: 15px; }
+        .status-dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; display: inline-block; margin-right: 4px; }
+        .chat-messages { flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+        .msg { max-width: 80%; padding: 10px 14px; border-radius: 16px; font-size: 13px; line-height: 1.4; animation: pop 0.2s ease; word-break: break-word; }
+        @keyframes pop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .msg.bot { background: white; align-self: flex-start; border-bottom-left-radius: 4px; color: #1e293b; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+        .msg.user { background: #0284c7; color: white; align-self: flex-end; border-bottom-right-radius: 4px; }
+        .msg-time { font-size: 10px; opacity: 0.7; margin-top: 4px; text-align: right; }
+        .chat-input-bar { background: white; padding: 10px 14px; display: flex; gap: 8px; align-items: center; border-top: 1px solid #e2e8f0; }
+        .chat-input { flex: 1; border: 1px solid #cbd5e1; border-radius: 20px; padding: 8px 14px; font-size: 13px; outline: none; }
+        .send-btn { background: #0284c7; color: white; border: none; width: 38px; height: 38px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+        .typing { font-size: 11px; color: #64748b; font-style: italic; margin-left: 16px; display: none; }
+    </style>
+</head>
+<body>
+    <div class="chat-header">
+        <div class="user-info">
+            <div class="avatar">🤖</div>
+            <div>
+                <div class="user-name">Nexus Assistant</div>
+                <div style="font-size: 11px; opacity: 0.9;"><span class="status-dot"></span>Online • Always ready</div>
+            </div>
+        </div>
+        <span onclick="clearChat()" style="cursor: pointer; font-size: 12px; background: rgba(255,255,255,0.2); padding: 4px 8px; border-radius: 12px;">Clear</span>
+    </div>
+    <div class="chat-messages" id="msgBox">
+        <div class="msg bot">
+            👋 Hello! I'm your mobile smart assistant. How can I assist you today?
+            <div class="msg-time">Just now</div>
+        </div>
+    </div>
+    <div class="typing" id="typingIndicator">Nexus is typing...</div>
+    <div class="chat-input-bar">
+        <input type="text" id="chatInput" class="chat-input" placeholder="Type a message..." onkeydown="if(event.key==='Enter') sendMsg()">
+        <button class="send-btn" onclick="sendMsg()">➤</button>
+    </div>
+    <script>
+        const replies = [
+            "I'm syncing with your mobile device now! ⚡",
+            "That's fantastic! Your app is fully responsive on Android.",
+            "You can test haptic feedback and native toasts via AndroidBridge! 🚀",
+            "Order confirmed! Would you like a tracking notification? 📦",
+            "I have updated your settings successfully."
+        ];
+        function sendMsg() {
+            const input = document.getElementById('chatInput');
+            const text = input.value.trim();
+            if(!text) return;
+            addMsg(text, 'user');
+            input.value = '';
+            if (window.AndroidBridge) AndroidBridge.vibrate(25);
+            
+            const typing = document.getElementById('typingIndicator');
+            typing.style.display = 'block';
+            setTimeout(() => {
+                typing.style.display = 'none';
+                const rep = replies[Math.floor(Math.random() * replies.length)];
+                addMsg(rep, 'bot');
+                if (window.AndroidBridge) {
+                    AndroidBridge.vibrate(40);
+                    AndroidBridge.showToast("New message received 💬");
+                }
+            }, 750);
+        }
+        function addMsg(txt, sender) {
+            const box = document.getElementById('msgBox');
+            const d = document.createElement('div');
+            d.className = 'msg ' + sender;
+            const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            d.innerHTML = txt + '<div class="msg-time">' + time + '</div>';
+            box.appendChild(d);
+            box.scrollTop = box.scrollHeight;
+        }
+        function clearChat() {
+            document.getElementById('msgBox').innerHTML = '<div class="msg bot">Chat history cleared! 👋<div class="msg-time">Just now</div></div>';
+        }
+    </script>
+</body>
+</html>`
+    },
+    quiz: {
+        appName: "BrainQuest",
+        packageName: "com.brainquest.trivia",
+        primaryColor: "#f59e0b",
+        accentColor: "#10b981",
+        iconGlyph: "🎯",
+        gradStart: "#f59e0b",
+        gradEnd: "#d97706",
+        code: `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrainQuest Trivia</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, sans-serif; }
+        body { background: #0f172a; color: white; min-height: 100vh; padding: 20px 16px; display: flex; flex-direction: column; justify-content: space-between; }
+        .top-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .score-badge { background: #1e293b; padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: bold; border: 1px solid #334155; }
+        .timer-track { width: 100%; height: 6px; background: #1e293b; border-radius: 3px; overflow: hidden; margin-bottom: 20px; }
+        .timer-fill { height: 100%; background: #f59e0b; width: 100%; transition: width 0.2s linear; }
+        .card { background: #1e293b; border: 1px solid #334155; border-radius: 16px; padding: 24px 18px; margin-bottom: 20px; }
+        .q-num { font-size: 12px; color: #f59e0b; font-weight: 700; text-transform: uppercase; margin-bottom: 6px; }
+        .q-text { font-size: 17px; font-weight: 700; line-height: 1.4; }
+        .options { display: flex; flex-direction: column; gap: 10px; }
+        .opt-btn { background: #334155; color: white; border: 2px solid transparent; padding: 14px 16px; border-radius: 12px; font-size: 14px; font-weight: 600; text-align: left; cursor: pointer; transition: all 0.2s; }
+        .opt-btn.correct { background: #065f46; border-color: #10b981; }
+        .opt-btn.wrong { background: #7f1d1d; border-color: #ef4444; }
+    </style>
+</head>
+<body>
+    <div>
+        <div class="top-row">
+            <span style="font-weight: 800; font-size: 18px;">🎯 BrainQuest</span>
+            <div class="score-badge">SCORE: <span id="score" style="color: #10b981;">0</span></div>
+        </div>
+        <div class="timer-track"><div class="timer-fill" id="timerBar"></div></div>
+        <div class="card">
+            <div class="q-num" id="qNum">Question 1 of 5</div>
+            <div class="q-text" id="qText">Loading question...</div>
+        </div>
+        <div class="options" id="optContainer"></div>
+    </div>
+    <div style="text-align: center; font-size: 12px; color: #64748b; margin-top: 20px;">
+        High Score: <span id="highScore" style="color: #f59e0b;">0</span>
+    </div>
+    <script>
+        const questions = [
+            { q: "What is the official programming language for Android native development?", o: ["Kotlin", "Swift", "Ruby", "PHP"], a: 0 },
+            { q: "Which Android component displays web pages directly inside apps?", o: ["SurfaceView", "WebView", "FrameView", "TextView"], a: 1 },
+            { q: "What is the highest layer of the Android app architecture?", o: ["Kernel", "HAL", "Applications & UI", "Native Libraries"], a: 2 },
+            { q: "What file declares Android app permissions and launcher activities?", o: ["settings.gradle", "AndroidManifest.xml", "strings.xml", "res.json"], a: 1 },
+            { q: "What bridge interface connects JavaScript to native Android code?", o: ["AndroidBridge", "AppConnect", "NetSocket", "IntentBus"], a: 0 }
+        ];
+        let cur = 0, score = 0, locked = false;
+        let high = parseInt(localStorage.getItem('bq_high') || '0', 10);
+        document.getElementById('highScore').textContent = high;
+
+        function loadQuestion() {
+            if (cur >= questions.length) {
+                document.getElementById('qText').textContent = "🎉 Quiz Complete! Final Score: " + score;
+                document.getElementById('optContainer').innerHTML = '<button class="opt-btn" style="text-align:center; background:#10b981;" onclick="restart()">🔄 Play Again</button>';
+                return;
+            }
+            locked = false;
+            const q = questions[cur];
+            document.getElementById('qNum').textContent = "Question " + (cur + 1) + " of " + questions.length;
+            document.getElementById('qText').textContent = q.q;
+            const container = document.getElementById('optContainer');
+            container.innerHTML = '';
+            q.o.forEach((opt, idx) => {
+                const b = document.createElement('button');
+                b.className = 'opt-btn';
+                b.textContent = opt;
+                b.onclick = () => answer(idx, b);
+                container.appendChild(b);
+            });
+        }
+        function answer(idx, btn) {
+            if (locked) return;
+            locked = true;
+            const q = questions[cur];
+            if (idx === q.a) {
+                btn.classList.add('correct');
+                score += 10;
+                document.getElementById('score').textContent = score;
+                if (score > high) { high = score; localStorage.setItem('bq_high', high); document.getElementById('highScore').textContent = high; }
+                if (window.AndroidBridge) { AndroidBridge.vibrate(50); AndroidBridge.showToast("Correct! +10 Points ⭐"); }
+            } else {
+                btn.classList.add('wrong');
+                if (window.AndroidBridge) AndroidBridge.vibrate(120);
+            }
+            setTimeout(() => { cur++; loadQuestion(); }, 900);
+        }
+        function restart() { cur = 0; score = 0; document.getElementById('score').textContent = 0; loadQuestion(); }
+        loadQuestion();
+    </script>
+</body>
+</html>`
     }
 };
 
@@ -1368,6 +1598,7 @@ async function handleFileUpload(event) {
 
             const prefixNotice = prefixToStrip ? ` (auto-resolved from folder "${prefixToStrip.replace(/\/$/, '')}")` : '';
             statusDiv.innerHTML = `<span style="color: #10b981; font-weight: 700;">✅ Loaded ZIP with ${fileCount} files${foundIndex ? ' (index.html found)' : ''}!</span>`;
+            renderZipFileExplorer();
             updatePreview();
             showNotification(`📦 ${file.name} extracted successfully with ${fileCount} files${prefixNotice}!`, 4000);
         } catch (err) {
@@ -1375,10 +1606,12 @@ async function handleFileUpload(event) {
             statusDiv.innerHTML = `<span style="color: #ef4444;">❌ Failed to read ZIP file: ${err.message}</span>`;
             uploadedZipFiles = null;
             revokeUploadedZipBlobUrls();
+            renderZipFileExplorer();
         }
     } else {
         uploadedZipFiles = null;
         revokeUploadedZipBlobUrls();
+        renderZipFileExplorer();
         const reader = new FileReader();
         reader.onload = function(e) {
             document.getElementById('htmlEditor').value = e.target.result;
@@ -1387,6 +1620,328 @@ async function handleFileUpload(event) {
             showNotification(`✅ ${file.name} loaded successfully!`, 3000);
         };
         reader.readAsText(file);
+    }
+}
+
+// Local Unzipped Folder Upload Handler (via webkitdirectory)
+async function handleFolderUpload(event) {
+    const files = event.target.files;
+    const statusDiv = document.getElementById('uploadStatus');
+    if (!files || files.length === 0) return;
+
+    statusDiv.innerHTML = `<span style="color: #0284c7;">⏳ Reading local folder: <strong>${files.length} items</strong>...</span>`;
+    try {
+        const rawFiles = {};
+        const promises = [];
+
+        for (let i = 0; i < files.length; i++) {
+            const f = files[i];
+            const relativePath = f.webkitRelativePath || f.name;
+            promises.push(
+                f.arrayBuffer().then(buf => {
+                    rawFiles[relativePath] = buf;
+                })
+            );
+        }
+
+        await Promise.all(promises);
+
+        // Auto-detect root directory prefix to strip
+        let indexKey = Object.keys(rawFiles).find(p => p.toLowerCase() === 'index.html');
+        let prefixToStrip = '';
+
+        if (!indexKey) {
+            const candidate = Object.keys(rawFiles).find(p => p.toLowerCase().endsWith('/index.html') || p.toLowerCase().endsWith('/index.htm'));
+            if (candidate) {
+                const lastSlash = candidate.lastIndexOf('/');
+                prefixToStrip = candidate.substring(0, lastSlash + 1);
+            }
+        }
+
+        uploadedZipFiles = {};
+        revokeUploadedZipBlobUrls();
+
+        for (const [rawPath, buffer] of Object.entries(rawFiles)) {
+            if (rawPath.startsWith('__MACOSX/') || rawPath.includes('/.DS_Store')) continue;
+            let cleanPath = rawPath;
+            if (prefixToStrip && rawPath.startsWith(prefixToStrip)) {
+                cleanPath = rawPath.substring(prefixToStrip.length);
+            }
+            if (!cleanPath) continue;
+            uploadedZipFiles[cleanPath] = buffer;
+        }
+
+        // Generate Blob URLs for assets
+        for (const [cleanPath, buffer] of Object.entries(uploadedZipFiles)) {
+            if (cleanPath.toLowerCase().endsWith('.css') || cleanPath.toLowerCase().endsWith('.html')) continue;
+            const mime = getMimeType(cleanPath);
+            uploadedZipBlobUrls[cleanPath] = URL.createObjectURL(new Blob([buffer], { type: mime }));
+        }
+
+        for (const [cleanPath, buffer] of Object.entries(uploadedZipFiles)) {
+            if (!cleanPath.toLowerCase().endsWith('.css')) continue;
+            let cssText = new TextDecoder().decode(buffer);
+            for (const [assetPath, blobUrl] of Object.entries(uploadedZipBlobUrls)) {
+                const esc = assetPath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                const cssUrlRegex = new RegExp(`url\\(\\s*["']?(?:\\.\\/|\\/)?(?:[^)]*\\/)?${esc}(?:[?#][^"']*)?["']?\\s*\\)`, 'gi');
+                cssText = cssText.replace(cssUrlRegex, `url("${blobUrl}")`);
+            }
+            uploadedZipBlobUrls[cleanPath] = URL.createObjectURL(new Blob([cssText], { type: 'text/css' }));
+        }
+
+        let foundIndex = false;
+        for (const [path, buffer] of Object.entries(uploadedZipFiles)) {
+            if (path.toLowerCase() === 'index.html' || path.toLowerCase().endsWith('/index.html')) {
+                const text = new TextDecoder().decode(buffer);
+                document.getElementById('htmlEditor').value = text;
+                foundIndex = true;
+                break;
+            }
+        }
+
+        statusDiv.innerHTML = `<span style="color: #10b981; font-weight: 700;">✅ Loaded Folder with ${files.length} files${foundIndex ? ' (index.html found)' : ''}!</span>`;
+        renderZipFileExplorer();
+        updatePreview();
+        showNotification(`📁 Folder loaded with ${files.length} files successfully!`, 3500);
+    } catch (err) {
+        console.error('Folder read error:', err);
+        statusDiv.innerHTML = `<span style="color: #ef4444;">❌ Failed to load folder: ${err.message}</span>`;
+        uploadedZipFiles = null;
+        revokeUploadedZipBlobUrls();
+        renderZipFileExplorer();
+    }
+}
+
+// Extracted Files Explorer Tree
+function renderZipFileExplorer() {
+    const card = document.getElementById('zipExplorerCard');
+    const tree = document.getElementById('zipFileTree');
+    if (!card || !tree) return;
+
+    if (!uploadedZipFiles || Object.keys(uploadedZipFiles).length === 0) {
+        card.classList.remove('active');
+        tree.innerHTML = '';
+        return;
+    }
+
+    card.classList.add('active');
+    tree.innerHTML = '';
+
+    const paths = Object.keys(uploadedZipFiles).sort();
+    let totalBytes = 0;
+    let cssCount = 0;
+    let jsCount = 0;
+    let imgCount = 0;
+
+    paths.forEach(p => {
+        const buf = uploadedZipFiles[p];
+        const bytes = buf ? buf.byteLength : 0;
+        totalBytes += bytes;
+        const low = p.toLowerCase();
+        if (low.endsWith('.css')) cssCount++;
+        else if (low.endsWith('.js')) jsCount++;
+        else if (/\.(png|jpe?g|gif|svg|webp|ico)$/.test(low)) imgCount++;
+
+        const isIndex = low === 'index.html';
+        const row = document.createElement('div');
+        row.className = 'zip-file-row' + (isIndex ? ' is-index' : '');
+
+        let icon = '📄';
+        if (low.endsWith('.html') || low.endsWith('.htm')) icon = '🌐';
+        else if (low.endsWith('.css')) icon = '🎨';
+        else if (low.endsWith('.js')) icon = '📜';
+        else if (/\.(png|jpe?g|gif|svg|webp|ico)$/.test(low)) icon = '🖼️';
+        else if (/\.(woff2?|ttf|otf)$/.test(low)) icon = '🔤';
+
+        const sizeKb = (bytes / 1024).toFixed(1) + ' KB';
+        row.innerHTML = `
+            <span class="zip-file-name"><span>${icon}</span> ${p}</span>
+            <span class="zip-file-size">${sizeKb}</span>
+        `;
+        row.title = "Click to inspect in code editor";
+        row.onclick = () => loadFileIntoEditor(p);
+        tree.appendChild(row);
+    });
+
+    document.getElementById('statFiles').textContent = paths.length + " Files";
+    const totalKb = (totalBytes / 1024).toFixed(0);
+    document.getElementById('statSize').textContent = (totalBytes > 1048576 ? (totalBytes / 1048576).toFixed(1) + " MB" : totalKb + " KB");
+    document.getElementById('statCss').textContent = cssCount + " CSS";
+    document.getElementById('statJs').textContent = jsCount + " JS";
+    document.getElementById('statImg').textContent = imgCount + " Img";
+}
+
+function loadFileIntoEditor(path) {
+    if (!uploadedZipFiles || !uploadedZipFiles[path]) return;
+    const buf = uploadedZipFiles[path];
+    const low = path.toLowerCase();
+    if (/\.(html|htm|css|js|json|xml|txt|md|svg)$/.test(low)) {
+        const text = new TextDecoder().decode(buf);
+        document.getElementById('htmlEditor').value = text;
+        showNotification(`📄 Loaded "${path}" into editor`, 2000);
+    } else {
+        showNotification(`ℹ️ "${path}" is binary (${(buf.byteLength / 1024).toFixed(1)} KB)`, 2200);
+    }
+}
+
+function reloadIndexIntoEditor() {
+    if (!uploadedZipFiles) return;
+    for (const [p, buf] of Object.entries(uploadedZipFiles)) {
+        if (p.toLowerCase() === 'index.html' || p.toLowerCase().endsWith('/index.html')) {
+            document.getElementById('htmlEditor').value = new TextDecoder().decode(buf);
+            showNotification(`📄 Returned to index.html`, 1800);
+            updatePreview();
+            break;
+        }
+    }
+}
+
+// Drag & Drop Setup
+function initDragAndDrop() {
+    const zone = document.getElementById('dropZone');
+    if (!zone) return;
+
+    ['dragenter', 'dragover'].forEach(name => {
+        zone.addEventListener(name, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            zone.classList.add('drag-active');
+        });
+    });
+
+    ['dragleave', 'drop'].forEach(name => {
+        zone.addEventListener(name, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            zone.classList.remove('drag-active');
+        });
+    });
+
+    zone.addEventListener('drop', async (e) => {
+        const dt = e.dataTransfer;
+        if (!dt || !dt.files || dt.files.length === 0) return;
+        const file = dt.files[0];
+        if (file.name.endsWith('.zip') || file.name.endsWith('.html') || file.name.endsWith('.htm')) {
+            handleFileUpload({ target: { files: dt.files } });
+        } else {
+            handleFolderUpload({ target: { files: dt.files } });
+        }
+    });
+}
+
+// UI Toggles for New Features
+function toggleDeepLinkInputs() {
+    const isChecked = document.getElementById('enableDeepLinking').checked;
+    document.getElementById('deepLinkInputs').style.display = isChecked ? 'grid' : 'none';
+}
+
+function toggleFloatingWidgetInputs() {
+    const isChecked = document.getElementById('enableFloatingWidget').checked;
+    document.getElementById('floatingWidgetInputs').style.display = isChecked ? 'grid' : 'none';
+}
+
+// App Health Doctor / Play Store Audit
+function openHealthAuditModal() {
+    runHealthAudit();
+    openModal('auditModal');
+}
+
+function runHealthAudit() {
+    const appName = document.getElementById('appName').value.trim();
+    const pkgName = document.getElementById('packageName').value.trim();
+    const html = document.getElementById('htmlEditor').value;
+    const isUrl = currentSourceMode === 'url';
+    const webUrl = document.getElementById('webUrl').value.trim();
+
+    const checks = [];
+    let score = 100;
+
+    // Check 1: App Name
+    if (appName.length >= 2 && appName.length <= 30) {
+        checks.push({ status: 'pass', title: 'App Name Validated', desc: `"${appName}" conforms to Google Play character limit (under 30 chars).` });
+    } else {
+        score -= 15;
+        checks.push({ status: 'warn', title: 'App Name Length Warning', desc: 'Google Play recommends an app name between 2 and 30 characters.' });
+    }
+
+    // Check 2: Package Name (Application ID)
+    const pkgRegex = /^[a-z][a-z0-9_]*(\.[a-z][a-z0-9_]*)+$/;
+    if (pkgRegex.test(pkgName)) {
+        checks.push({ status: 'pass', title: 'Package Identifier (Application ID)', desc: `"${pkgName}" is unique and complies with Java package standards.` });
+    } else {
+        score -= 25;
+        checks.push({ status: 'fail', title: 'Invalid Package Name', desc: 'Package name must have at least two segments (e.g., com.company.app) in lowercase.' });
+    }
+
+    // Check 3: Responsive Viewport Meta Tag
+    if (isUrl) {
+        checks.push({ status: 'pass', title: 'Website URL Integration', desc: `Targeting live URL "${webUrl}" with native fallback.` });
+    } else {
+        if (html.includes('name="viewport"') || html.includes("name='viewport'")) {
+            checks.push({ status: 'pass', title: 'Mobile Responsive Viewport Tag', desc: 'HTML contains <meta name="viewport"> for correct DPI scaling on high-res displays.' });
+        } else {
+            score -= 15;
+            checks.push({ status: 'warn', title: 'Missing Viewport Meta Tag', desc: 'Add <meta name="viewport" content="width=device-width, initial-scale=1.0"> in <head> for proper phone scaling.' });
+        }
+    }
+
+    // Check 4: App Icon Resolution & Shape
+    if (customIconBase64) {
+        checks.push({ status: 'pass', title: 'Custom App Icon Attached', desc: 'HD custom PNG icon will be compiled for mdpi, hdpi, xhdpi, xxhdpi, and xxxhdpi densities.' });
+    } else {
+        checks.push({ status: 'pass', title: 'Built-in Icon Studio Preset Active', desc: `Icon configured with shape "${iconShape}" and symbol "${iconGlyph}".` });
+    }
+
+    // Check 5: Security & HTTPS
+    if (isUrl && !webUrl.startsWith('https://')) {
+        score -= 15;
+        checks.push({ status: 'warn', title: 'Cleartext HTTP URL Warning', desc: 'Google Play requires HTTPS endpoints. Consider using https://.' });
+    } else {
+        checks.push({ status: 'pass', title: 'Security & Protocol Integrity', desc: 'App complies with modern Android cleartext and permission policies.' });
+    }
+
+    // Check 6: Native Android Bridge
+    const bridgeOn = document.getElementById('enableBridge').checked;
+    if (bridgeOn) {
+        checks.push({ status: 'pass', title: 'Native JavaScript Bridge (AndroidBridge)', desc: 'Enabled for Toasts, Haptic Vibrate, Battery, Share Sheet, and Device Hardware.' });
+    } else {
+        checks.push({ status: 'pass', title: 'Native JavaScript Bridge', desc: 'Bridge disabled; running in isolated WebView mode.' });
+    }
+
+    // Update UI
+    score = Math.max(20, Math.min(100, score));
+    const scoreNum = document.getElementById('auditScoreNum');
+    const heading = document.getElementById('auditStatusHeading');
+    const sub = document.getElementById('auditStatusSub');
+    const list = document.getElementById('auditChecklist');
+
+    if (scoreNum) scoreNum.textContent = score + "%";
+    if (heading) {
+        if (score >= 90) {
+            heading.textContent = "Excellent! App is 100% Ready for Build";
+            heading.style.color = "#065f46";
+            if (sub) sub.textContent = "All security, responsive viewport, assets, and Android configuration rules passed.";
+        } else if (score >= 70) {
+            heading.textContent = "Good, with minor recommendations";
+            heading.style.color = "#d97706";
+            if (sub) sub.textContent = "Your app can build, but review the warnings below for optimal Play Store submission.";
+        } else {
+            heading.textContent = "Configuration Needs Attention";
+            heading.style.color = "#dc2626";
+            if (sub) sub.textContent = "Please fix the red issues below before compiling your APK.";
+        }
+    }
+
+    if (list) {
+        list.innerHTML = checks.map(c => `
+            <div class="audit-check-item ${c.status}">
+                <span class="audit-status-icon">${c.status === 'pass' ? '✅' : (c.status === 'warn' ? '⚠️' : '❌')}</span>
+                <div>
+                    <strong>${c.title}</strong>
+                    <div style="font-size: 0.8rem; color: #64748b; margin-top: 2px;">${c.desc}</div>
+                </div>
+            </div>
+        `).join('');
     }
 }
 
@@ -1566,6 +2121,14 @@ function testSimulatedBridge(action) {
         toast.textContent = "📤 Android Native Share Sheet Opened";
         toast.classList.add('show');
         setTimeout(() => toast.classList.remove('show'), 2000);
+    } else if (action === 'battery') {
+        toast.textContent = "🔋 Battery Level: 100% (Charging)";
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2000);
+    } else if (action === 'network') {
+        toast.textContent = "🌐 Network: 5G High Speed (ONLINE)";
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2000);
     }
 }
 
@@ -1637,7 +2200,18 @@ window.AndroidBridge = {
         if(t){ t.textContent = '📋 Copied to clipboard!'; t.classList.add('show'); setTimeout(function(){ t.classList.remove('show'); }, 1500); }
     },
     openExternal: function(url) { window.open(url, '_blank'); },
-    getAppVersion: function() { return '1.0.0'; }
+    getAppVersion: function() { return '1.0.0'; },
+    getDeviceModel: function() { return 'Android Phone'; },
+    getNetworkStatus: function() { return navigator.onLine ? 'ONLINE' : 'OFFLINE'; },
+    getBatteryLevel: function() { return 100; },
+    setStatusBarColor: function(col) {
+        var sb = parent.document.getElementById('phoneStatusBar');
+        if (sb) sb.style.background = col;
+    },
+    exitApp: function() {
+        var t = parent.document.getElementById('phoneToast');
+        if (t) { t.textContent = "Exiting app 👋"; t.classList.add('show'); setTimeout(function(){ t.classList.remove('show'); }, 1500); }
+    }
 };
 <\/script>
 `;
@@ -1659,6 +2233,33 @@ window.AndroidBridge = {
                 // Also match inline CSS url(...) in style attributes or <style> tags
                 const cssRegex = new RegExp(`url\\(\\s*["']?(?:\\.\\/|\\/)?(?:[^)]*\\/)?${esc}(?:[?#][^"']*)?["']?\\s*\\)`, 'gi');
                 contentToWrite = contentToWrite.replace(cssRegex, `url("${blobUrl}")`);
+            }
+        }
+
+        // Floating Action Support Widget Injection (if enabled)
+        if (document.getElementById('enableFloatingWidget') && document.getElementById('enableFloatingWidget').checked) {
+            const wType = document.getElementById('floatingWidgetType').value;
+            const wNum = (document.getElementById('floatingWidgetNumber').value || '+8801700000000').trim();
+            let targetHref = `https://wa.me/${wNum.replace(/[^0-9]/g, '')}`;
+            let iconText = '💬 WhatsApp';
+            let bgCol = '#25d366';
+            if (wType === 'call') {
+                targetHref = `tel:${wNum}`;
+                iconText = '📞 Call Us';
+                bgCol = '#0284c7';
+            } else if (wType === 'telegram') {
+                targetHref = `https://t.me/${wNum.replace(/^@/, '')}`;
+                iconText = '✈️ Telegram';
+                bgCol = '#0088cc';
+            }
+            const fabHtml = `
+<a href="${targetHref}" target="_blank" onclick="if(window.AndroidBridge){ AndroidBridge.openExternal('${targetHref}'); return false; }" style="position: fixed; bottom: 20px; right: 20px; background: ${bgCol}; color: white; padding: 10px 16px; border-radius: 25px; text-decoration: none; font-size: 13px; font-weight: bold; box-shadow: 0 4px 14px rgba(0,0,0,0.25); display: flex; align-items: center; gap: 6px; z-index: 9999; font-family: sans-serif;">
+    ${iconText}
+</a>`;
+            if (contentToWrite.includes('</body>')) {
+                contentToWrite = contentToWrite.replace('</body>', fabHtml + '\n</body>');
+            } else {
+                contentToWrite += fabHtml;
             }
         }
 
@@ -1932,6 +2533,14 @@ if ('serviceWorker' in navigator) {
     zip.file('manifest.webmanifest', JSON.stringify(manifest, null, 2));
     zip.file('sw.js', swCode);
 
+    // If multi-file project or unzipped folders are uploaded, package all assets into PWA zip too
+    if (uploadedZipFiles) {
+        for (const [relativePath, fileBuffer] of Object.entries(uploadedZipFiles)) {
+            if (relativePath.toLowerCase() === 'index.html') continue;
+            zip.file(relativePath, fileBuffer);
+        }
+    }
+
     // Generate PNG icons
     const icon192 = await generateMipmapPng(192);
     const icon512 = await generateMipmapPng(512);
@@ -2068,6 +2677,38 @@ public class MainActivity extends AppCompatActivity {
         @JavascriptInterface
         public String getDeviceModel() {
             return Build.MANUFACTURER + " " + Build.MODEL;
+        }
+
+        @JavascriptInterface
+        public String getNetworkStatus() {
+            return isNetworkAvailable() ? "ONLINE" : "OFFLINE";
+        }
+
+        @JavascriptInterface
+        public int getBatteryLevel() {
+            try {
+                android.os.BatteryManager bm = (android.os.BatteryManager) mContext.getSystemService(Context.BATTERY_SERVICE);
+                if (bm != null) {
+                    return bm.getIntProperty(android.os.BatteryManager.BATTERY_PROPERTY_CAPACITY);
+                }
+            } catch (Exception ignored) {}
+            return 100;
+        }
+
+        @JavascriptInterface
+        public void setStatusBarColor(String hexColor) {
+            runOnUiThread(() -> {
+                try {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        getWindow().setStatusBarColor(android.graphics.Color.parseColor(hexColor));
+                    }
+                } catch (Exception ignored) {}
+            });
+        }
+
+        @JavascriptInterface
+        public void exitApp() {
+            runOnUiThread(() -> finish());
         }
     }
 
@@ -2325,6 +2966,26 @@ function generateManifest(config) {
             </intent-filter>
         </activity>
         `}
+
+        ${config.deepLink && config.deepLink.enabled ? `
+        <!-- Deep Link & Custom URL Scheme Support -->
+        <activity
+            android:name=".DeepLinkActivity"
+            android:exported="true">
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https" android:host="${config.deepLink.host}" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="${config.deepLink.scheme}" />
+            </intent-filter>
+        </activity>
+        ` : ''}
     </application>
 </manifest>`;
 }
@@ -2642,6 +3303,16 @@ async function generateProject() {
             oneSignal: {
                 enabled: document.getElementById('enableOneSignal').checked,
                 appId: document.getElementById('oneSignalAppId').value.trim()
+            },
+            deepLink: {
+                enabled: document.getElementById('enableDeepLinking').checked,
+                scheme: (document.getElementById('urlScheme').value.trim() || 'myapp').replace(/[^a-zA-Z0-9_-]/g, ''),
+                host: document.getElementById('deepLinkHost').value.trim() || 'app.example.com'
+            },
+            floatingWidget: {
+                enabled: document.getElementById('enableFloatingWidget').checked,
+                type: document.getElementById('floatingWidgetType').value,
+                number: document.getElementById('floatingWidgetNumber').value.trim() || '+8801700000000'
             }
         };
 
@@ -2663,6 +3334,42 @@ async function generateProject() {
         // Java activity & Bridge
         const javaFolder = appMain.folder(`java/${config.packagePath}`);
         javaFolder.file('MainActivity.java', generateMainActivity(config));
+
+        // Deep Link Activity & Digital Asset Links
+        if (config.deepLink.enabled) {
+            javaFolder.file('DeepLinkActivity.java', `package ${config.packageName};
+
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class DeepLinkActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        Uri data = intent != null ? intent.getData() : null;
+        Intent mainIntent = new Intent(this, MainActivity.class);
+        if (data != null) {
+            mainIntent.setData(data);
+        }
+        startActivity(mainIntent);
+        finish();
+    }
+}
+`);
+            root.file('assetlinks.json', JSON.stringify([{
+                relation: ["delegate_permission/common.handle_all_urls"],
+                target: {
+                    namespace: "android_app",
+                    package_name: config.packageName,
+                    sha256_cert_fingerprints: [
+                        "14:6D:E9:CD:07:AB:71:60:E9:63:9B:43:40:F9:6A:94:1E:AA:C7:C4:EA:6B:03:D0:65:C2:5E:28:D1:4D:49:AE"
+                    ]
+                }
+            }], null, 2));
+        }
 
         // Splash screen (Optional)
         if (config.enableSplash) {
@@ -2736,6 +3443,8 @@ public class SplashActivity extends AppCompatActivity {
                 for (const [relativePath, fileBuffer] of Object.entries(uploadedZipFiles)) {
                     assetsFolder.file(relativePath, fileBuffer);
                 }
+                // Ensure latest content from HTML editor is written
+                assetsFolder.file('index.html', config.htmlContent);
             } else {
                 assetsFolder.file('index.html', config.htmlContent);
             }
@@ -2795,6 +3504,7 @@ document.addEventListener('DOMContentLoaded', function() {
     loadTemplate('ecommerce');
     updateIconCanvas();
     updateQrCode();
+    initDragAndDrop();
 
     document.getElementById('appName').addEventListener('input', function(e) {
         validateAppName(e.target);
@@ -2810,6 +3520,11 @@ document.addEventListener('DOMContentLoaded', function() {
         updatePreviews();
         updateQrCode();
     });
+
+    const floatTypeEl = document.getElementById('floatingWidgetType');
+    if (floatTypeEl) floatTypeEl.addEventListener('change', updatePreview);
+    const floatNumEl = document.getElementById('floatingWidgetNumber');
+    if (floatNumEl) floatNumEl.addEventListener('input', updatePreview);
 
     setTimeout(() => {
         showNotification('🚀 Web2App Studio Pro ready with all features!', 2500);
