@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="/css/style.css" />
     <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
 </head>
-<body>
+<body class="cyber-dark">
     <!-- Top Studio Header -->
     <header class="studio-header">
         <div class="studio-header-inner">
@@ -27,6 +27,9 @@
                 </div>
             </div>
             <div class="header-actions">
+                <button class="theme-switch-btn" id="themeSwitchBtn" onclick="toggleTheme()" title="Switch Cyber Dark / Light Mode">
+                    <span id="themeIcon">☀️</span> <span id="themeLabel">Light</span>
+                </button>
                 <div class="zoom-controller" title="Screen Density & Zoom Level">
                     <button class="zoom-btn" onclick="changeZoom(-0.05)" title="Zoom Out (আরও কন্টেন্ট দেখতে)">🔍−</button>
                     <span class="zoom-display" id="zoomDisplay" onclick="resetZoom()" title="Click to reset (90%)">90%</span>
@@ -57,11 +60,37 @@
 
     <div class="tool-container">
         <div class="converter-container">
-            <!-- Left Side: Sequential Numbered Steps (Step 1 to Step 10) -->
-            <div class="steps-column">
+            <!-- Left Side: Sequential Numbered Steps & 5-Stage Wizard -->
+            <div class="steps-column" id="stepsColumn">
                 
-                <!-- STEP 01: App Source & Ready Templates -->
-                <div class="step-card" id="step1">
+                <!-- Step Wizard Navigation Strip -->
+                <div class="wizard-nav-strip" id="wizardNavStrip">
+                    <button class="wizard-stage-tab active" id="wizardTab1" onclick="switchWizardStage(1)">
+                        <span class="wizard-tab-num">1</span>
+                        <span class="wizard-tab-label" data-i18n="wTab1">Source & Code</span>
+                    </button>
+                    <button class="wizard-stage-tab" id="wizardTab2" onclick="switchWizardStage(2)">
+                        <span class="wizard-tab-num">2</span>
+                        <span class="wizard-tab-label" data-i18n="wTab2">Brand & Icon</span>
+                    </button>
+                    <button class="wizard-stage-tab" id="wizardTab3" onclick="switchWizardStage(3)">
+                        <span class="wizard-tab-num">3</span>
+                        <span class="wizard-tab-label" data-i18n="wTab3">UX & Nav</span>
+                    </button>
+                    <button class="wizard-stage-tab" id="wizardTab4" onclick="switchWizardStage(4)">
+                        <span class="wizard-tab-num">4</span>
+                        <span class="wizard-tab-label" data-i18n="wTab4">Bridge & Perms</span>
+                    </button>
+                    <button class="wizard-stage-tab" id="wizardTab5" onclick="switchWizardStage(5)">
+                        <span class="wizard-tab-num">5</span>
+                        <span class="wizard-tab-label" data-i18n="wTab5">Export APK</span>
+                    </button>
+                </div>
+
+                <!-- STAGE 1: App Source & Code -->
+                <div class="wizard-stage-panel active" id="wizardStage1">
+                    <!-- STEP 01: App Source & Ready Templates -->
+                    <div class="step-card" id="step1">
                     <div class="step-header">
                         <span class="step-number-pill" data-i18n="pillStep1">STEP 01</span>
                         <h2>📝 <span data-i18n="step1Title">App Source & Ready Templates</span></h2>
@@ -211,10 +240,12 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> <!-- End of STAGE 1: Source & Code -->
 
-                <!-- STEP 02: App Identity & Package Details -->
-                <div class="step-card" id="step2">
+                <!-- STAGE 2: App Identity & Branding -->
+                <div class="wizard-stage-panel" id="wizardStage2">
+                    <!-- STEP 02: App Identity & Package Details -->
+                    <div class="step-card" id="step2">
                     <div class="step-header">
                         <span class="step-number-pill" data-i18n="pillStep2">STEP 02</span>
                         <h2>⚙️ <span data-i18n="step2Title">App Identity & Package Details</span></h2>
@@ -369,10 +400,12 @@
                         </div>
                         <div class="splash-preview" id="splashPreview"></div>
                     </div>
-                </div>
+                </div> <!-- End of STAGE 2: App Identity & Branding -->
 
-                <!-- STEP 04: Android Navigation & Screen UX -->
-                <div class="step-card" id="step4">
+                <!-- STAGE 3: Android Navigation & Screen UX -->
+                <div class="wizard-stage-panel" id="wizardStage3">
+                    <!-- STEP 04: Android Navigation & Screen UX -->
+                    <div class="step-card" id="step4">
                     <div class="step-header">
                         <span class="step-number-pill" data-i18n="pillStep4">STEP 04</span>
                         <h2>🧭 <span data-i18n="step4Title">Android Navigation & Screen UX</span></h2>
@@ -482,10 +515,12 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> <!-- End of STAGE 3: Android Navigation & Screen UX -->
 
-                <!-- STEP 06: Native Android JavaScript Bridge -->
-                <div class="step-card" id="step6">
+                <!-- STAGE 4: Bridge, Security & Permissions -->
+                <div class="wizard-stage-panel" id="wizardStage4">
+                    <!-- STEP 06: Native Android JavaScript Bridge -->
+                    <div class="step-card" id="step6">
                     <div class="step-header">
                         <span class="step-number-pill" data-i18n="pillStep6">STEP 06</span>
                         <h2>⚡ <span data-i18n="step6Title">Web-to-Native JavaScript Bridge</span> <span class="section-badge new">AndroidBridge</span></h2>
@@ -684,10 +719,12 @@
                             </div>
                         </label>
                     </div>
-                </div>
+                </div> <!-- End of STAGE 4: Bridge, Security & Permissions -->
 
-                <!-- STEP 09: Monetization & Push Notifications (Optional) -->
-                <div class="step-card" id="step9">
+                <!-- STAGE 5: Monetization, Build & Export -->
+                <div class="wizard-stage-panel" id="wizardStage5">
+                    <!-- STEP 09: Monetization & Push Notifications (Optional) -->
+                    <div class="step-card" id="step9">
                     <div class="step-header">
                         <span class="step-number-pill optional" data-i18n="pillStep9">STEP 09</span>
                         <h2>💰 <span data-i18n="step9Title">Monetization & Push Notifications</span> <span class="section-badge">Optional</span></h2>
@@ -767,6 +804,24 @@
                         <div class="spinner"></div>
                         <p style="font-weight: 700; color: var(--secondary);" data-i18n="loadingText">Generating complete Android Studio project with all features & icons...</p>
                     </div>
+                </div> <!-- End of STAGE 5: Monetization, Build & Export -->
+
+                <!-- Wizard Navigation Footer Controls (Previous / Next / View All) -->
+                <div class="wizard-footer-controls">
+                    <button class="btn btn-secondary btn-wizard" id="wizardPrevBtn" onclick="navigateWizard(-1)" disabled>
+                        ← <span data-i18n="btnPrevStage">Previous Stage</span>
+                    </button>
+                    
+                    <div class="wizard-progress-info">
+                        <span class="wizard-stage-counter" id="wizardStageCounter">Stage 1 of 5: Source & Code</span>
+                        <button class="view-all-toggle-btn" id="toggleAllStepsBtn" onclick="toggleAllStepsView()">
+                            <span id="toggleAllStepsText" data-i18n="viewAllSteps">👁️ View All Steps</span>
+                        </button>
+                    </div>
+
+                    <button class="btn btn-primary btn-wizard" id="wizardNextBtn" onclick="navigateWizard(1)">
+                        <span data-i18n="btnNextStage">Next Stage</span> →
+                    </button>
                 </div>
 
             </div>

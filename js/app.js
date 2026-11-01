@@ -189,7 +189,25 @@ const translations = {
         qrDesc: "Scan with your phone camera to test this web application directly on your device before downloading the Android project.",
         fileStructureTitle: "Generated Project Structure",
         buildHelpTitle: "💡 How to Build APK:",
-        buildHelpSteps: "1. Click Generate Android Project to download the ZIP.<br>2. Extract the ZIP on your PC.<br>3. Open Android Studio and select File > Open on the extracted folder.<br>4. Let Gradle sync, then click Build > Build Bundle(s) / APK(s) > Build APK(s).<br><em>No Android Studio? Use our included GitHub Actions workflow for 100% free cloud APK compilation!</em>"
+        buildHelpSteps: "1. Click Generate Android Project to download the ZIP.<br>2. Extract the ZIP on your PC.<br>3. Open Android Studio and select File > Open on the extracted folder.<br>4. Let Gradle sync, then click Build > Build Bundle(s) / APK(s) > Build APK(s).<br><em>No Android Studio? Use our included GitHub Actions workflow for 100% free cloud APK compilation!</em>",
+        wTab1: "Source & Code",
+        wTab2: "Brand & Icon",
+        wTab3: "UX & Nav",
+        wTab4: "Bridge & Perms",
+        wTab5: "Export APK",
+        btnPrevStage: "Previous Stage",
+        btnNextStage: "Next Stage",
+        viewAllSteps: "👁️ View All Steps",
+        viewWizardSteps: "📑 View Wizard Stages",
+        stagePrefix: "Stage",
+        stageOf: "of",
+        stage1Name: "Source & Code",
+        stage2Name: "Brand & Identity",
+        stage3Name: "Navigation & UX",
+        stage4Name: "Bridge & Security",
+        stage5Name: "Build & Export",
+        themeDark: "Dark",
+        themeLight: "Light"
     },
     bn: {
         headerSubtitle: "একটি ওয়েবসাইট থেকেই যেকোনো মোবাইল অ্যাপ ডিজাইন, কোড ও বিল্ড করুন",
@@ -331,7 +349,25 @@ const translations = {
         qrDesc: "আপনার ফোনের ক্যামেরা দিয়ে কিউআর কোড স্ক্যান করে অ্যাপটি সরাসরি চালিয়ে দেখুন।",
         fileStructureTitle: "তৈরিকৃত প্রজেক্ট ফাইলের স্ট্রাকচার",
         buildHelpTitle: "💡 কীভাবে APK বিল্ড করবেন:",
-        buildHelpSteps: "১. 'অ্যান্ড্রয়েড প্রজেক্ট জিপ তৈরি করুন' বাটনে ক্লিক করে ZIP ডাউনলোড করুন।<br>২. আপনার কম্পিউটারে ZIP ফাইলটি আনজিপ (Extract) করুন।<br>৩. Android Studio সফটওয়্যারটি ওপেন করে File > Open দিয়ে ফোল্ডারটি ওপেন করুন।<br>৪. Gradle সিঙ্ক শেষ হলে মেনু থেকে Build > Build Bundle(s) / APK(s) > Build APK(s) ক্লিক করুন।<br><em>কম্পিউটার না থাকলেও চিন্তার কারণ নেই! আমাদের ফাইলে <strong>GitHub Actions</strong> দেওয়া আছে যা গিটহাবে আপলোড করলেই ফ্রিতে সরাসরি APK বিল্ড করে দেয়!</em>"
+        buildHelpSteps: "১. 'অ্যান্ড্রয়েড প্রজেক্ট জিপ তৈরি করুন' বাটনে ক্লিক করে ZIP ডাউনলোড করুন।<br>২. আপনার কম্পিউটারে ZIP ফাইলটি আনজিপ (Extract) করুন।<br>৩. Android Studio সফটওয়্যারটি ওপেন করে File > Open দিয়ে ফোল্ডারটি ওপেন করুন।<br>৪. Gradle সিঙ্ক শেষ হলে মেনু থেকে Build > Build Bundle(s) / APK(s) > Build APK(s) ক্লিক করুন।<br><em>কম্পিউটার না থাকলেও চিন্তার কারণ নেই! আমাদের ফাইলে <strong>GitHub Actions</strong> দেওয়া আছে যা গিটহাবে আপলোড করলেই ফ্রিতে সরাসরি APK বিল্ড করে দেয়!</em>",
+        wTab1: "সোর্স ও কোড",
+        wTab2: "ব্র্যান্ড ও আইকন",
+        wTab3: "ইউআই ও ন্যাভ",
+        wTab4: "ব্রিজ ও পারমিশন",
+        wTab5: "বিল্ড ও এক্সপোর্ট",
+        btnPrevStage: "পূর্ববর্তী ধাপ",
+        btnNextStage: "পরবর্তী ধাপ",
+        viewAllSteps: "👁️ সব ধাপ একসাথে",
+        viewWizardSteps: "📑 উইজার্ড মোড",
+        stagePrefix: "ধাপ",
+        stageOf: "/",
+        stage1Name: "সোর্স ও কোড",
+        stage2Name: "ব্র্যান্ড ও পরিচয়",
+        stage3Name: "ন্যাভিগেশন ও ইউএক্স",
+        stage4Name: "ব্রিজ ও সিকিউরিটি",
+        stage5Name: "বিল্ড ও এক্সপোর্ট",
+        themeDark: "ডার্ক",
+        themeLight: "লাইট"
     }
 };
 
@@ -349,6 +385,15 @@ function switchLanguage(lang) {
             el.innerHTML = dict[key];
         }
     });
+
+    if (typeof updateWizardControls === 'function') {
+        updateWizardControls();
+    }
+    const themeLabel = document.getElementById('themeLabel');
+    if (themeLabel) {
+        const isDark = document.body.classList.contains('cyber-dark');
+        themeLabel.textContent = isDark ? (dict.themeLight || 'Light') : (dict.themeDark || 'Dark');
+    }
 
     showNotification(lang === 'bn' ? '🇧🇩 ভাষা পরিবর্তন করা হয়েছে: বাংলা' : '🇬🇧 Language changed: English', 2000);
 }
@@ -3533,9 +3578,133 @@ window.applyZoom = applyZoom;
 window.changeZoom = changeZoom;
 window.resetZoom = resetZoom;
 
+// Theme Controller (Cyber Dark Mode & Light Mode)
+let currentTheme = localStorage.getItem('web2app_theme') || 'cyber-dark';
+
+function applyTheme(theme) {
+    currentTheme = theme;
+    try {
+        localStorage.setItem('web2app_theme', theme);
+    } catch (e) {}
+
+    const isDark = theme === 'cyber-dark';
+    document.body.classList.toggle('cyber-dark', isDark);
+
+    const themeIcon = document.getElementById('themeIcon');
+    const themeLabel = document.getElementById('themeLabel');
+    if (themeIcon) themeIcon.textContent = isDark ? '☀️' : '🌙';
+    if (themeLabel) {
+        const dict = translations[currentLanguage] || translations.en;
+        themeLabel.textContent = isDark ? (dict.themeLight || 'Light') : (dict.themeDark || 'Dark');
+    }
+}
+
+function toggleTheme() {
+    const nextTheme = currentTheme === 'cyber-dark' ? 'light' : 'cyber-dark';
+    applyTheme(nextTheme);
+    showNotification(nextTheme === 'cyber-dark' ? '🌙 Cyber Dark Mode enabled' : '☀️ Light Mode enabled', 1500);
+}
+
+window.applyTheme = applyTheme;
+window.toggleTheme = toggleTheme;
+
+// 5-Stage Step Wizard Navigation Controller
+let currentWizardStage = 1;
+let isAllStepsView = false;
+
+const stageNames = [
+    { en: 'Source & Code', bn: 'সোর্স ও কোড' },
+    { en: 'Brand & Identity', bn: 'ব্র্যান্ড ও পরিচয়' },
+    { en: 'Navigation & UX', bn: 'ন্যাভিগেশন ও ইউএক্স' },
+    { en: 'Bridge & Security', bn: 'ব্রিজ ও সিকিউরিটি' },
+    { en: 'Build & Export', bn: 'বিল্ড ও এক্সপোর্ট' }
+];
+
+function switchWizardStage(stageIndex) {
+    if (stageIndex < 1 || stageIndex > 5) return;
+    currentWizardStage = stageIndex;
+    isAllStepsView = false;
+
+    const stepsColumn = document.getElementById('stepsColumn');
+    if (stepsColumn) stepsColumn.classList.remove('show-all');
+
+    // Update active stage tabs and panels
+    for (let i = 1; i <= 5; i++) {
+        const tab = document.getElementById(`wizardTab${i}`);
+        const panel = document.getElementById(`wizardStage${i}`);
+        if (tab) tab.classList.toggle('active', i === stageIndex);
+        if (panel) panel.classList.toggle('active', i === stageIndex);
+    }
+
+    updateWizardControls();
+
+    const wizardNavStrip = document.getElementById('wizardNavStrip');
+    if (wizardNavStrip) {
+        wizardNavStrip.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+}
+
+function navigateWizard(direction) {
+    const targetStage = currentWizardStage + direction;
+    if (targetStage >= 1 && targetStage <= 5) {
+        switchWizardStage(targetStage);
+    }
+}
+
+function toggleAllStepsView() {
+    isAllStepsView = !isAllStepsView;
+    const stepsColumn = document.getElementById('stepsColumn');
+    const toggleText = document.getElementById('toggleAllStepsText');
+    const dict = translations[currentLanguage] || translations.en;
+
+    if (stepsColumn) {
+        stepsColumn.classList.toggle('show-all', isAllStepsView);
+    }
+
+    if (toggleText) {
+        toggleText.textContent = isAllStepsView ? (dict.viewWizardSteps || '📑 Wizard Mode') : (dict.viewAllSteps || '👁️ View All Steps');
+    }
+
+    showNotification(isAllStepsView ? '👁️ All 10 Steps expanded' : '📑 Step Wizard Mode active', 1500);
+}
+
+function updateWizardControls() {
+    const prevBtn = document.getElementById('wizardPrevBtn');
+    const nextBtn = document.getElementById('wizardNextBtn');
+    const counter = document.getElementById('wizardStageCounter');
+    const dict = translations[currentLanguage] || translations.en;
+
+    if (prevBtn) prevBtn.disabled = currentWizardStage <= 1;
+    if (nextBtn) {
+        if (currentWizardStage >= 5) {
+            nextBtn.innerHTML = `🚀 <span>${dict.pillStep10 ? dict.step10Title : 'Build App'}</span>`;
+            nextBtn.onclick = () => {
+                const step10 = document.getElementById('step10');
+                if (step10) step10.scrollIntoView({ behavior: 'smooth' });
+            };
+        } else {
+            nextBtn.innerHTML = `<span>${dict.btnNextStage || 'Next Stage'}</span> →`;
+            nextBtn.onclick = () => navigateWizard(1);
+        }
+    }
+
+    if (counter) {
+        const stageInfo = stageNames[currentWizardStage - 1] || stageNames[0];
+        const stageTitle = currentLanguage === 'bn' ? stageInfo.bn : stageInfo.en;
+        counter.textContent = `${dict.stagePrefix || 'Stage'} ${currentWizardStage} ${dict.stageOf || 'of'} 5: ${stageTitle}`;
+    }
+}
+
+window.switchWizardStage = switchWizardStage;
+window.navigateWizard = navigateWizard;
+window.toggleAllStepsView = toggleAllStepsView;
+window.updateWizardControls = updateWizardControls;
+
 // Initialization on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', function() {
+    applyTheme(currentTheme);
     applyZoom(currentZoom);
+    updateWizardControls();
     loadTemplate('ecommerce');
     updateIconCanvas();
     updateQrCode();
@@ -3562,6 +3731,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (floatNumEl) floatNumEl.addEventListener('input', updatePreview);
 
     setTimeout(() => {
-        showNotification('🚀 Web2App Studio Pro ready with all features!', 2500);
+        showNotification('🚀 Web2App Studio Pro ready with Cyber Dark & Step Wizard!', 2500);
     }, 600);
 });
