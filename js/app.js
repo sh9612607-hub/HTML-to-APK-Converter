@@ -2,6 +2,42 @@
 let currentLanguage = 'en';
 let currentSourceMode = 'editor'; // 'editor' | 'upload' | 'url'
 let uploadedZipFiles = null; // Map of { relativePath: ArrayBuffer }
+let uploadedZipBlobUrls = {}; // Map of { relativePath: blobUrl }
+
+function revokeUploadedZipBlobUrls() {
+    for (const url of Object.values(uploadedZipBlobUrls)) {
+        try { URL.revokeObjectURL(url); } catch (e) {}
+    }
+    uploadedZipBlobUrls = {};
+}
+
+function getMimeType(filePath) {
+    const ext = filePath.split('.').pop().toLowerCase();
+    const map = {
+        'html': 'text/html',
+        'htm': 'text/html',
+        'css': 'text/css',
+        'js': 'text/javascript',
+        'json': 'application/json',
+        'png': 'image/png',
+        'jpg': 'image/jpeg',
+        'jpeg': 'image/jpeg',
+        'gif': 'image/gif',
+        'svg': 'image/svg+xml',
+        'webp': 'image/webp',
+        'ico': 'image/x-icon',
+        'woff': 'font/woff',
+        'woff2': 'font/woff2',
+        'ttf': 'font/ttf',
+        'otf': 'font/otf',
+        'eot': 'application/vnd.ms-fontobject',
+        'mp3': 'audio/mpeg',
+        'wav': 'audio/wav',
+        'mp4': 'video/mp4',
+        'webm': 'video/webm'
+    };
+    return map[ext] || 'application/octet-stream';
+}
 
 // Icon Studio State
 let iconShape = 'squircle';
@@ -927,6 +963,9 @@ function loadTemplate(tplKey) {
     const tpl = appTemplates[tplKey];
     if (!tpl) return;
 
+    uploadedZipFiles = null;
+    revokeUploadedZipBlobUrls();
+
     document.getElementById('appName').value = tpl.appName;
     document.getElementById('packageName').value = tpl.packageName;
     document.getElementById('primaryColor').value = tpl.primaryColor;
@@ -1250,20 +1289,16 @@ async function handleFileUpload(event) {
         statusDiv.innerHTML = `<span style="color: #0284c7;">⏳ Unpacking ZIP: <strong>${file.name}</strong>...</span>`;
         try {
             const zip = await JSZip.loadAsync(file);
-            uploadedZipFiles = {};
-            let indexHtmlFound = false;
+            const rawFiles = {};
             let fileCount = 0;
             const promises = [];
 
             zip.forEach((relativePath, zipEntry) => {
                 if (!zipEntry.dir) {
                     fileCount++;
-                    if (relativePath.toLowerCase() === 'index.html' || relativePath.toLowerCase().endsWith('/index.html')) {
-                        indexHtmlFound = true;
-                    }
                     promises.push(
                         zipEntry.async('arraybuffer').then(buf => {
-                            uploadedZipFiles[relativePath] = buf;
+                            rawFiles[relativePath] = buf;
                         })
                     );
                 }
@@ -1271,24 +1306,79 @@ async function handleFileUpload(event) {
 
             await Promise.all(promises);
 
+            // Auto-detect if index.html is nested inside a parent folder (e.g. zipped folder "Project/index.html")
+            let indexKey = Object.keys(rawFiles).find(p => p.toLowerCase() === 'index.html');
+            let prefixToStrip = '';
+
+            if (!indexKey) {
+                const candidate = Object.keys(rawFiles).find(p => p.toLowerCase().endsWith('/index.html') || p.toLowerCase().endsWith('/index.htm'));
+                if (candidate) {
+                    const lastSlash = candidate.lastIndexOf('/');
+                    prefixToStrip = candidate.substring(0, lastSlash + 1);
+                }
+            }
+
+            uploadedZipFiles = {};
+            revokeUploadedZipBlobUrls();
+
+            for (const [rawPath, buffer] of Object.entries(rawFiles)) {
+                if (rawPath.startsWith('__MACOSX/') || rawPath.includes('/.DS_Store')) {
+                    continue;
+                }
+                let cleanPath = rawPath;
+                if (prefixToStrip && rawPath.startsWith(prefixToStrip)) {
+                    cleanPath = rawPath.substring(prefixToStrip.length);
+                }
+                if (!cleanPath) continue;
+
+                uploadedZipFiles[cleanPath] = buffer;
+            }
+
+            // Create Blob URLs for previewing all assets (CSS, JS, images, fonts)
+            for (const [cleanPath, buffer] of Object.entries(uploadedZipFiles)) {
+                if (cleanPath.toLowerCase().endsWith('.css') || cleanPath.toLowerCase().endsWith('.html')) continue;
+                const mime = getMimeType(cleanPath);
+                const blob = new Blob([buffer], { type: mime });
+                uploadedZipBlobUrls[cleanPath] = URL.createObjectURL(blob);
+            }
+
+            // Resolve CSS files to blob URLs (including background url references)
+            for (const [cleanPath, buffer] of Object.entries(uploadedZipFiles)) {
+                if (!cleanPath.toLowerCase().endsWith('.css')) continue;
+                let cssText = new TextDecoder().decode(buffer);
+                for (const [assetPath, blobUrl] of Object.entries(uploadedZipBlobUrls)) {
+                    const esc = assetPath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                    const cssUrlRegex = new RegExp(`url\\(\\s*["']?(?:\\.\\/|\\/)?(?:[^)]*\\/)?${esc}(?:[?#][^"']*)?["']?\\s*\\)`, 'gi');
+                    cssText = cssText.replace(cssUrlRegex, `url("${blobUrl}")`);
+                }
+                const cssBlob = new Blob([cssText], { type: 'text/css' });
+                uploadedZipBlobUrls[cleanPath] = URL.createObjectURL(cssBlob);
+            }
+
+            // Load index.html content into the editor
+            let foundIndex = false;
             for (const [path, buffer] of Object.entries(uploadedZipFiles)) {
-                if (path.toLowerCase().endsWith('index.html')) {
+                if (path.toLowerCase() === 'index.html' || path.toLowerCase().endsWith('/index.html')) {
                     const text = new TextDecoder().decode(buffer);
                     document.getElementById('htmlEditor').value = text;
+                    foundIndex = true;
                     break;
                 }
             }
 
-            statusDiv.innerHTML = `<span style="color: #10b981; font-weight: 700;">✅ Loaded ZIP with ${fileCount} files${indexHtmlFound ? ' (index.html found)' : ''}!</span>`;
+            const prefixNotice = prefixToStrip ? ` (auto-resolved from folder "${prefixToStrip.replace(/\/$/, '')}")` : '';
+            statusDiv.innerHTML = `<span style="color: #10b981; font-weight: 700;">✅ Loaded ZIP with ${fileCount} files${foundIndex ? ' (index.html found)' : ''}!</span>`;
             updatePreview();
-            showNotification(`📦 ${file.name} extracted successfully with ${fileCount} files!`, 3500);
+            showNotification(`📦 ${file.name} extracted successfully with ${fileCount} files${prefixNotice}!`, 4000);
         } catch (err) {
             console.error('ZIP read error:', err);
             statusDiv.innerHTML = `<span style="color: #ef4444;">❌ Failed to read ZIP file: ${err.message}</span>`;
             uploadedZipFiles = null;
+            revokeUploadedZipBlobUrls();
         }
     } else {
         uploadedZipFiles = null;
+        revokeUploadedZipBlobUrls();
         const reader = new FileReader();
         reader.onload = function(e) {
             document.getElementById('htmlEditor').value = e.target.result;
@@ -1555,6 +1645,23 @@ window.AndroidBridge = {
         const iframeDoc = tempIframe.contentDocument;
         iframeDoc.open();
         let contentToWrite = htmlContent;
+
+        // If files from uploaded ZIP are present, rewrite relative links, scripts & images to Blob URLs
+        if (uploadedZipFiles && Object.keys(uploadedZipBlobUrls).length > 0) {
+            for (const [relPath, blobUrl] of Object.entries(uploadedZipBlobUrls)) {
+                if (relPath.toLowerCase() === 'index.html') continue;
+                const esc = relPath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                
+                // Matches (src|href|poster)="css/style.css", "./css/style.css" or "/css/style.css"
+                const attrRegex = new RegExp(`(src|href|poster)=["'](?:\\.\\/|\\/)?(?:[^"']*\\/)?${esc}(?:[?#][^"']*)?["']`, 'gi');
+                contentToWrite = contentToWrite.replace(attrRegex, (m, attr) => `${attr}="${blobUrl}"`);
+                
+                // Also match inline CSS url(...) in style attributes or <style> tags
+                const cssRegex = new RegExp(`url\\(\\s*["']?(?:\\.\\/|\\/)?(?:[^)]*\\/)?${esc}(?:[?#][^"']*)?["']?\\s*\\)`, 'gi');
+                contentToWrite = contentToWrite.replace(cssRegex, `url("${blobUrl}")`);
+            }
+        }
+
         if (contentToWrite.includes('<head>')) {
             contentToWrite = contentToWrite.replace('<head>', '<head>' + bridgePolyfill);
         } else {
