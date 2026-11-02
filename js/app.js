@@ -163,6 +163,10 @@ const translations = {
         userAgentLabel: "Custom User-Agent Identifier",
         secPermissionsTitle: "Android App Permissions",
         secMonetizeTitle: "Monetization & Push Notifications",
+        btnBuildApk: "Build & Download Direct APK",
+        btnBuildApkSub: "Compile, sign with v1+v2 Keystore, and download a 100% installable Android APK directly from this website!",
+        modalApkTitle: "Direct APK Compiler & Signer",
+        navDirectApk: "Direct APK",
         btnGenAndroid: "Generate Android Project (ZIP)",
         btnDownloadHtml: "Download Single HTML App",
         btnDownloadPwa: "Download PWA Package",
@@ -323,6 +327,10 @@ const translations = {
         userAgentLabel: "কাস্টম User-Agent আইডেন্টিফায়ার",
         secPermissionsTitle: "অ্যান্ড্রয়েড অ্যাপ পারমিশনসমূহ",
         secMonetizeTitle: "বিজ্ঞাপন (AdMob) ও পুশ নোটিফিকেশন",
+        btnBuildApk: "সরাসরি APK তৈরি ও ডাউনলোড করুন",
+        btnBuildApkSub: "অ্যান্ড্রয়েড স্টুডিও ছাড়াই সরাসরি সাইন করা ইনস্টলযোগ্য APK ডাউনলোড করুন!",
+        modalApkTitle: "সরাসরি APK কম্পাইলার ও সাইনার",
+        navDirectApk: "সরাসরি APK",
         btnGenAndroid: "অ্যান্ড্রয়েড প্রজেক্ট জিপ তৈরি করুন (ZIP)",
         btnDownloadHtml: "সিঙ্গেল HTML অ্যাপ ডাউনলোড করুন",
         btnDownloadPwa: "PWA প্যাকেজ ডাউনলোড করুন",
@@ -3862,6 +3870,211 @@ window.simulateBackPress = simulateBackPress;
 window.toggleDeepLinkInputs = toggleDeepLinkInputs;
 window.toggleAdMobInputs = toggleAdMobInputs;
 window.toggleOneSignalInputs = toggleOneSignalInputs;
+// Direct APK Compiler and Instant Downloader
+async function buildDirectApk() {
+    const appNameInput = document.getElementById('appName');
+    const packageNameInput = document.getElementById('packageName');
+
+    if (!validateAppName(appNameInput)) {
+        showNotification("❌ Please provide a valid App Name!", 3000);
+        return;
+    }
+    if (!validatePackageName(packageNameInput)) {
+        showNotification("❌ Please provide a valid Package ID (e.g. com.company.app)!", 3000);
+        return;
+    }
+
+    const appName = appNameInput.value.trim() || 'MyMobileApp';
+    const packageName = packageNameInput.value.trim() || 'com.example.mymobileapp';
+    const versionName = document.getElementById('versionName').value.trim() || '1.0.0';
+    const versionCode = parseInt(document.getElementById('versionCode').value) || 1;
+    const themeColor = document.getElementById('primaryColor').value || '#10b981';
+    const orientation = document.getElementById('screenOrientation').value || 'portrait';
+    const enableVibration = document.getElementById('permissionVibrate') ? document.getElementById('permissionVibrate').checked : true;
+    const enableFileChooser = document.getElementById('enableFileChooser') ? document.getElementById('enableFileChooser').checked : true;
+    const enableDownloadManager = document.getElementById('enableDownloadManager') ? document.getElementById('enableDownloadManager').checked : true;
+    const splashTitle = document.getElementById('splashText') ? document.getElementById('splashText').value.trim() : appName;
+    const splashBgColor = document.getElementById('primaryColor').value || '#0f172a';
+
+    let html = '';
+    let url = '';
+
+    if (currentSourceMode === 'url') {
+        url = document.getElementById('webUrl').value.trim();
+        if (!url || !url.startsWith('http')) {
+            showNotification("❌ Please enter a valid Website URL starting with http:// or https://", 3500);
+            return;
+        }
+    } else {
+        html = document.getElementById('htmlEditor').value.trim();
+    }
+
+    // Convert any uploaded zip files into transferrable array
+    const filesArray = [];
+    if (uploadedZipFiles) {
+        for (const [filePath, buffer] of Object.entries(uploadedZipFiles)) {
+            if (filePath.toLowerCase() === 'index.html') continue;
+            let binary = '';
+            const bytes = new Uint8Array(buffer);
+            const len = bytes.byteLength;
+            for (let i = 0; i < len; i++) {
+                binary += String.fromCharCode(bytes[i]);
+            }
+            filesArray.push({
+                name: filePath,
+                content: btoa(binary),
+                isBase64: true
+            });
+        }
+    }
+
+    // Reset Modal UI
+    openModal('apkBuildModal');
+    const fill = document.getElementById('apkProgressFill');
+    const statusText = document.getElementById('apkStatusText');
+    const percentText = document.getElementById('apkPercentText');
+    const successBox = document.getElementById('apkSuccessBox');
+    
+    if (successBox) successBox.style.display = 'none';
+    if (fill) {
+        fill.style.width = '10%';
+        fill.style.background = 'linear-gradient(90deg, #10b981, #06b6d4)';
+    }
+    if (percentText) percentText.textContent = '10%';
+    if (statusText) statusText.textContent = '📦 Packaging Web App & Assets...';
+
+    const steps = [
+        document.getElementById('apkStep1'),
+        document.getElementById('apkStep2'),
+        document.getElementById('apkStep3'),
+        document.getElementById('apkStep4')
+    ];
+    const statuses = [
+        document.getElementById('apkStep1Status'),
+        document.getElementById('apkStep2Status'),
+        document.getElementById('apkStep3Status'),
+        document.getElementById('apkStep4Status')
+    ];
+
+    steps.forEach(s => { if (s) s.classList.remove('active', 'done'); });
+    statuses.forEach(st => { if (st) st.textContent = '⏳'; });
+
+    if (steps[0]) steps[0].classList.add('active');
+
+    // Step 1 animation
+    await new Promise(r => setTimeout(r, 350));
+    if (steps[0]) {
+        steps[0].classList.remove('active');
+        steps[0].classList.add('done');
+    }
+    if (statuses[0]) statuses[0].textContent = '✅';
+    if (fill) fill.style.width = '35%';
+    if (percentText) percentText.textContent = '35%';
+    if (statusText) statusText.textContent = '⚙️ Injecting Chromium WebView Core & Bridge...';
+
+    // Step 2 animation
+    if (steps[1]) steps[1].classList.add('active');
+    await new Promise(r => setTimeout(r, 450));
+    if (steps[1]) {
+        steps[1].classList.remove('active');
+        steps[1].classList.add('done');
+    }
+    if (statuses[1]) statuses[1].textContent = '✅';
+    if (fill) fill.style.width = '65%';
+    if (percentText) percentText.textContent = '65%';
+    if (statusText) statusText.textContent = '🔐 Cryptographic Signing with v1 + v2/v3 Keystore...';
+
+    // Step 3 animation
+    if (steps[2]) steps[2].classList.add('active');
+    await new Promise(r => setTimeout(r, 400));
+    if (steps[2]) {
+        steps[2].classList.remove('active');
+        steps[2].classList.add('done');
+    }
+    if (statuses[2]) statuses[2].textContent = '✅';
+    if (fill) fill.style.width = '85%';
+    if (percentText) percentText.textContent = '85%';
+    if (statusText) statusText.textContent = '🚀 Compiling Android Binary Package (.apk)...';
+    if (steps[3]) steps[3].classList.add('active');
+
+    try {
+        const payload = {
+            appName,
+            packageName,
+            versionName,
+            versionCode,
+            url,
+            html,
+            files: filesArray,
+            themeColor,
+            orientation,
+            enableVibration,
+            enableFileChooser,
+            enableDownloadManager,
+            splashTitle,
+            splashBgColor
+        };
+
+        const response = await fetch('/api/build-apk', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            const errData = await response.json().catch(() => ({}));
+            throw new Error(errData.error || errData.details || 'Server build failed.');
+        }
+
+        const blob = await response.blob();
+        const safeName = (appName.toLowerCase().replace(/[^a-z0-9_-]/g, '_') || 'app') + '-release.apk';
+        const downloadUrl = URL.createObjectURL(blob);
+
+        // Complete progress
+        if (steps[3]) {
+            steps[3].classList.remove('active');
+            steps[3].classList.add('done');
+        }
+        if (statuses[3]) statuses[3].textContent = '✅';
+        if (fill) fill.style.width = '100%';
+        if (percentText) percentText.textContent = '100%';
+        if (statusText) statusText.textContent = '🎉 Build Successful! Downloading APK...';
+
+        // Populate success box
+        const appNameEl = document.getElementById('metaAppName');
+        if (appNameEl) appNameEl.textContent = appName;
+        const pkgEl = document.getElementById('metaPackageId');
+        if (pkgEl) pkgEl.textContent = packageName;
+
+        const manualBtn = document.getElementById('apkManualDownloadBtn');
+        if (manualBtn) {
+            manualBtn.href = downloadUrl;
+            manualBtn.download = safeName;
+        }
+        if (successBox) successBox.style.display = 'block';
+
+        // Auto trigger download
+        const a = document.createElement('a');
+        a.href = downloadUrl;
+        a.download = safeName;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+        showNotification(`🎉 ${safeName} downloaded! Ready to install on Android.`, 4500);
+
+    } catch (err) {
+        console.error('APK build error:', err);
+        if (statusText) statusText.textContent = '❌ ' + (err.message || 'Build failed');
+        if (percentText) percentText.textContent = 'Error';
+        if (fill) fill.style.background = '#ef4444';
+        showNotification('❌ APK Build error: ' + err.message, 5000);
+    }
+}
+
+window.buildDirectApk = buildDirectApk;
 window.generateProject = generateProject;
 window.exportSingleHtml = exportSingleHtml;
 window.exportPwaZip = exportPwaZip;

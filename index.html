@@ -51,7 +51,10 @@
                 <button class="header-quick-btn" onclick="openModal('keystoreModal')">
                     🔐 <span data-i18n="navKeystore">Keystore Guide</span>
                 </button>
-                <button class="header-quick-btn highlight" onclick="goToStep10()">
+                <button class="header-quick-btn highlight" onclick="buildDirectApk()" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                    ⚡ <span data-i18n="navDirectApk">Direct APK</span>
+                </button>
+                <button class="header-quick-btn" onclick="goToStep10()">
                     🚀 <span data-i18n="navGenerate">Generate App</span>
                 </button>
             </div>
@@ -783,6 +786,18 @@
                     </div>
 
                     <div class="action-buttons-group" style="margin-top: 0;">
+                        <!-- Featured Hero Action: Direct APK Compilation -->
+                        <div class="direct-apk-hero-card">
+                            <div class="direct-apk-info">
+                                <div class="direct-apk-badge">⚡ INSTANT ON-DEVICE INSTALL</div>
+                                <h3 class="direct-apk-title">📱 <span data-i18n="btnBuildApk">Build & Download Direct APK</span></h3>
+                                <p class="direct-apk-sub" data-i18n="btnBuildApkSub">Compile, sign with v1+v2 Keystore, and download a 100% installable Android APK directly from this website!</p>
+                            </div>
+                            <button class="btn btn-apk-hero" id="buildApkBtn" onclick="buildDirectApk()">
+                                🚀 <span data-i18n="btnBuildApk">Build & Download Direct APK</span>
+                            </button>
+                        </div>
+
                         <div class="primary-actions-row">
                             <button class="btn btn-primary" id="generateBtn" onclick="generateProject()">
                                 ⚡ <span data-i18n="btnGenAndroid">Generate Android Project (ZIP)</span>
@@ -1036,6 +1051,118 @@ keytool -genkey -v -keystore release-key.jks -alias my-app-key -keyalg RSA -keys
             <div style="margin-top: 1.25rem; display: flex; justify-content: space-between; align-items: center;">
                 <button class="btn btn-primary btn-sm" onclick="runHealthAudit()">🔄 Re-Run Audit</button>
                 <button class="btn btn-secondary btn-sm" onclick="closeModal('auditModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 5: Direct APK Compiler Progress & Installation Guide -->
+    <div class="modal-overlay" id="apkBuildModal">
+        <div class="modal-content" style="max-width: 640px;">
+            <div class="modal-header">
+                <h3>⚡ <span data-i18n="modalApkTitle">Direct APK Compiler & Signer</span></h3>
+                <button class="modal-close" onclick="closeModal('apkBuildModal')">&times;</button>
+            </div>
+
+            <!-- Animated Status & Progress -->
+            <div class="apk-build-body">
+                <div class="apk-progress-container">
+                    <div class="apk-progress-bar">
+                        <div class="apk-progress-fill" id="apkProgressFill"></div>
+                    </div>
+                    <div class="apk-status-row">
+                        <span id="apkStatusText">Initializing compiler engine...</span>
+                        <span id="apkPercentText" style="font-weight: 700; color: var(--primary);">0%</span>
+                    </div>
+                </div>
+
+                <!-- Step-by-Step Compilation Pipeline -->
+                <div class="apk-pipeline-list">
+                    <div class="apk-pipeline-item" id="apkStep1">
+                        <div class="pipeline-icon">📦</div>
+                        <div class="pipeline-content">
+                            <div class="pipeline-title">Packaging Web App & Assets</div>
+                            <div class="pipeline-sub">Bundling HTML, CSS, JavaScript, fonts, and images</div>
+                        </div>
+                        <div class="pipeline-status" id="apkStep1Status">⏳</div>
+                    </div>
+                    <div class="apk-pipeline-item" id="apkStep2">
+                        <div class="pipeline-icon">⚙️</div>
+                        <div class="pipeline-content">
+                            <div class="pipeline-title">Injecting Chromium WebView Shell</div>
+                            <div class="pipeline-sub">Configuring AndroidBridge, splash screen & permissions</div>
+                        </div>
+                        <div class="pipeline-status" id="apkStep2Status">⏳</div>
+                    </div>
+                    <div class="apk-pipeline-item" id="apkStep3">
+                        <div class="pipeline-icon">🔐</div>
+                        <div class="pipeline-content">
+                            <div class="pipeline-title">Cryptographic Signing (v1 + v2/v3 Keystore)</div>
+                            <div class="pipeline-sub">Signing with 25-year digital certificate for seamless phone installation</div>
+                        </div>
+                        <div class="pipeline-status" id="apkStep3Status">⏳</div>
+                    </div>
+                    <div class="apk-pipeline-item" id="apkStep4">
+                        <div class="pipeline-icon">🚀</div>
+                        <div class="pipeline-content">
+                            <div class="pipeline-title">Packaging Final Binary (.apk)</div>
+                            <div class="pipeline-sub">Universal architecture for Android 5.0 to Android 15/16</div>
+                        </div>
+                        <div class="pipeline-status" id="apkStep4Status">⏳</div>
+                    </div>
+                </div>
+
+                <!-- Success Box (Shows upon build completion) -->
+                <div id="apkSuccessBox" style="display: none;" class="apk-success-banner">
+                    <div class="apk-success-header">
+                        <span style="font-size: 2rem;">🎉</span>
+                        <div>
+                            <h4 id="apkSuccessTitle">APK Compiled & Signed Successfully!</h4>
+                            <p style="font-size: 0.85rem; color: #475569;" id="apkSuccessSub">Your download has started automatically. If it didn't, click below.</p>
+                        </div>
+                    </div>
+
+                    <div class="apk-meta-grid">
+                        <div class="apk-meta-card">
+                            <span class="meta-label">App Name</span>
+                            <span class="meta-val" id="metaAppName">MyMobileApp</span>
+                        </div>
+                        <div class="apk-meta-card">
+                            <span class="meta-label">Package ID</span>
+                            <span class="meta-val" id="metaPackageId">com.myapp.web</span>
+                        </div>
+                        <div class="apk-meta-card">
+                            <span class="meta-label">Architecture</span>
+                            <span class="meta-val">Universal (ARM64, ARMv7, x86_64)</span>
+                        </div>
+                        <div class="apk-meta-card">
+                            <span class="meta-label">Digital Signature</span>
+                            <span class="meta-val" style="color: #059669; font-weight: 700;">v1 + v2 Scheme Verified ✅</span>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 1rem; display: flex; gap: 0.5rem; justify-content: center;">
+                        <a id="apkManualDownloadBtn" class="btn btn-apk-hero" style="width: 100%; text-decoration: none;" download>
+                            📥 Download APK File Now
+                        </a>
+                    </div>
+
+                    <!-- On-Device Install Instructions -->
+                    <div class="apk-install-tips">
+                        <div style="font-weight: 700; margin-bottom: 0.4rem; color: #0f172a; display: flex; align-items: center; gap: 0.4rem;">
+                            📱 How to Install on Your Android Phone:
+                        </div>
+                        <ol style="margin-left: 1.2rem; font-size: 0.85rem; color: #334155; line-height: 1.55;">
+                            <li>Open the downloaded <strong>.apk</strong> file on your Android phone.</li>
+                            <li>If prompted, tap <strong>"Settings"</strong> and enable <strong>"Allow from this source"</strong> (Unknown Sources).</li>
+                            <li>If Google Play Protect warning appears, tap <strong>"Install Anyway"</strong>.</li>
+                            <li>The app will install instantly on your phone's home screen! 🚀</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 1.25rem; text-align: right;">
+                <button class="btn btn-secondary" onclick="closeModal('apkBuildModal')">Close</button>
             </div>
         </div>
     </div>
