@@ -51,7 +51,7 @@
                 <button class="header-quick-btn" onclick="openModal('keystoreModal')">
                     🔐 <span data-i18n="navKeystore">Keystore Guide</span>
                 </button>
-                <button class="header-quick-btn highlight" onclick="document.getElementById('step10').scrollIntoView({behavior:'smooth'})">
+                <button class="header-quick-btn highlight" onclick="goToStep10()">
                     🚀 <span data-i18n="navGenerate">Generate App</span>
                 </button>
             </div>
@@ -240,9 +240,10 @@
                             </div>
                         </div>
                     </div>
-                </div> <!-- End of STAGE 1: Source & Code -->
+                </div> <!-- End of STEP 01: App Source & Ready Templates -->
+            </div> <!-- End of STAGE 1: Source & Code -->
 
-                <!-- STAGE 2: App Identity & Branding -->
+            <!-- STAGE 2: App Identity & Branding -->
                 <div class="wizard-stage-panel" id="wizardStage2">
                     <!-- STEP 02: App Identity & Package Details -->
                     <div class="step-card" id="step2">
@@ -400,9 +401,10 @@
                         </div>
                         <div class="splash-preview" id="splashPreview"></div>
                     </div>
-                </div> <!-- End of STAGE 2: App Identity & Branding -->
+                </div> <!-- End of STEP 03: App Icon & Branding Studio -->
+            </div> <!-- End of STAGE 2: App Identity & Branding -->
 
-                <!-- STAGE 3: Android Navigation & Screen UX -->
+            <!-- STAGE 3: Android Navigation & Screen UX -->
                 <div class="wizard-stage-panel" id="wizardStage3">
                     <!-- STEP 04: Android Navigation & Screen UX -->
                     <div class="step-card" id="step4">
@@ -515,9 +517,10 @@
                             </div>
                         </div>
                     </div>
-                </div> <!-- End of STAGE 3: Android Navigation & Screen UX -->
+                </div> <!-- End of STEP 05: Native Bottom Navigation Tabs -->
+            </div> <!-- End of STAGE 3: Android Navigation & Screen UX -->
 
-                <!-- STAGE 4: Bridge, Security & Permissions -->
+            <!-- STAGE 4: Bridge, Security & Permissions -->
                 <div class="wizard-stage-panel" id="wizardStage4">
                     <!-- STEP 06: Native Android JavaScript Bridge -->
                     <div class="step-card" id="step6">
@@ -719,9 +722,10 @@
                             </div>
                         </label>
                     </div>
-                </div> <!-- End of STAGE 4: Bridge, Security & Permissions -->
+                </div> <!-- End of STEP 08: Media, File Chooser & App Permissions -->
+            </div> <!-- End of STAGE 4: Bridge, Security & Permissions -->
 
-                <!-- STAGE 5: Monetization, Build & Export -->
+            <!-- STAGE 5: Monetization, Build & Export -->
                 <div class="wizard-stage-panel" id="wizardStage5">
                     <!-- STEP 09: Monetization & Push Notifications (Optional) -->
                     <div class="step-card" id="step9">
@@ -804,9 +808,10 @@
                         <div class="spinner"></div>
                         <p style="font-weight: 700; color: var(--secondary);" data-i18n="loadingText">Generating complete Android Studio project with all features & icons...</p>
                     </div>
-                </div> <!-- End of STAGE 5: Monetization, Build & Export -->
+                </div> <!-- End of STEP 10: Generate, Build & Export App -->
+            </div> <!-- End of STAGE 5: Monetization, Build & Export -->
 
-                <!-- Wizard Navigation Footer Controls (Previous / Next / View All) -->
+            <!-- Wizard Navigation Footer Controls (Previous / Next / View All) -->
                 <div class="wizard-footer-controls">
                     <button class="btn btn-secondary btn-wizard" id="wizardPrevBtn" onclick="navigateWizard(-1)" disabled>
                         ← <span data-i18n="btnPrevStage">Previous Stage</span>

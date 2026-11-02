@@ -1241,6 +1241,21 @@ function loadTemplate(tplKey) {
     uploadedZipFiles = null;
     revokeUploadedZipBlobUrls();
 
+    // Ensure we switch to Code Editor mode
+    currentSourceMode = 'editor';
+    const editorTabBtn = document.querySelector('.tabs .tab:first-child');
+    document.querySelectorAll('.tabs .tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    if (editorTabBtn) editorTabBtn.classList.add('active');
+    const editorTab = document.getElementById('editor-tab');
+    if (editorTab) editorTab.classList.add('active');
+
+    // Highlight the active template card
+    document.querySelectorAll('.template-card').forEach(card => {
+        const onclickAttr = card.getAttribute('onclick') || '';
+        card.classList.toggle('active', onclickAttr.includes(`'${tplKey}'`));
+    });
+
     document.getElementById('appName').value = tpl.appName;
     document.getElementById('packageName').value = tpl.packageName;
     document.getElementById('primaryColor').value = tpl.primaryColor;
@@ -1256,14 +1271,28 @@ function loadTemplate(tplKey) {
     iconGradEnd = tpl.gradEnd;
     customIconBase64 = null;
 
+    // Highlight active glyph button if matching
+    document.querySelectorAll('.glyph-btn').forEach(b => {
+        b.classList.toggle('active', b.textContent.trim() === tpl.iconGlyph);
+    });
+
     updateIconCanvas();
-    updatePreview();
+    updatePreviews(true);
     updateFileStructure(tpl.packageName);
-    showNotification(`✨ Loaded ${tpl.appName} template!`, 3000);
+    showNotification(`✨ Loaded ${tpl.appName} template!`, 2500);
 }
 
 // Visual UI Component Inserter
 function insertComponent(type) {
+    if (typeof switchWizardStage === 'function') switchWizardStage(1);
+    currentSourceMode = 'editor';
+    const editorTabBtn = document.querySelector('.tabs .tab:first-child');
+    document.querySelectorAll('.tabs .tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    if (editorTabBtn) editorTabBtn.classList.add('active');
+    const editorTab = document.getElementById('editor-tab');
+    if (editorTab) editorTab.classList.add('active');
+
     const editor = document.getElementById('htmlEditor');
     let snippet = '';
 
@@ -1419,12 +1448,18 @@ function drawIconShapePath(ctx, w, h, shape) {
     ctx.beginPath();
     if (shape === 'circle') {
         ctx.arc(w / 2, h / 2, w / 2 - 2, 0, Math.PI * 2);
-    } else if (shape === 'squircle') {
-        const r = w * 0.28;
-        ctx.roundRect(4, 4, w - 8, h - 8, r);
-    } else if (shape === 'rounded') {
-        const r = w * 0.18;
-        ctx.roundRect(4, 4, w - 8, h - 8, r);
+    } else if (shape === 'squircle' || shape === 'rounded') {
+        const r = shape === 'squircle' ? w * 0.28 : w * 0.18;
+        if (typeof ctx.roundRect === 'function') {
+            ctx.roundRect(4, 4, w - 8, h - 8, r);
+        } else {
+            const x = 4, y = 4, rw = w - 8, rh = h - 8;
+            ctx.moveTo(x + r, y);
+            ctx.arcTo(x + rw, y, x + rw, y + rh, r);
+            ctx.arcTo(x + rw, y + rh, x, y + rh, r);
+            ctx.arcTo(x, y + rh, x, y, r);
+            ctx.arcTo(x, y, x + rw, y, r);
+        }
     } else {
         // square
         ctx.rect(4, 4, w - 8, h - 8);
@@ -2034,9 +2069,33 @@ function syncColorPicker(textInput, colorPickerId, update = false) {
     }
 }
 
+function renderSplashPreview() {
+    const splashPreviewEl = document.getElementById('splashPreview');
+    if (!splashPreviewEl) return;
+    const isSplashEnabled = document.getElementById('enableSplash')?.checked;
+    if (!isSplashEnabled) {
+        splashPreviewEl.innerHTML = '';
+        return;
+    }
+    const splashText = document.getElementById('splashText')?.value || document.getElementById('appName')?.value || 'MyMobileApp';
+    const primaryColor = document.getElementById('primaryColor')?.value || '#10b981';
+    const icon = iconGlyph || document.getElementById('appIcon')?.value || '⚡';
+    
+    splashPreviewEl.style.cssText = `background: ${primaryColor}; border-radius: 12px; padding: 20px; text-align: center; color: white; margin-top: 10px; box-shadow: inset 0 0 20px rgba(0,0,0,0.15); display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 130px;`;
+    
+    if (customSplashBase64) {
+        splashPreviewEl.innerHTML = `<img src="${customSplashBase64}" style="max-height: 70px; max-width: 100%; border-radius: 8px; margin-bottom: 8px; object-fit: contain;" alt="Splash"/><strong style="font-size: 1.1rem; color: white;">${splashText}</strong>`;
+    } else {
+        splashPreviewEl.innerHTML = `<div style="font-size: 2.2rem; margin-bottom: 6px;">${icon}</div><strong style="font-size: 1.15rem; color: white; letter-spacing: 0.5px;">${splashText}</strong><span style="font-size: 0.75rem; opacity: 0.85; margin-top: 4px;">Native Launch Screen Preview</span>`;
+    }
+}
+
 function toggleSplash() {
     const splashConfig = document.getElementById('splashConfig');
-    splashConfig.style.display = document.getElementById('enableSplash').checked ? 'block' : 'none';
+    if (splashConfig) {
+        splashConfig.style.display = document.getElementById('enableSplash').checked ? 'block' : 'none';
+    }
+    renderSplashPreview();
     updatePreviews();
 }
 
@@ -2121,15 +2180,18 @@ function setPreviewOrientation(orientation) {
     const mockup = document.getElementById('phoneMockup');
     const pBtn = document.getElementById('portraitPreviewBtn');
     const lBtn = document.getElementById('landscapePreviewBtn');
+    if (!mockup) return;
     if (orientation === 'landscape') {
         mockup.classList.add('landscape');
-        pBtn.classList.remove('active');
-        lBtn.classList.add('active');
+        if (pBtn) pBtn.classList.remove('active');
+        if (lBtn) lBtn.classList.add('active');
     } else {
         mockup.classList.remove('landscape');
-        lBtn.classList.remove('active');
-        pBtn.classList.add('active');
+        if (lBtn) lBtn.classList.remove('active');
+        if (pBtn) pBtn.classList.add('active');
     }
+    const orientSelect = document.getElementById('screenOrientation');
+    if (orientSelect) orientSelect.value = orientation;
 }
 
 let backPressTimer = null;
@@ -2138,56 +2200,65 @@ function simulateBackPress() {
     if (backPressTimer) {
         clearTimeout(backPressTimer);
         backPressTimer = null;
-        toast.textContent = "Exiting app 👋";
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 1500);
+        if (toast) {
+            toast.textContent = "Exiting app 👋";
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 1500);
+        }
+        showNotification("Exiting app 👋", 1500);
     } else {
-        toast.textContent = "Press back again to exit";
-        toast.classList.add('show');
-        backPressTimer = setTimeout(() => {
-            toast.classList.remove('show');
-            backPressTimer = null;
-        }, 2000);
+        if (toast) {
+            toast.textContent = "Press back again to exit";
+            toast.classList.add('show');
+            backPressTimer = setTimeout(() => {
+                toast.classList.remove('show');
+                backPressTimer = null;
+            }, 2000);
+        }
+        showNotification("Press back again to exit", 1500);
     }
 }
 
 function testSimulatedBridge(action) {
     const toast = document.getElementById('phoneToast');
+    let msg = '';
     if (action === 'toast') {
-        toast.textContent = "Native Android Toast: Hello! 👋";
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 2000);
+        msg = "Native Android Toast: Hello! 👋";
     } else if (action === 'vibrate') {
         if (navigator.vibrate) navigator.vibrate(100);
-        toast.textContent = "📳 Haptic Vibrate (100ms)";
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 1500);
+        msg = "📳 Haptic Vibrate (100ms)";
     } else if (action === 'share') {
-        toast.textContent = "📤 Android Native Share Sheet Opened";
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 2000);
+        msg = "📤 Android Native Share Sheet Opened";
     } else if (action === 'battery') {
-        toast.textContent = "🔋 Battery Level: 100% (Charging)";
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 2000);
+        msg = "🔋 Battery Level: 100% (Charging)";
     } else if (action === 'network') {
-        toast.textContent = "🌐 Network: 5G High Speed (ONLINE)";
+        msg = "🌐 Network: 5G High Speed (ONLINE)";
+    }
+    if (toast && msg) {
+        toast.textContent = msg;
         toast.classList.add('show');
         setTimeout(() => toast.classList.remove('show'), 2000);
+    }
+    if (msg) {
+        showNotification(msg, 2000);
     }
 }
 
 function updatePreviews(isColorChange = false) {
-    const appName = document.getElementById('appName').value || 'MyMobileApp';
-    const primaryColor = document.getElementById('primaryColor').value;
+    const appName = document.getElementById('appName') ? document.getElementById('appName').value || 'MyMobileApp' : 'MyMobileApp';
+    const primaryColor = document.getElementById('primaryColor') ? document.getElementById('primaryColor').value : '#10b981';
     
-    document.getElementById('phoneActionBar').textContent = appName;
-    document.getElementById('phoneActionBar').style.background = primaryColor;
+    const actionBar = document.getElementById('phoneActionBar');
+    if (actionBar) {
+        actionBar.textContent = appName;
+        actionBar.style.background = primaryColor;
+    }
     
-    if (isColorChange) {
+    if (isColorChange && document.getElementById('primaryColorText')) {
         document.getElementById('primaryColorText').value = primaryColor;
     }
     
+    renderSplashPreview();
     updatePreview();
     updateQrCode();
 }
@@ -2197,43 +2268,43 @@ function updatePreview() {
     toggleTopActionBar();
 
     const previewFrame = document.getElementById('phonePreview');
+    if (!previewFrame) return;
+
     if (currentSourceMode === 'url') {
-        let url = document.getElementById('webUrl').value.trim() || 'https://example.com';
+        let url = (document.getElementById('webUrl') ? document.getElementById('webUrl').value.trim() : '') || 'https://example.com';
         if (!url.startsWith('http://') && !url.startsWith('https://')) {
             url = 'https://' + url;
         }
-        // In real Android app, NO URL address bar exists at all!
-        // We render a pure full-screen iframe just like the actual Android WebView.
         previewFrame.innerHTML = `
             <iframe src="${url}" style="width: 100%; height: 100%; border: none; background: white; display: block;" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>`;
         return;
     }
 
-    const htmlContent = document.getElementById('htmlEditor').value;
+    const htmlContent = document.getElementById('htmlEditor') ? document.getElementById('htmlEditor').value : '';
     if (!htmlContent.trim()) {
         previewFrame.innerHTML = '<div style="text-align: center; padding: 2rem; color: #94a3b8;"><p>Enter HTML content and click "Refresh Preview"</p></div>';
         return;
     }
 
     try {
-        const tempIframe = document.createElement('iframe');
-        tempIframe.style.cssText = 'width:100%;height:100%;border:none;';
-        tempIframe.sandbox = 'allow-scripts allow-same-origin allow-popups';
-        previewFrame.innerHTML = '';
-        previewFrame.appendChild(tempIframe);
-        
         // Inject AndroidBridge Polyfill inside the preview iframe
         const bridgePolyfill = `
 <script>
 window.AndroidBridge = {
     showToast: function(msg) {
-        var t = parent.document.getElementById('phoneToast');
-        if(t){ t.textContent = msg; t.classList.add('show'); setTimeout(function(){ t.classList.remove('show'); }, 2000); }
+        try {
+            var t = parent.document.getElementById('phoneToast');
+            if(t){ t.textContent = msg; t.classList.add('show'); setTimeout(function(){ t.classList.remove('show'); }, 2000); return; }
+        } catch(e){}
+        window.parent.postMessage({ type: 'web2app-toast', message: msg }, '*');
     },
     vibrate: function(ms) {
         if (navigator.vibrate) navigator.vibrate(ms || 50);
-        var t = parent.document.getElementById('phoneToast');
-        if(t){ t.textContent = '📳 Vibration: ' + (ms || 50) + 'ms'; t.classList.add('show'); setTimeout(function(){ t.classList.remove('show'); }, 1200); }
+        try {
+            var t = parent.document.getElementById('phoneToast');
+            if(t){ t.textContent = '📳 Vibration: ' + (ms || 50) + 'ms'; t.classList.add('show'); setTimeout(function(){ t.classList.remove('show'); }, 1200); return; }
+        } catch(e){}
+        window.parent.postMessage({ type: 'web2app-toast', message: '📳 Vibration: ' + (ms || 50) + 'ms' }, '*');
     },
     shareText: function(text, title) {
         if(navigator.share) { navigator.share({ title: title, text: text }); }
@@ -2241,8 +2312,11 @@ window.AndroidBridge = {
     },
     copyToClipboard: function(text) {
         if (navigator.clipboard) navigator.clipboard.writeText(text);
-        var t = parent.document.getElementById('phoneToast');
-        if(t){ t.textContent = '📋 Copied to clipboard!'; t.classList.add('show'); setTimeout(function(){ t.classList.remove('show'); }, 1500); }
+        try {
+            var t = parent.document.getElementById('phoneToast');
+            if(t){ t.textContent = '📋 Copied to clipboard!'; t.classList.add('show'); setTimeout(function(){ t.classList.remove('show'); }, 1500); return; }
+        } catch(e){}
+        window.parent.postMessage({ type: 'web2app-toast', message: '📋 Copied to clipboard!' }, '*');
     },
     openExternal: function(url) { window.open(url, '_blank'); },
     getAppVersion: function() { return '1.0.0'; },
@@ -2250,19 +2324,22 @@ window.AndroidBridge = {
     getNetworkStatus: function() { return navigator.onLine ? 'ONLINE' : 'OFFLINE'; },
     getBatteryLevel: function() { return 100; },
     setStatusBarColor: function(col) {
-        var sb = parent.document.getElementById('phoneStatusBar');
-        if (sb) sb.style.background = col;
+        try {
+            var sb = parent.document.getElementById('phoneStatusBar');
+            if (sb) sb.style.background = col;
+        } catch(e){}
     },
     exitApp: function() {
-        var t = parent.document.getElementById('phoneToast');
-        if (t) { t.textContent = "Exiting app 👋"; t.classList.add('show'); setTimeout(function(){ t.classList.remove('show'); }, 1500); }
+        try {
+            var t = parent.document.getElementById('phoneToast');
+            if (t) { t.textContent = "Exiting app 👋"; t.classList.add('show'); setTimeout(function(){ t.classList.remove('show'); }, 1500); return; }
+        } catch(e){}
+        window.parent.postMessage({ type: 'web2app-toast', message: 'Exiting app 👋' }, '*');
     }
 };
 <\/script>
 `;
 
-        const iframeDoc = tempIframe.contentDocument;
-        iframeDoc.open();
         let contentToWrite = htmlContent;
 
         // If files from uploaded ZIP are present, rewrite relative links, scripts & images to Blob URLs
@@ -2313,9 +2390,17 @@ window.AndroidBridge = {
         } else {
             contentToWrite = bridgePolyfill + contentToWrite;
         }
-        iframeDoc.write(contentToWrite);
-        iframeDoc.close();
+
+        const tempIframe = document.createElement('iframe');
+        tempIframe.id = 'previewIframe';
+        tempIframe.style.cssText = 'width: 100%; height: 100%; border: none; background: white; display: block;';
+        tempIframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-popups allow-modals allow-forms');
+        tempIframe.srcdoc = contentToWrite;
+        previewFrame.innerHTML = '';
+        previewFrame.appendChild(tempIframe);
+
     } catch (error) {
+        console.error('Preview render error:', error);
         previewFrame.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--danger);"><h3>Preview Error</h3><p>Unable to render HTML (Check for malformed code).</p></div>';
     }
 }
@@ -3628,6 +3713,12 @@ function switchWizardStage(stageIndex) {
     const stepsColumn = document.getElementById('stepsColumn');
     if (stepsColumn) stepsColumn.classList.remove('show-all');
 
+    const toggleText = document.getElementById('toggleAllStepsText');
+    const dict = translations[currentLanguage] || translations.en;
+    if (toggleText) {
+        toggleText.textContent = dict.viewAllSteps || '👁️ View All Steps';
+    }
+
     // Update active stage tabs and panels
     for (let i = 1; i <= 5; i++) {
         const tab = document.getElementById(`wizardTab${i}`);
@@ -3637,6 +3728,14 @@ function switchWizardStage(stageIndex) {
     }
 
     updateWizardControls();
+
+    // If entering stage 2, refresh canvas & splash preview
+    if (stageIndex === 2) {
+        setTimeout(() => {
+            updateIconCanvas();
+            renderSplashPreview();
+        }, 50);
+    }
 
     const wizardNavStrip = document.getElementById('wizardNavStrip');
     if (wizardNavStrip) {
@@ -3695,10 +3794,83 @@ function updateWizardControls() {
     }
 }
 
+function goToStep10() {
+    switchWizardStage(5);
+    setTimeout(() => {
+        const step10 = document.getElementById('step10');
+        if (step10) {
+            step10.scrollIntoView({ behavior: 'smooth' });
+            step10.style.boxShadow = '0 0 25px rgba(16, 185, 129, 0.7)';
+            setTimeout(() => { step10.style.boxShadow = ''; }, 1500);
+        }
+    }, 120);
+}
+
+// Window message listener for bridge polyfill calls inside preview iframe
+window.addEventListener('message', function(e) {
+    if (e.data && e.data.type === 'web2app-toast') {
+        const toast = document.getElementById('phoneToast');
+        if (toast) {
+            toast.textContent = e.data.message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        }
+        showNotification(e.data.message, 2000);
+    }
+});
+
+// Explicitly register all handlers on window
 window.switchWizardStage = switchWizardStage;
 window.navigateWizard = navigateWizard;
 window.toggleAllStepsView = toggleAllStepsView;
 window.updateWizardControls = updateWizardControls;
+window.goToStep10 = goToStep10;
+window.loadTemplate = loadTemplate;
+window.switchSourceTab = switchSourceTab;
+window.insertComponent = insertComponent;
+window.formatEditorCode = formatEditorCode;
+window.loadSample = loadSample;
+window.clearEditor = clearEditor;
+window.handleFileUpload = handleFileUpload;
+window.handleFolderUpload = handleFolderUpload;
+window.reloadIndexIntoEditor = reloadIndexIntoEditor;
+window.validateAppName = validateAppName;
+window.validatePackageName = validatePackageName;
+window.updatePreviews = updatePreviews;
+window.updatePreview = updatePreview;
+window.updateIconCanvas = updateIconCanvas;
+window.downloadIconPng = downloadIconPng;
+window.setIconShape = setIconShape;
+window.setIconGradient = setIconGradient;
+window.setIconGlyph = setIconGlyph;
+window.handleCustomIconText = handleCustomIconText;
+window.handleIconUpload = handleIconUpload;
+window.toggleSplash = toggleSplash;
+window.handleSplashUpload = handleSplashUpload;
+window.renderSplashPreview = renderSplashPreview;
+window.syncColorPicker = syncColorPicker;
+window.toggleTopActionBar = toggleTopActionBar;
+window.togglePreviewProgressBar = togglePreviewProgressBar;
+window.toggleFloatingWidgetInputs = toggleFloatingWidgetInputs;
+window.toggleBottomNavBuilder = toggleBottomNavBuilder;
+window.updateBottomNavPreview = updateBottomNavPreview;
+window.testSimulatedBridge = testSimulatedBridge;
+window.handleOrientationChange = handleOrientationChange;
+window.setPreviewOrientation = setPreviewOrientation;
+window.togglePreviewFullscreen = togglePreviewFullscreen;
+window.simulateBackPress = simulateBackPress;
+window.toggleDeepLinkInputs = toggleDeepLinkInputs;
+window.toggleAdMobInputs = toggleAdMobInputs;
+window.toggleOneSignalInputs = toggleOneSignalInputs;
+window.generateProject = generateProject;
+window.exportSingleHtml = exportSingleHtml;
+window.exportPwaZip = exportPwaZip;
+window.resetForm = resetForm;
+window.openHealthAuditModal = openHealthAuditModal;
+window.runHealthAudit = runHealthAudit;
+window.openModal = openModal;
+window.closeModal = closeModal;
+window.switchLanguage = switchLanguage;
 
 // Initialization on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', function() {
