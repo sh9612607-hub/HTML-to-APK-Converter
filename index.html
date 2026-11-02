@@ -103,64 +103,59 @@
                     <div class="templates-strip">
                         <div class="templates-header">
                             <h3>✨ <span data-i18n="templatesHeader">1-Click Starter Mobile App Templates</span></h3>
-                            <div class="template-filters">
-                                <button class="tpl-filter-btn active" onclick="filterTemplates('all', this)" data-i18n="filterAll">🏷️ All</button>
-                                <button class="tpl-filter-btn" onclick="filterTemplates('store', this)" data-i18n="filterStore">🛒 Store & Biz</button>
-                                <button class="tpl-filter-btn" onclick="filterTemplates('media', this)" data-i18n="filterMedia">🎮 Media & Game</button>
-                                <button class="tpl-filter-btn" onclick="filterTemplates('tools', this)" data-i18n="filterTools">🤖 AI & Tools</button>
-                            </div>
+                            <span style="font-size: 0.75rem; color: #64748b;" data-i18n="templateHint">Click any template to load full code & preview:</span>
                         </div>
-                        <div class="templates-grid" id="templatesGrid">
-                            <div class="template-card" data-cat="store" onclick="loadTemplate('ecommerce')">
+                        <div class="templates-grid">
+                            <div class="template-card" onclick="loadTemplate('ecommerce')">
                                 <div>
                                     <div class="tpl-icon">🛒</div>
                                     <div class="tpl-title" data-i18n="tplEcomTitle">E-Commerce Store</div>
                                     <div class="tpl-desc" data-i18n="tplEcomDesc">Cart drawer, price counter, WhatsApp order button</div>
                                 </div>
                             </div>
-                            <div class="template-card" data-cat="media" onclick="loadTemplate('news')">
+                            <div class="template-card" onclick="loadTemplate('news')">
                                 <div>
                                     <div class="tpl-icon">📰</div>
                                     <div class="tpl-title" data-i18n="tplNewsTitle">News & Magazine</div>
                                     <div class="tpl-desc" data-i18n="tplNewsDesc">Categories, live ticker, reader modal, bookmarks</div>
                                 </div>
                             </div>
-                            <div class="template-card" data-cat="media" onclick="loadTemplate('game')">
+                            <div class="template-card" onclick="loadTemplate('game')">
                                 <div>
                                     <div class="tpl-icon">🎮</div>
                                     <div class="tpl-title" data-i18n="tplGameTitle">2D Arcade Game</div>
                                     <div class="tpl-desc" data-i18n="tplGameDesc">Touch controls, particle explosions, haptic vibration</div>
                                 </div>
                             </div>
-                            <div class="template-card" data-cat="store" onclick="loadTemplate('business')">
+                            <div class="template-card" onclick="loadTemplate('business')">
                                 <div>
                                     <div class="tpl-icon">💼</div>
                                     <div class="tpl-title" data-i18n="tplBizTitle">Business Portfolio</div>
                                     <div class="tpl-desc" data-i18n="tplBizDesc">Services grid, booking form, WhatsApp direct call</div>
                                 </div>
                             </div>
-                            <div class="template-card" data-cat="media" onclick="loadTemplate('music')">
+                            <div class="template-card" onclick="loadTemplate('music')">
                                 <div>
                                     <div class="tpl-icon">🎵</div>
                                     <div class="tpl-title" data-i18n="tplMusicTitle">Audio & Music</div>
                                     <div class="tpl-desc" data-i18n="tplMusicDesc">Dark player, vinyl spinning, playlist, equalizer</div>
                                 </div>
                             </div>
-                            <div class="template-card" data-cat="tools" onclick="loadTemplate('tasks')">
+                            <div class="template-card" onclick="loadTemplate('tasks')">
                                 <div>
                                     <div class="tpl-icon">📋</div>
                                     <div class="tpl-title" data-i18n="tplTaskTitle">Task & Todo</div>
                                     <div class="tpl-desc" data-i18n="tplTaskDesc">Offline persistent storage, filter tabs, stats ring</div>
                                 </div>
                             </div>
-                            <div class="template-card" data-cat="tools" onclick="loadTemplate('chat')">
+                            <div class="template-card" onclick="loadTemplate('chat')">
                                 <div>
                                     <div class="tpl-icon">🤖</div>
                                     <div class="tpl-title" data-i18n="tplChatTitle">AI Chat & Messenger</div>
                                     <div class="tpl-desc" data-i18n="tplChatDesc">Modern chat bubbles, smart bot, haptic feedback</div>
                                 </div>
                             </div>
-                            <div class="template-card" data-cat="media" onclick="loadTemplate('quiz')">
+                            <div class="template-card" onclick="loadTemplate('quiz')">
                                 <div>
                                     <div class="tpl-icon">🎯</div>
                                     <div class="tpl-title" data-i18n="tplQuizTitle">Quiz & Trivia</div>
@@ -189,17 +184,9 @@
                             <button class="insert-chip" onclick="insertComponent('bridge')">⚡ Native Bridge Call</button>
                         </div>
 
-                        <!-- Multi-File Editor Tabs & Utility Toolbar -->
-                        <div class="editor-header-bar">
-                            <div class="editor-file-tabs">
-                                <button class="file-tab active" id="fileTabHtml" onclick="switchEditorFile('html')">📄 index.html</button>
-                                <button class="file-tab" id="fileTabCss" onclick="switchEditorFile('css')">🎨 style.css</button>
-                                <button class="file-tab" id="fileTabJs" onclick="switchEditorFile('js')">⚡ script.js</button>
-                            </div>
-                            <div class="editor-tools-group">
-                                <button class="btn btn-secondary btn-sm" onclick="minifyEditorCode()" title="Remove comments and compress code to reduce APK size">
-                                    ⚡ <span data-i18n="btnMinify">Minify & Optimize</span>
-                                </button>
+                        <div class="editor-buttons">
+                            <div style="font-size: 0.8rem; color: #64748b;" data-i18n="editorHint">Edit HTML, CSS, JavaScript in one place:</div>
+                            <div style="display: flex; gap: 0.4rem;">
                                 <button class="btn btn-secondary btn-sm" onclick="formatEditorCode()">✨ Format</button>
                                 <button class="btn btn-secondary btn-sm" onclick="loadSample()">📋 Sample</button>
                                 <button class="btn btn-danger btn-sm" onclick="clearEditor()">🗑️ Clear</button>
@@ -247,37 +234,9 @@
                     <!-- Tab 3: Website URL -->
                     <div id="url-tab" class="tab-content">
                         <div class="url-input-box">
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
-                                <label for="webUrl" data-i18n="urlLabel" style="margin-bottom: 0;">Website URL to Convert *</label>
-                                <button class="btn btn-outline btn-sm" onclick="inspectUrlMetadata()" style="padding: 3px 10px; font-size: 0.78rem;">
-                                    🔍 <span data-i18n="btnAutoInspect">Auto-Inspect PWA & Web Info</span>
-                                </button>
-                            </div>
-                            <div style="display: flex; gap: 0.5rem;">
-                                <input type="url" id="webUrl" placeholder="https://example.com" value="https://example.com" oninput="updatePreviews()">
-                            </div>
-                            
-                            <!-- Auto-Inspection Result Box -->
-                            <div id="urlInspectBox" style="display: none; margin-top: 0.65rem; background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem;">
-                                <div style="display: flex; align-items: center; justify-content: space-between;">
-                                    <span style="font-weight: 700; font-size: 0.85rem; color: #0f172a;" id="inspectTitle">🔍 Web Inspection Found:</span>
-                                    <button class="btn btn-primary btn-sm" onclick="applyInspectedMeta()" style="padding: 2px 8px; font-size: 0.76rem;">✅ Apply to App Info</button>
-                                </div>
-                                <div id="inspectDetails" style="font-size: 0.8rem; color: #475569; margin-top: 0.35rem; line-height: 1.5;"></div>
-                            </div>
-
-                            <p style="font-size: 0.82rem; color: #64748b; margin-top: 0.5rem;" data-i18n="urlSub">The Android app will load this live website directly inside Android WebView with full offline fallback.</p>
-
-                            <!-- Advanced Cache & Offline Strategy Selector -->
-                            <div class="form-group" style="margin-top: 0.85rem;">
-                                <label for="offlineCacheStrategy" style="font-size: 0.82rem; font-weight: 700;" data-i18n="cacheStrategyLabel">⚡ Offline & Cache Performance Strategy</label>
-                                <select id="offlineCacheStrategy" style="padding: 0.5rem; font-size: 0.85rem;">
-                                    <option value="network_first" selected>🌐 Network-First (Loads live site; falls back to friendly offline screen on disconnect)</option>
-                                    <option value="cache_first">⚡ Cache-First (Instant offline opening from local storage + background refresh)</option>
-                                    <option value="full_offline">📦 Full Standalone Offline (Bundles static snapshot inside APK without network reliance)</option>
-                                </select>
-                            </div>
-
+                            <label for="webUrl" data-i18n="urlLabel">Website URL to Convert *</label>
+                            <input type="url" id="webUrl" placeholder="https://example.com" value="https://example.com" oninput="updatePreviews()">
+                            <p style="font-size: 0.82rem; color: #64748b; margin-top: 0.4rem;" data-i18n="urlSub">The Android app will load this live website directly inside Android WebView with full offline fallback.</p>
                             <div style="margin-top: 0.75rem; background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; padding: 0.65rem 0.85rem; font-size: 0.82rem; color: #065f46; display: flex; align-items: center; gap: 0.5rem;">
                                 <span style="font-size: 1.15rem;">🛡️</span>
                                 <span data-i18n="urlNotice"><strong>১০০% ক্লিন লুক:</strong> আসল মোবাইল অ্যাপে কোনো ব্রাউজার ইউআরএল (URL) বা সার্চ বার থাকবে না। সম্পূর্ণ ফুল-স্ক্রিন নেটিভ অ্যাপের মতো চলবে।</span>
@@ -327,16 +286,6 @@
                             </label>
                             <input type="number" id="versionCode" value="1" min="1">
                         </div>
-                        <div class="form-group">
-                            <label for="appTypography" data-i18n="typographyLabel">App Font / Typography</label>
-                            <select id="appTypography" onchange="updateAppTypography(this.value)">
-                                <option value="system" selected>📱 System Default (Roboto / Sans-serif)</option>
-                                <option value="poppins">✨ Poppins (Modern Geometric Sans)</option>
-                                <option value="inter">⚡ Inter (Clean Tech & Silicon Valley)</option>
-                                <option value="hind_siliguri">🇧🇩 Hind Siliguri (Bengali Unicode Perfect)</option>
-                                <option value="playfair">📰 Playfair Display (Luxury & Editorial Serif)</option>
-                            </select>
-                        </div>
                     </div>
                 </div>
 
@@ -369,17 +318,8 @@
                         <div class="icon-studio-grid">
                             <div class="icon-live-canvas-wrap">
                                 <canvas id="iconPreviewCanvas" width="192" height="192"></canvas>
-                                <div style="display: flex; gap: 4px; justify-content: center; margin-top: 4px;">
-                                    <button class="preview-btn active" id="iconModeStandard" onclick="toggleThemedIconMode(false)" style="font-size: 11px; padding: 2px 6px;">Normal</button>
-                                    <button class="preview-btn" id="iconModeThemed" onclick="toggleThemedIconMode(true)" style="font-size: 11px; padding: 2px 6px;" title="Preview Material You monochrome themed icon (Android 13+)">Material You</button>
-                                </div>
-                                <span style="font-size: 0.72rem; color: #64748b; font-weight: 600; margin-top: 2px;" data-i18n="canvasPreviewLabel">Real-time Android Icon</span>
-                                <div style="display: flex; flex-direction: column; gap: 4px; width: 100%; margin-top: 4px;">
-                                    <button class="btn btn-outline btn-sm" onclick="downloadIconPng()">📥 Save Icon PNG</button>
-                                    <button class="btn btn-secondary btn-sm" onclick="downloadPlayStoreAssets()" style="background: #0f172a; color: #38bdf8; border: 1px solid #1e293b;" title="Generate 512x512 High-Res icon and 1024x500 Feature Graphic banner for Google Play">
-                                        📦 <span data-i18n="btnPlayKit">Export Play Store Kit</span>
-                                    </button>
-                                </div>
+                                <span style="font-size: 0.72rem; color: #64748b; font-weight: 600;" data-i18n="canvasPreviewLabel">Real-time Android Icon</span>
+                                <button class="btn btn-outline btn-sm" onclick="downloadIconPng()" style="width: 100%; margin-top: 4px;">📥 Save Icon PNG</button>
                             </div>
                             <div class="icon-studio-controls">
                                 <div>
@@ -407,7 +347,7 @@
                                 </div>
 
                                 <div>
-                                    <label style="font-size: 0.78rem; margin-bottom: 4px;" data-i18n="glyphLabel">Choose Icon Symbol / Emoji (28+ Presets):</label>
+                                    <label style="font-size: 0.78rem; margin-bottom: 4px;" data-i18n="glyphLabel">Choose Icon Symbol / Emoji:</label>
                                     <div class="icon-glyph-strip">
                                         <button class="glyph-btn active" onclick="setIconGlyph('🛒')">🛒</button>
                                         <button class="glyph-btn" onclick="setIconGlyph('⚡')">⚡</button>
@@ -420,23 +360,9 @@
                                         <button class="glyph-btn" onclick="setIconGlyph('❤️')">❤️</button>
                                         <button class="glyph-btn" onclick="setIconGlyph('⭐')">⭐</button>
                                         <button class="glyph-btn" onclick="setIconGlyph('🛍️')">🛍️</button>
-                                        <button class="glyph-btn" onclick="setIconGlyph('💳')">💳</button>
                                         <button class="glyph-btn" onclick="setIconGlyph('☕')">☕</button>
                                         <button class="glyph-btn" onclick="setIconGlyph('💬')">💬</button>
                                         <button class="glyph-btn" onclick="setIconGlyph('🔥')">🔥</button>
-                                        <button class="glyph-btn" onclick="setIconGlyph('🎬')">🎬</button>
-                                        <button class="glyph-btn" onclick="setIconGlyph('📻')">📻</button>
-                                        <button class="glyph-btn" onclick="setIconGlyph('📷')">📷</button>
-                                        <button class="glyph-btn" onclick="setIconGlyph('💻')">💻</button>
-                                        <button class="glyph-btn" onclick="setIconGlyph('🤖')">🤖</button>
-                                        <button class="glyph-btn" onclick="setIconGlyph('🌐')">🌐</button>
-                                        <button class="glyph-btn" onclick="setIconGlyph('🍔')">🍔</button>
-                                        <button class="glyph-btn" onclick="setIconGlyph('🏋️')">🏋️</button>
-                                        <button class="glyph-btn" onclick="setIconGlyph('🚗')">🚗</button>
-                                        <button class="glyph-btn" onclick="setIconGlyph('🏥')">🏥</button>
-                                        <button class="glyph-btn" onclick="setIconGlyph('📚')">📚</button>
-                                        <button class="glyph-btn" onclick="setIconGlyph('🔒')">🔒</button>
-                                        <button class="glyph-btn" onclick="setIconGlyph('🏆')">🏆</button>
                                     </div>
                                 </div>
 
@@ -459,7 +385,7 @@
                         <label class="checkbox-item">
                             <input type="checkbox" id="enableSplash" onchange="toggleSplash(); updateFileStructure(document.getElementById('packageName').value)">
                             <div class="checkbox-item-content">
-                                <span class="checkbox-item-title" data-i18n="splashTitle">Enable Native Splash Screen</span>
+                                <span class="checkbox-item-title" data-i18n="splashTitle">Enable Native Splash Screen (2 seconds delay)</span>
                                 <span class="checkbox-item-desc" data-i18n="splashDesc">Shows sleek branding launch screen with app logo and title before loading web content.</span>
                             </div>
                         </label>
@@ -467,22 +393,9 @@
 
                     <div id="splashConfig" style="display: none;">
                         <div class="config-grid">
-                            <div class="form-group">
+                             <div class="form-group">
                                 <label for="splashText" data-i18n="splashTextLabel">Splash Screen Title</label>
                                 <input type="text" id="splashText" value="MyMobileApp" oninput="updatePreviews()">
-                            </div>
-                            <div class="form-group">
-                                <label for="splashStyle" data-i18n="splashStyleLabel">Splash Animation Style</label>
-                                <select id="splashStyle" onchange="updateSplashPreview()">
-                                    <option value="classic" selected>✨ Classic Logo & Title Fade-in</option>
-                                    <option value="pulsing">💫 Pulsing & Ambient Glow Animation</option>
-                                    <option value="minimalist">📱 Minimalist Android 12+ Splash API Style</option>
-                                    <option value="custom">🖼️ Custom Image / Brand Illustration</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="splashDuration" data-i18n="splashDurationLabel">Launch Delay: <span id="splashDurationVal">2.0s</span></label>
-                                <input type="range" id="splashDuration" min="1.0" max="4.5" step="0.5" value="2.0" oninput="document.getElementById('splashDurationVal').textContent = this.value + 's';">
                             </div>
                             <div class="form-group">
                                 <label for="splashImageUpload" data-i18n="splashImgLabel">Custom Splash Image (Optional)</label>
@@ -519,20 +432,6 @@
                             </div>
                         </label>
                         <label class="checkbox-item">
-                            <input type="checkbox" id="enableExitDialog" onchange="updateExitDialogPreview()">
-                            <div class="checkbox-item-content">
-                                <span class="checkbox-item-title" data-i18n="exitDialogTitle">Native Exit Confirmation Dialog</span>
-                                <span class="checkbox-item-desc" data-i18n="exitDialogDesc">Prompts user with a sleek native confirmation dialog ("Do you want to exit?") before closing app.</span>
-                            </div>
-                        </label>
-                        <label class="checkbox-item">
-                            <input type="checkbox" id="enableSearchBar" onchange="toggleSearchBarPreview()">
-                            <div class="checkbox-item-content">
-                                <span class="checkbox-item-title" data-i18n="searchBarTitle">In-App Search Toolbar (Top Bar)</span>
-                                <span class="checkbox-item-desc" data-i18n="searchBarDesc">Adds a native search magnifying glass icon and real-time in-page query bar on top.</span>
-                            </div>
-                        </label>
-                        <label class="checkbox-item">
                             <input type="checkbox" id="enablePullToRefresh" checked>
                             <div class="checkbox-item-content">
                                 <span class="checkbox-item-title" data-i18n="pullRefreshTitle">Pull to Refresh (SwipeRefreshLayout)</span>
@@ -554,63 +453,12 @@
                             </div>
                         </label>
                         <label class="checkbox-item">
-                            <input type="checkbox" id="enableOfflineGame">
-                            <div class="checkbox-item-content">
-                                <span class="checkbox-item-title" data-i18n="offlineGameTitle">Interactive Offline Mini-Game (Chrome Dino Runner)</span>
-                                <span class="checkbox-item-desc" data-i18n="offlineGameDesc">Includes a lightweight 2D runner mini-game on the offline screen to entertain users when internet drops.</span>
-                            </div>
-                        </label>
-                        <label class="checkbox-item">
-                            <input type="checkbox" id="enableDrawerNav" onchange="toggleDrawerNavBuilder()">
-                            <div class="checkbox-item-content">
-                                <span class="checkbox-item-title" data-i18n="drawerTitle">Native Side Navigation Drawer (Hamburger ☰ Menu)</span>
-                                <span class="checkbox-item-desc" data-i18n="drawerDesc">Adds native Android slide-in menu drawer with header, user profile, and custom links.</span>
-                            </div>
-                        </label>
-                        <label class="checkbox-item">
                             <input type="checkbox" id="enableFloatingWidget" onchange="toggleFloatingWidgetInputs()">
                             <div class="checkbox-item-content">
                                 <span class="checkbox-item-title" data-i18n="floatingWidgetTitle">Floating Support Button (WhatsApp / Call)</span>
                                 <span class="checkbox-item-desc" data-i18n="floatingWidgetDesc">Adds sleek corner floating contact widget inside app for instant customer support.</span>
                             </div>
                         </label>
-                    </div>
-
-                    <!-- Side Drawer Builder Settings -->
-                    <div id="drawerNavBuilder" style="display: none; margin-top: 0.85rem;" class="feature-card">
-                        <strong style="font-size: 0.88rem; display: block; margin-bottom: 0.5rem;" data-i18n="drawerSettingsTitle">📂 Configure Side Drawer Menu Items:</strong>
-                        <div class="config-grid">
-                            <div class="form-group">
-                                <label for="drawerHeaderTitle" data-i18n="drawerHeaderLabel">Drawer Header Title</label>
-                                <input type="text" id="drawerHeaderTitle" value="MyMobileApp" oninput="updateDrawerPreview()">
-                            </div>
-                            <div class="form-group">
-                                <label for="drawerHeaderSub" data-i18n="drawerSubLabel">Drawer Subtitle / Email</label>
-                                <input type="text" id="drawerHeaderSub" value="support@example.com" oninput="updateDrawerPreview()">
-                            </div>
-                        </div>
-                        <div class="nav-tabs-builder" style="margin-top: 0.5rem;">
-                            <div class="nav-tab-input-card">
-                                <label style="font-size: 0.75rem;">Link 1</label>
-                                <input type="text" id="drawerLink1Title" value="🏠 Home" style="padding: 0.4rem; font-size: 13px;" oninput="updateDrawerPreview()">
-                                <input type="text" id="drawerLink1Url" value="/" placeholder="/" style="padding: 0.4rem; font-size: 13px; margin-top: 4px;">
-                            </div>
-                            <div class="nav-tab-input-card">
-                                <label style="font-size: 0.75rem;">Link 2</label>
-                                <input type="text" id="drawerLink2Title" value="🛍️ Shop / Explore" style="padding: 0.4rem; font-size: 13px;" oninput="updateDrawerPreview()">
-                                <input type="text" id="drawerLink2Url" value="/explore" placeholder="/explore" style="padding: 0.4rem; font-size: 13px; margin-top: 4px;">
-                            </div>
-                            <div class="nav-tab-input-card">
-                                <label style="font-size: 0.75rem;">Link 3</label>
-                                <input type="text" id="drawerLink3Title" value="ℹ️ About Us" style="padding: 0.4rem; font-size: 13px;" oninput="updateDrawerPreview()">
-                                <input type="text" id="drawerLink3Url" value="/about" placeholder="/about" style="padding: 0.4rem; font-size: 13px; margin-top: 4px;">
-                            </div>
-                            <div class="nav-tab-input-card">
-                                <label style="font-size: 0.75rem;">Link 4</label>
-                                <input type="text" id="drawerLink4Title" value="📞 Contact Support" style="padding: 0.4rem; font-size: 13px;" oninput="updateDrawerPreview()">
-                                <input type="text" id="drawerLink4Url" value="/contact" placeholder="/contact" style="padding: 0.4rem; font-size: 13px; margin-top: 4px;">
-                            </div>
-                        </div>
                     </div>
 
                     <div id="floatingWidgetInputs" style="display: none; margin-top: 0.85rem;" class="config-grid">
@@ -690,21 +538,16 @@
                                 <input type="checkbox" id="enableBridge" checked>
                                 <div class="checkbox-item-content">
                                     <span class="checkbox-item-title" data-i18n="bridgeTitle">Enable Native AndroidBridge JavaScript Interface</span>
-                                    <span class="checkbox-item-desc" data-i18n="bridgeDesc">Empowers your web code to trigger native Android features: Toasts, Haptic Vibrate, Share Dialog, System Clipboard, Camera QR Scanner, Thermal Printing, TTS, GPS, and External Browser.</span>
+                                    <span class="checkbox-item-desc" data-i18n="bridgeDesc">Empowers your web code to trigger native Android features: Toasts, Haptic Vibrate, Share Dialog, System Clipboard, and External Browser.</span>
                                 </div>
                             </label>
                         </div>
                         <div style="margin-top: 0.75rem; font-size: 0.8rem; color: #475569; background: white; border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem;">
-                            <strong>⚡ Interactive Native Bridge Test Actions:</strong>
+                            <strong>Interactive Test Buttons:</strong>
                             <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem; flex-wrap: wrap;">
                                 <button class="btn btn-outline btn-sm" onclick="testSimulatedBridge('toast')">🔔 Test Toast</button>
                                 <button class="btn btn-outline btn-sm" onclick="testSimulatedBridge('vibrate')">📳 Test Vibrate</button>
                                 <button class="btn btn-outline btn-sm" onclick="testSimulatedBridge('share')">📤 Test Share</button>
-                                <button class="btn btn-outline btn-sm" onclick="testSimulatedBridge('barcode')">📷 Scan QR / Barcode</button>
-                                <button class="btn btn-outline btn-sm" onclick="testSimulatedBridge('print')">🖨️ Thermal Receipt Print</button>
-                                <button class="btn btn-outline btn-sm" onclick="testSimulatedBridge('tts')">🗣️ Speak Text (TTS)</button>
-                                <button class="btn btn-outline btn-sm" onclick="testSimulatedBridge('voice')">🎤 Voice Speech Input</button>
-                                <button class="btn btn-outline btn-sm" onclick="testSimulatedBridge('gps')">📍 GPS Geolocation</button>
                                 <button class="btn btn-outline btn-sm" onclick="testSimulatedBridge('battery')">🔋 Battery Info</button>
                                 <button class="btn btn-outline btn-sm" onclick="testSimulatedBridge('network')">🌐 Network State</button>
                                 <button class="btn btn-outline btn-sm" onclick="openModal('bridgeModal')">📖 Full API Reference</button>
@@ -773,20 +616,6 @@
                             </div>
                         </label>
                         <label class="checkbox-item">
-                            <input type="checkbox" id="enableRootDetection">
-                            <div class="checkbox-item-content">
-                                <span class="checkbox-item-title" data-i18n="rootDetectTitle">Root Detection & Anti-Tamper Security</span>
-                                <span class="checkbox-item-desc" data-i18n="rootDetectDesc">Warns user and protects sensitive financial/e-commerce data on rooted devices.</span>
-                            </div>
-                        </label>
-                        <label class="checkbox-item">
-                            <input type="checkbox" id="enableSslPinning">
-                            <div class="checkbox-item-content">
-                                <span class="checkbox-item-title" data-i18n="sslPinningTitle">Strict SSL Certificate Validation & HTTPS</span>
-                                <span class="checkbox-item-desc" data-i18n="sslPinningDesc">Prevents Man-in-the-Middle (MITM) attacks and strictly validates SSL/TLS domains.</span>
-                            </div>
-                        </label>
-                        <label class="checkbox-item">
                             <input type="checkbox" id="enableDeepLinking" onchange="toggleDeepLinkInputs()">
                             <div class="checkbox-item-content">
                                 <span class="checkbox-item-title" data-i18n="deepLinkTitle">Deep Linking & Custom App Scheme</span>
@@ -820,13 +649,6 @@
                             <div class="checkbox-item-content">
                                 <span class="checkbox-item-title" data-i18n="fileChooserTitle">File Upload & Camera Chooser</span>
                                 <span class="checkbox-item-desc" data-i18n="fileChooserDesc">Connects HTML &lt;input type="file"&gt; to Android gallery and camera picker.</span>
-                            </div>
-                        </label>
-                        <label class="checkbox-item">
-                            <input type="checkbox" id="enableBackgroundAudio">
-                            <div class="checkbox-item-content">
-                                <span class="checkbox-item-title" data-i18n="bgAudioTitle">Background Audio & Music Service</span>
-                                <span class="checkbox-item-desc" data-i18n="bgAudioDesc">Keeps music/radio playing when app is minimized or screen turned off, with lockscreen controls.</span>
                             </div>
                         </label>
                         <label class="checkbox-item">
@@ -1047,49 +869,10 @@
                             <span>9:41</span>
                             <span>📶 5G 100% 🔋</span>
                         </div>
-                        <div class="phone-action-bar" id="phoneActionBar">
-                            <button class="phone-bar-btn" id="phoneDrawerBtn" onclick="toggleMockDrawer()" style="display: none;" title="Open Side Navigation Drawer">☰</button>
-                            <span class="phone-bar-title" id="phoneBarTitle">MyMobileApp</span>
-                            <button class="phone-bar-btn" id="phoneSearchBtn" onclick="toggleMockSearch()" style="display: none;" title="Toggle Search Bar">🔍</button>
-                        </div>
-                        <div class="phone-search-input-wrap" id="phoneSearchWrap" style="display: none;">
-                            <input type="text" id="phoneSearchQuery" placeholder="Search in page..." oninput="handleMockSearch(this.value)">
-                            <button class="phone-search-close-btn" onclick="toggleMockSearch()">&times;</button>
-                        </div>
+                        <div class="phone-action-bar" id="phoneActionBar">MyMobileApp</div>
                         <div class="phone-progress-bar" id="phoneProgressBar">
                             <div class="phone-progress-bar-fill"></div>
                         </div>
-
-                        <!-- Side Navigation Drawer Inside Mockup -->
-                        <div class="phone-drawer-overlay" id="phoneDrawerOverlay" onclick="toggleMockDrawer()"></div>
-                        <div class="phone-drawer" id="phoneDrawer">
-                            <div class="drawer-header" id="drawerHeaderBg">
-                                <div class="drawer-avatar">👤</div>
-                                <div>
-                                    <strong id="mockDrawerHeaderTitle" style="display: block; font-size: 0.95rem;">MyMobileApp</strong>
-                                    <small id="mockDrawerHeaderSub" style="color: rgba(255,255,255,0.8); font-size: 0.72rem;">support@example.com</small>
-                                </div>
-                            </div>
-                            <div class="drawer-menu">
-                                <div class="drawer-item active" id="mockDrawerLink1" onclick="selectDrawerItem(this)">🏠 Home</div>
-                                <div class="drawer-item" id="mockDrawerLink2" onclick="selectDrawerItem(this)">🛍️ Shop / Explore</div>
-                                <div class="drawer-item" id="mockDrawerLink3" onclick="selectDrawerItem(this)">ℹ️ About Us</div>
-                                <div class="drawer-item" id="mockDrawerLink4" onclick="selectDrawerItem(this)">📞 Contact Support</div>
-                            </div>
-                        </div>
-
-                        <!-- Native Exit Confirmation Dialog Overlay -->
-                        <div class="phone-dialog-overlay" id="phoneExitDialog" style="display: none;">
-                            <div class="phone-dialog-card">
-                                <h4>Exit App?</h4>
-                                <p>Are you sure you want to close and exit the application?</p>
-                                <div class="phone-dialog-actions">
-                                    <button class="btn btn-secondary btn-sm" onclick="closeMockExitDialog()">Cancel</button>
-                                    <button class="btn btn-danger btn-sm" onclick="confirmMockExit()">Exit App</button>
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="phone-content" id="phonePreview"></div>
                         <div class="phone-bottom-nav" id="phoneBottomNav" style="display: none;">
                             <div class="phone-bottom-nav-item active">
@@ -1184,34 +967,8 @@ if (window.AndroidBridge) {
     AndroidBridge.openExternal("https://wa.me/1234567890");
 }
 
-// 6. Scan Barcode / QR Code via Camera
-if (window.AndroidBridge) {
-    AndroidBridge.scanBarcode(); // Triggers scanner intent; passes result into onBarcodeScanned(code)
-}
-
-// 7. Thermal / Bluetooth ESC-POS Receipt Print
-if (window.AndroidBridge) {
-    AndroidBridge.printTicket("<h1>INVOICE #1024</h1><p>Total: $49.00</p>");
-}
-
-// 8. Text-to-Speech (TTS) Voice Engine
-if (window.AndroidBridge) {
-    AndroidBridge.speakText("স্বাগতম! আপনার অর্ডার সফল হয়েছে।");
-}
-
-// 9. Voice Speech Recognition (STT)
-if (window.AndroidBridge) {
-    AndroidBridge.startVoiceInput();
-}
-
-// 10. GPS Geolocation Coordinates
-if (window.AndroidBridge) {
-    var coords = AndroidBridge.getCurrentLocation(); // e.g. "23.8103,90.4125"
-}
-
-// 11. Get App Version & Battery Level
+// 6. Get App Version
 var version = window.AndroidBridge ? AndroidBridge.getAppVersion() : "1.0.0";
-var battery = window.AndroidBridge ? AndroidBridge.getBatteryLevel() : 100;
             </div>
 
             <button class="btn btn-primary" onclick="insertComponent('bridge'); closeModal('bridgeModal');">
