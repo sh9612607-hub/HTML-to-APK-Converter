@@ -3928,6 +3928,22 @@ async function buildDirectApk() {
         }
     }
 
+    // Include custom icon from Icon Canvas if available
+    const iconCanvas = document.getElementById('iconCanvas');
+    if (iconCanvas) {
+        try {
+            const dataUrl = iconCanvas.toDataURL('image/png');
+            const iconBase64 = dataUrl.replace(/^data:image\/png;base64,/, '');
+            if (iconBase64 && iconBase64.length > 50) {
+                filesArray.push({
+                    name: 'icon.png',
+                    content: iconBase64,
+                    isBase64: true
+                });
+            }
+        } catch(e) {}
+    }
+
     // Reset Modal UI
     openModal('apkBuildModal');
     const fill = document.getElementById('apkProgressFill');
