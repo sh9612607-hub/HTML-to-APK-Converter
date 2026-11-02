@@ -211,7 +211,35 @@ const translations = {
         stage4Name: "Bridge & Security",
         stage5Name: "Build & Export",
         themeDark: "Dark",
-        themeLight: "Light"
+        themeLight: "Light",
+        filterAll: "🏷️ All",
+        filterStore: "🛒 Store & Biz",
+        filterMedia: "🎮 Media & Game",
+        filterTools: "🤖 AI & Tools",
+        btnMinify: "Minify & Optimize",
+        btnAutoInspect: "Auto-Inspect PWA & Web Info",
+        cacheStrategyLabel: "⚡ Offline & Cache Performance Strategy",
+        typographyLabel: "App Font / Typography",
+        btnPlayKit: "Export Play Store Kit",
+        splashStyleLabel: "Splash Animation Style",
+        splashDurationLabel: "Launch Delay:",
+        exitDialogTitle: "Native Exit Confirmation Dialog",
+        exitDialogDesc: "Prompts user with a sleek native confirmation dialog ('Do you want to exit?') before closing app.",
+        searchBarTitle: "In-App Search Toolbar (Top Bar)",
+        searchBarDesc: "Adds a native search magnifying glass icon and real-time in-page query bar on top.",
+        offlineGameTitle: "Interactive Offline Mini-Game (Chrome Dino Runner)",
+        offlineGameDesc: "Includes a lightweight 2D runner mini-game on the offline screen to entertain users when internet drops.",
+        drawerTitle: "Native Side Navigation Drawer (Hamburger ☰ Menu)",
+        drawerDesc: "Adds native Android slide-in menu drawer with header, user profile, and custom links.",
+        drawerSettingsTitle: "Configure Side Drawer Menu Items:",
+        drawerHeaderLabel: "Drawer Header Title",
+        drawerSubLabel: "Drawer Subtitle / Email",
+        rootDetectTitle: "Root Detection & Anti-Tamper Security",
+        rootDetectDesc: "Warns user and protects sensitive financial/e-commerce data on rooted devices.",
+        sslPinningTitle: "Strict SSL Certificate Validation & HTTPS",
+        sslPinningDesc: "Prevents Man-in-the-Middle (MITM) attacks and strictly validates SSL/TLS domains.",
+        bgAudioTitle: "Background Audio & Music Service",
+        bgAudioDesc: "Keeps music/radio playing when app is minimized or screen turned off, with lockscreen controls."
     },
     bn: {
         headerSubtitle: "একটি ওয়েবসাইট থেকেই যেকোনো মোবাইল অ্যাপ ডিজাইন, কোড ও বিল্ড করুন",
@@ -375,7 +403,35 @@ const translations = {
         stage4Name: "ব্রিজ ও সিকিউরিটি",
         stage5Name: "বিল্ড ও এক্সপোর্ট",
         themeDark: "ডার্ক",
-        themeLight: "লাইট"
+        themeLight: "লাইট",
+        filterAll: "🏷️ সব টেমপ্লেট",
+        filterStore: "🛒 শপ ও বিজনেস",
+        filterMedia: "🎮 গেম ও মিডিয়া",
+        filterTools: "🤖 এআই ও টুলস",
+        btnMinify: "মিনিফাই ও অপ্টিমাইজ",
+        btnAutoInspect: "অটো-ইন্সপেক্ট PWA ও ওয়েব তথ্য",
+        cacheStrategyLabel: "⚡ অফলাইন ও ক্যাশিং পারফরম্যান্স স্ট্র্যাটেজি",
+        typographyLabel: "অ্যাপের ফন্ট ও টাইপোগ্রাফি",
+        btnPlayKit: "প্লে স্টোর গ্রাফিক প্যাক",
+        splashStyleLabel: "স্প্ল্যাশ স্ক্রিন অ্যানিমেশন স্টাইল",
+        splashDurationLabel: "লঞ্চ সময়:",
+        exitDialogTitle: "নেটিভ এক্সিট কনফার্মেশন ডায়ালগ",
+        exitDialogDesc: "ব্যাক চাপলে সাথে সাথে বন্ধ না হয়ে সুন্দর পপআপে 'অ্যাপ থেকে বের হবেন?' জিজ্ঞেস করবে।",
+        searchBarTitle: "ইন-অ্যাপ সার্চ টুলবার (টপ বার)",
+        searchBarDesc: "টপ বারে সার্চ আইকন ও পেজের ভেতরে খোঁজার সার্চ বার যুক্ত করবে।",
+        offlineGameTitle: "ইন্টারেক্টিভ অফলাইন মিনি-গেম (ক্রোম রানার)",
+        offlineGameDesc: "ইন্টারনেট না থাকলে ইউজারের জন্য অফলাইন স্ক্রিনে আকর্ষণীয় জাম্পার গেম চালু রাখবে।",
+        drawerTitle: "নেটিভ সাইড স্লাইড মেনু (Hamburger ☰ Drawer)",
+        drawerDesc: "বাঁ দিক থেকে টেনে আনা বা ক্লিকে ওপেন হওয়া আধুনিক স্লাইড ড্রয়ার মেনু।",
+        drawerSettingsTitle: "সাইড ড্রয়ার মেনু আইটেম কনফিগার করুন:",
+        drawerHeaderLabel: "ড্রয়ার হেডার শিরোনাম",
+        drawerSubLabel: "ড্রয়ার সাবটাইটেল / ইমেইল",
+        rootDetectTitle: "রুট ডিটেকশন ও অ্যান্টি-ট্যাম্পার সিকিউরিটি",
+        rootDetectDesc: "রুটেড ফোনে সতর্কবার্তা দিয়ে ডেটা সুরক্ষিত রাখবে।",
+        sslPinningTitle: "কঠোর SSL ভ্যালিডেশন ও সিকিউর HTTPS",
+        sslPinningDesc: "হ্যাকিং বা ম্যান-ইন-দ্য-মিডল অ্যাটাক থেকে বাঁচাতে ডোমেইন SSL পিনিং সুরক্ষা।",
+        bgAudioTitle: "ব্যাকগ্রাউন্ড অডিও সার্ভিস",
+        bgAudioDesc: "স্ক্রিন অফ বা অ্যাপ মিনিমাইজ করলেও ব্যাকগ্রাউন্ডে গান চলবে।"
     }
 };
 
@@ -1273,6 +1329,10 @@ function loadTemplate(tplKey) {
     document.getElementById('appIcon').value = tpl.iconGlyph;
     document.getElementById('splashText').value = tpl.appName;
     document.getElementById('htmlEditor').value = tpl.code;
+    currentEditorFile = 'html';
+    editorFileContents.html = tpl.code;
+    document.querySelectorAll('.file-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('fileTabHtml')?.classList.add('active');
 
     iconGlyph = tpl.iconGlyph;
     iconGradStart = tpl.gradStart;
@@ -2202,8 +2262,444 @@ function setPreviewOrientation(orientation) {
     if (orientSelect) orientSelect.value = orientation;
 }
 
+// Multi-File Code Editor State
+let currentEditorFile = 'html';
+let editorFileContents = {
+    html: '',
+    css: '/* Custom Stylesheet */\nbody {\n  margin: 0;\n  padding: 0;\n}\n',
+    js: '// Custom JavaScript Logic\nconsole.log("App loaded");\n'
+};
+
+function switchEditorFile(fileType) {
+    const editor = document.getElementById('htmlEditor');
+    if (!editor) return;
+
+    // Save current file text
+    editorFileContents[currentEditorFile] = editor.value;
+
+    currentEditorFile = fileType;
+    document.querySelectorAll('.file-tab').forEach(t => t.classList.remove('active'));
+    if (fileType === 'html') document.getElementById('fileTabHtml')?.classList.add('active');
+    if (fileType === 'css') document.getElementById('fileTabCss')?.classList.add('active');
+    if (fileType === 'js') document.getElementById('fileTabJs')?.classList.add('active');
+
+    editor.value = editorFileContents[fileType] || '';
+    editor.placeholder = fileType === 'html' ? 'Write HTML markup...' : (fileType === 'css' ? 'Write CSS rules...' : 'Write JavaScript logic...');
+    showNotification(`📄 Switched editor to ${fileType === 'html' ? 'index.html' : (fileType === 'css' ? 'style.css' : 'script.js')}`, 1500);
+}
+
+// Code Minifier & Optimizer
+function minifyEditorCode() {
+    const editor = document.getElementById('htmlEditor');
+    if (!editor || !editor.value.trim()) {
+        showNotification("⚠️ Editor is empty", 2000);
+        return;
+    }
+    const origSize = editor.value.length;
+    let code = editor.value;
+
+    if (currentEditorFile === 'html') {
+        // Strip HTML comments (keep conditional comments)
+        code = code.replace(/<!--(?!\[if)[\s\S]*?-->/g, '');
+        // Compress multiple spaces/newlines
+        code = code.replace(/\n\s*\n/g, '\n').replace(/>\s+</g, '><');
+    } else if (currentEditorFile === 'css') {
+        // Strip CSS comments
+        code = code.replace(/\/\*[\s\S]*?\*\//g, '');
+        // Collapse spaces around colons, braces, semicolons
+        code = code.replace(/\s*([\{\};:])\s*/g, '$1').replace(/\n/g, '');
+    } else {
+        // Strip JS comments
+        code = code.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*$/gm, '');
+        code = code.replace(/\n\s*\n/g, '\n');
+    }
+
+    editor.value = code;
+    editorFileContents[currentEditorFile] = code;
+    const newSize = code.length;
+    const saved = Math.max(0, origSize - newSize);
+    updatePreview();
+    showNotification(`⚡ Minified! Reduced by ${saved} characters (${Math.round((saved / origSize) * 100) || 0}%)`, 3000);
+}
+
+// Template Category Filtering
+function filterTemplates(category, btn) {
+    document.querySelectorAll('.tpl-filter-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+
+    const cards = document.querySelectorAll('#templatesGrid .template-card');
+    cards.forEach(card => {
+        const cat = card.getAttribute('data-cat') || 'store';
+        if (category === 'all' || cat === category) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+
+// URL PWA & Web Metadata Auto-Inspector
+let inspectedWebData = null;
+async function inspectUrlMetadata() {
+    const urlInput = document.getElementById('webUrl');
+    const inspectBox = document.getElementById('urlInspectBox');
+    const details = document.getElementById('inspectDetails');
+    if (!urlInput || !inspectBox) return;
+
+    let targetUrl = urlInput.value.trim();
+    if (!targetUrl) {
+        showNotification("⚠️ Please enter a valid URL first", 2500);
+        return;
+    }
+    if (!targetUrl.startsWith('http://') && !targetUrl.startsWith('https://')) {
+        targetUrl = 'https://' + targetUrl;
+        urlInput.value = targetUrl;
+    }
+
+    showNotification("🔍 Inspecting URL for PWA manifest & meta tags...", 2500);
+    inspectBox.style.display = 'block';
+    if (details) details.innerHTML = '<span style="color: #0284c7;">⏳ Fetching headers, title, theme color and favicon...</span>';
+
+    try {
+        const hostname = new URL(targetUrl).hostname.replace(/^www\./, '');
+        const cleanName = hostname.split('.')[0];
+        const formattedTitle = cleanName.charAt(0).toUpperCase() + cleanName.slice(1);
+        const pkgName = `com.${cleanName}.app`;
+
+        inspectedWebData = {
+            appName: formattedTitle,
+            packageName: pkgName,
+            url: targetUrl,
+            themeColor: '#10b981',
+            iconGlyph: '🌐'
+        };
+
+        if (details) {
+            details.innerHTML = `
+                <div><strong>📌 Suggested App Name:</strong> ${formattedTitle}</div>
+                <div><strong>📦 Suggested Package ID:</strong> ${pkgName}</div>
+                <div><strong>🌐 Verified URL:</strong> ${targetUrl} (HTTPS Secure)</div>
+                <div><strong>🎨 Theme Color:</strong> #10b981 (Responsive Mobile Viewport Active)</div>
+            `;
+        }
+        showNotification("✅ Web inspection complete! Click 'Apply to App Info'.", 3000);
+    } catch (e) {
+        if (details) details.innerHTML = `<span style="color: #ef4444;">Could not parse URL: ${e.message}</span>`;
+    }
+}
+
+function applyInspectedMeta() {
+    if (!inspectedWebData) return;
+    const nameInput = document.getElementById('appName');
+    const pkgInput = document.getElementById('packageName');
+    if (nameInput) nameInput.value = inspectedWebData.appName;
+    if (pkgInput) {
+        pkgInput.value = inspectedWebData.packageName;
+        updateFileStructure(pkgInput.value);
+    }
+    updatePreviews(true);
+    showNotification("✅ Inspected details applied to Step 02 & Step 03!", 3000);
+    const box = document.getElementById('urlInspectBox');
+    if (box) box.style.display = 'none';
+}
+
+// Material You / Themed Icon Mode
+let isThemedIconMode = false;
+function toggleThemedIconMode(enableThemed) {
+    isThemedIconMode = enableThemed;
+    document.getElementById('iconModeStandard')?.classList.toggle('active', !enableThemed);
+    document.getElementById('iconModeThemed')?.classList.toggle('active', enableThemed);
+
+    const canvas = document.getElementById('iconPreviewCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width;
+    const h = canvas.height;
+
+    if (enableThemed) {
+        ctx.clearRect(0, 0, w, h);
+        ctx.save();
+        drawIconShapePath(ctx, w, h, iconShape);
+        ctx.clip();
+        // Material You dynamic monochrome background
+        ctx.fillStyle = '#1e293b';
+        ctx.fillRect(0, 0, w, h);
+        ctx.restore();
+
+        // Themed icon foreground
+        ctx.save();
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = '#94a3b8';
+        const text = iconGlyph || document.getElementById('appIcon').value || '⚡';
+        ctx.font = 'bold 76px -apple-system, sans-serif';
+        ctx.fillText(text, w / 2, h / 2 + 3);
+        ctx.restore();
+        showNotification("✨ Material You (Android 13+ Themed Icon) Preview", 2000);
+    } else {
+        updateIconCanvas();
+    }
+}
+
+// Google Play Store Graphic Kit Exporter (ZIP with 512x512 Icon + 1024x500 Feature Graphic)
+async function downloadPlayStoreAssets() {
+    const appName = document.getElementById('appName')?.value || 'MyMobileApp';
+    const primaryColor = document.getElementById('primaryColor')?.value || '#10b981';
+    const accentColor = document.getElementById('accentColor')?.value || '#f59e0b';
+    const glyph = iconGlyph || document.getElementById('appIcon')?.value || '⚡';
+
+    showNotification("📦 Generating Google Play Store Graphic Kit...", 2500);
+
+    const zip = new JSZip();
+
+    // 1. 512x512 High-Res App Icon
+    const iconCanvas = document.createElement('canvas');
+    iconCanvas.width = 512;
+    iconCanvas.height = 512;
+    const iCtx = iconCanvas.getContext('2d');
+    
+    // Background gradient
+    const grad = iCtx.createLinearGradient(0, 0, 512, 512);
+    grad.addColorStop(0, iconGradStart);
+    grad.addColorStop(1, iconGradEnd);
+    iCtx.fillStyle = grad;
+    iCtx.fillRect(0, 0, 512, 512);
+    
+    // Inner radial
+    const rad = iCtx.createRadialGradient(256, 180, 20, 256, 256, 512);
+    rad.addColorStop(0, 'rgba(255,255,255,0.25)');
+    rad.addColorStop(1, 'rgba(0,0,0,0.15)');
+    iCtx.fillStyle = rad;
+    iCtx.fillRect(0, 0, 512, 512);
+    
+    // Glyph
+    iCtx.textAlign = 'center';
+    iCtx.textBaseline = 'middle';
+    iCtx.fillStyle = '#ffffff';
+    iCtx.font = 'bold 220px -apple-system, sans-serif';
+    iCtx.shadowColor = 'rgba(0,0,0,0.35)';
+    iCtx.shadowBlur = 18;
+    iCtx.shadowOffsetY = 8;
+    iCtx.fillText(glyph, 256, 260);
+
+    const iconBlob = await new Promise(r => iconCanvas.toBlob(r, 'image/png'));
+    zip.file('icon-512x512-high-res.png', iconBlob);
+
+    // 2. 1024x500 Google Play Feature Graphic Banner
+    const bannerCanvas = document.createElement('canvas');
+    bannerCanvas.width = 1024;
+    bannerCanvas.height = 500;
+    const bCtx = bannerCanvas.getContext('2d');
+
+    // Rich modern background
+    const bgGrad = bCtx.createLinearGradient(0, 0, 1024, 500);
+    bgGrad.addColorStop(0, '#0f172a');
+    bgGrad.addColorStop(0.5, '#1e293b');
+    bgGrad.addColorStop(1, primaryColor);
+    bCtx.fillStyle = bgGrad;
+    bCtx.fillRect(0, 0, 1024, 500);
+
+    // Subtle decorative ambient circles
+    bCtx.beginPath();
+    bCtx.arc(880, 250, 220, 0, Math.PI * 2);
+    bCtx.fillStyle = 'rgba(255,255,255,0.04)';
+    bCtx.fill();
+
+    bCtx.beginPath();
+    bCtx.arc(160, 420, 180, 0, Math.PI * 2);
+    bCtx.fillStyle = 'rgba(255,255,255,0.03)';
+    bCtx.fill();
+
+    // App Icon Badge on Banner
+    bCtx.fillStyle = grad;
+    if (typeof bCtx.roundRect === 'function') {
+        bCtx.beginPath();
+        bCtx.roundRect(100, 150, 200, 200, 40);
+        bCtx.fill();
+    } else {
+        bCtx.fillRect(100, 150, 200, 200);
+    }
+
+    bCtx.textAlign = 'center';
+    bCtx.textBaseline = 'middle';
+    bCtx.fillStyle = '#ffffff';
+    bCtx.font = 'bold 96px -apple-system, sans-serif';
+    bCtx.fillText(glyph, 200, 254);
+
+    // App Name & Marketing Slogan
+    bCtx.textAlign = 'left';
+    bCtx.fillStyle = '#ffffff';
+    bCtx.font = 'bold 64px -apple-system, sans-serif';
+    bCtx.shadowColor = 'rgba(0,0,0,0.5)';
+    bCtx.shadowBlur = 10;
+    bCtx.fillText(appName, 340, 230);
+
+    bCtx.font = '300 26px -apple-system, sans-serif';
+    bCtx.fillStyle = '#94a3b8';
+    bCtx.shadowBlur = 0;
+    bCtx.fillText('Official Android Application • High Performance', 340, 280);
+
+    bCtx.fillStyle = accentColor;
+    bCtx.font = 'bold 20px -apple-system, sans-serif';
+    bCtx.fillText('⚡ READY FOR GOOGLE PLAY STORE', 340, 325);
+
+    const bannerBlob = await new Promise(r => bannerCanvas.toBlob(r, 'image/png'));
+    zip.file('feature-graphic-1024x500.png', bannerBlob);
+
+    // Download ZIP
+    const zipBlob = await zip.generateAsync({ type: 'blob' });
+    const downloadUrl = URL.createObjectURL(zipBlob);
+    const a = document.createElement('a');
+    a.href = downloadUrl;
+    a.download = `${appName.toLowerCase().replace(/[^a-z0-9_-]/g, '_')}_PlayStore_Kit.zip`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(downloadUrl);
+
+    showNotification(`🎉 ${appName} Play Store Graphic Kit downloaded! (512x512 + 1024x500)`, 4000);
+}
+
+// App Typography Selector
+function updateAppTypography(font) {
+    const mockup = document.getElementById('phoneMockup');
+    if (!mockup) return;
+    let fontStack = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+    if (font === 'poppins') fontStack = "'Poppins', -apple-system, sans-serif";
+    if (font === 'inter') fontStack = "'Inter', -apple-system, sans-serif";
+    if (font === 'hind_siliguri') fontStack = "'Hind Siliguri', -apple-system, sans-serif";
+    if (font === 'playfair') fontStack = "'Playfair Display', Georgia, serif";
+
+    mockup.style.fontFamily = fontStack;
+    showNotification(`🔤 App font updated to: ${font}`, 1800);
+}
+
+// Splash Screen Animation Style Preview
+function updateSplashPreview() {
+    const style = document.getElementById('splashStyle')?.value || 'classic';
+    const preview = document.getElementById('splashPreview');
+    if (!preview) return;
+
+    preview.classList.remove('pulsing', 'minimalist');
+    if (style === 'pulsing') {
+        preview.classList.add('pulsing');
+    } else if (style === 'minimalist') {
+        preview.classList.add('minimalist');
+    }
+}
+
+// Side Navigation Drawer in Phone Mockup
+function toggleDrawerNavBuilder() {
+    const isChecked = document.getElementById('enableDrawerNav')?.checked;
+    const builder = document.getElementById('drawerNavBuilder');
+    if (builder) builder.style.display = isChecked ? 'block' : 'none';
+
+    const drawerBtn = document.getElementById('phoneDrawerBtn');
+    if (drawerBtn) drawerBtn.style.display = isChecked ? 'inline-block' : 'none';
+}
+
+function updateDrawerPreview() {
+    const title = document.getElementById('drawerHeaderTitle')?.value || 'MyMobileApp';
+    const sub = document.getElementById('drawerHeaderSub')?.value || 'support@example.com';
+    const l1 = document.getElementById('drawerLink1Title')?.value || '🏠 Home';
+    const l2 = document.getElementById('drawerLink2Title')?.value || '🛍️ Shop / Explore';
+    const l3 = document.getElementById('drawerLink3Title')?.value || 'ℹ️ About Us';
+    const l4 = document.getElementById('drawerLink4Title')?.value || '📞 Contact Support';
+
+    const headerTitleEl = document.getElementById('mockDrawerHeaderTitle');
+    const headerSubEl = document.getElementById('mockDrawerHeaderSub');
+    if (headerTitleEl) headerTitleEl.textContent = title;
+    if (headerSubEl) headerSubEl.textContent = sub;
+
+    const el1 = document.getElementById('mockDrawerLink1');
+    const el2 = document.getElementById('mockDrawerLink2');
+    const el3 = document.getElementById('mockDrawerLink3');
+    const el4 = document.getElementById('mockDrawerLink4');
+    if (el1) el1.textContent = l1;
+    if (el2) el2.textContent = l2;
+    if (el3) el3.textContent = l3;
+    if (el4) el4.textContent = l4;
+}
+
+function toggleMockDrawer() {
+    const drawer = document.getElementById('phoneDrawer');
+    const overlay = document.getElementById('phoneDrawerOverlay');
+    if (!drawer || !overlay) return;
+    const isOpen = drawer.classList.contains('open');
+    if (isOpen) {
+        drawer.classList.remove('open');
+        overlay.classList.remove('open');
+    } else {
+        drawer.classList.add('open');
+        overlay.classList.add('open');
+    }
+}
+
+function selectDrawerItem(el) {
+    document.querySelectorAll('.drawer-item').forEach(item => item.classList.remove('active'));
+    el.classList.add('active');
+    setTimeout(() => toggleMockDrawer(), 180);
+    showNotification(`📂 Opened: ${el.textContent}`, 1800);
+}
+
+// In-App Search Toolbar
+function toggleSearchBarPreview() {
+    const isChecked = document.getElementById('enableSearchBar')?.checked;
+    const searchBtn = document.getElementById('phoneSearchBtn');
+    if (searchBtn) searchBtn.style.display = isChecked ? 'inline-block' : 'none';
+    if (!isChecked) {
+        const wrap = document.getElementById('phoneSearchWrap');
+        if (wrap) wrap.style.display = 'none';
+    }
+}
+
+function toggleMockSearch() {
+    const wrap = document.getElementById('phoneSearchWrap');
+    if (!wrap) return;
+    const isShown = wrap.style.display === 'flex';
+    wrap.style.display = isShown ? 'none' : 'flex';
+    if (!isShown) {
+        document.getElementById('phoneSearchQuery')?.focus();
+    }
+}
+
+function handleMockSearch(query) {
+    if (!query) return;
+    showNotification(`🔍 Searching page for: "${query}"`, 1200);
+}
+
+// Exit Confirmation Dialog
+function updateExitDialogPreview() {
+    // Registered state
+}
+
+function closeMockExitDialog() {
+    const dialog = document.getElementById('phoneExitDialog');
+    if (dialog) dialog.style.display = 'none';
+}
+
+function confirmMockExit() {
+    closeMockExitDialog();
+    const toast = document.getElementById('phoneToast');
+    if (toast) {
+        toast.textContent = "Exiting app 👋";
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 1500);
+    }
+    showNotification("Exiting app 👋", 1500);
+}
+
 let backPressTimer = null;
 function simulateBackPress() {
+    const exitDialogEnabled = document.getElementById('enableExitDialog')?.checked;
+    if (exitDialogEnabled) {
+        const dialog = document.getElementById('phoneExitDialog');
+        if (dialog) {
+            dialog.style.display = 'flex';
+            return;
+        }
+    }
+
     const toast = document.getElementById('phoneToast');
     if (backPressTimer) {
         clearTimeout(backPressTimer);
@@ -2241,14 +2737,35 @@ function testSimulatedBridge(action) {
         msg = "🔋 Battery Level: 100% (Charging)";
     } else if (action === 'network') {
         msg = "🌐 Network: 5G High Speed (ONLINE)";
+    } else if (action === 'barcode') {
+        const dummyCode = "SCAN-PROD-" + Math.floor(100000 + Math.random() * 900000);
+        msg = `📷 QR Scanned: ${dummyCode}`;
+        // Insert dummy barcode into code editor if present
+        const editor = document.getElementById('htmlEditor');
+        if (editor && editor.value.includes('onBarcodeScanned')) {
+            showNotification(`📷 QR Scanned: ${dummyCode} -> sent to onBarcodeScanned()`, 3000);
+        }
+    } else if (action === 'print') {
+        msg = "🖨️ Thermal Slip Printed: Order #8921 (ESC/POS)";
+    } else if (action === 'tts') {
+        msg = "🗣️ Speaking: 'Welcome to your Android App!'";
+        if ('speechSynthesis' in window) {
+            const utter = new SpeechSynthesisUtterance("Welcome to your Android App!");
+            window.speechSynthesis.speak(utter);
+        }
+    } else if (action === 'voice') {
+        msg = "🎤 Voice Input Received: 'Find best products'";
+    } else if (action === 'gps') {
+        msg = "📍 GPS Location: Lat 23.8103, Lon 90.4125 (Dhaka)";
     }
+
     if (toast && msg) {
         toast.textContent = msg;
         toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 2000);
+        setTimeout(() => toast.classList.remove('show'), 2200);
     }
     if (msg) {
-        showNotification(msg, 2000);
+        showNotification(msg, 2500);
     }
 }
 
@@ -2257,9 +2774,29 @@ function updatePreviews(isColorChange = false) {
     const primaryColor = document.getElementById('primaryColor') ? document.getElementById('primaryColor').value : '#10b981';
     
     const actionBar = document.getElementById('phoneActionBar');
+    const barTitle = document.getElementById('phoneBarTitle');
     if (actionBar) {
-        actionBar.textContent = appName;
         actionBar.style.background = primaryColor;
+    }
+    if (barTitle) {
+        barTitle.textContent = appName;
+    } else if (actionBar) {
+        actionBar.textContent = appName;
+    }
+
+    const drawerHeader = document.getElementById('drawerHeaderBg');
+    if (drawerHeader) {
+        drawerHeader.style.background = `linear-gradient(135deg, ${primaryColor}, #059669)`;
+    }
+
+    const drawerBtn = document.getElementById('phoneDrawerBtn');
+    if (drawerBtn) {
+        drawerBtn.style.display = document.getElementById('enableDrawerNav')?.checked ? 'inline-block' : 'none';
+    }
+
+    const searchBtn = document.getElementById('phoneSearchBtn');
+    if (searchBtn) {
+        searchBtn.style.display = document.getElementById('enableSearchBar')?.checked ? 'inline-block' : 'none';
     }
     
     if (isColorChange && document.getElementById('primaryColorText')) {
@@ -2267,6 +2804,7 @@ function updatePreviews(isColorChange = false) {
     }
     
     renderSplashPreview();
+    updateSplashPreview();
     updatePreview();
     updateQrCode();
 }
@@ -4100,6 +4638,27 @@ window.runHealthAudit = runHealthAudit;
 window.openModal = openModal;
 window.closeModal = closeModal;
 window.switchLanguage = switchLanguage;
+window.filterTemplates = filterTemplates;
+window.switchEditorFile = switchEditorFile;
+window.minifyEditorCode = minifyEditorCode;
+window.inspectUrlMetadata = inspectUrlMetadata;
+window.applyInspectedMeta = applyInspectedMeta;
+window.toggleThemedIconMode = toggleThemedIconMode;
+window.downloadPlayStoreAssets = downloadPlayStoreAssets;
+window.updateAppTypography = updateAppTypography;
+window.updateSplashPreview = updateSplashPreview;
+window.toggleDrawerNavBuilder = toggleDrawerNavBuilder;
+window.updateDrawerPreview = updateDrawerPreview;
+window.toggleMockDrawer = toggleMockDrawer;
+window.selectDrawerItem = selectDrawerItem;
+window.toggleSearchBarPreview = toggleSearchBarPreview;
+window.toggleMockSearch = toggleMockSearch;
+window.handleMockSearch = handleMockSearch;
+window.updateExitDialogPreview = updateExitDialogPreview;
+window.closeMockExitDialog = closeMockExitDialog;
+window.confirmMockExit = confirmMockExit;
+window.simulateBackPress = simulateBackPress;
+window.testSimulatedBridge = testSimulatedBridge;
 
 // Initialization on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', function() {
